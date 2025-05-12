@@ -1,0 +1,119 @@
+import java.util.Scanner;
+import java.util.random.RandomGenerator;
+
+public class RoomGame {
+
+    static RandomGenerator random = RandomGenerator.getDefault();
+
+    static int width;
+    static int height;
+
+    static int playerX;
+    static int playerY;
+
+    static int doorX;
+    static int doorY;
+    static int doorWall; 
+
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        generateRoom();
+
+        while (true) {
+            clearScreen();
+            drawRoom();
+
+            String input = scanner.nextLine().toLowerCase();
+            if (input.isEmpty()) continue;
+            char move = input.charAt(0);
+
+            switch (move) {
+                case 'w': if (playerY > 0 || (playerY == 0 && doorWall == 0 && playerX == doorX)) playerY--; break;
+                case 's': if (playerY < height - 1 || (playerY == height - 1 && doorWall == 1 && playerX == doorX)) playerY++; break;
+                case 'a': if (playerX > 0 || (playerX == 0 && doorWall == 2 && playerY == doorY)) playerX--; break;
+                case 'd': if (playerX < width - 1 || (playerX == width - 1 && doorWall == 3 && playerY == doorY)) playerX++; break;
+                case 'q': clearScreen(); System.exit(0);
+            }
+
+            if ((doorWall == 0 && playerY < 0) ||
+                (doorWall == 1 && playerY >= height) ||
+                (doorWall == 2 && playerX < 0) ||
+                (doorWall == 3 && playerX >= width)) {
+                showPathway();
+                generateRoom();
+            }
+        }
+    }
+
+    static void generateRoom() {
+        width = random.nextInt(5) + 5;
+        height = random.nextInt(3) + 3;
+
+        playerX = random.nextInt(1, width-1);
+        playerY = random.nextInt(1, height-1);
+
+        doorWall = random.nextInt(4);
+        switch (doorWall) {
+            case 0: doorX = random.nextInt(width); doorY = 0; break;
+            case 1: doorX = random.nextInt(width); doorY = height - 1; break;
+            case 2: doorX = 0; doorY = random.nextInt(height); break;
+            case 3: doorX = width - 1; doorY = random.nextInt(height); break;
+        }
+    }
+
+    static void drawRoom() {
+        System.out.print("+");
+        for (int x = 0; x < width; x++) {
+            if (doorWall == 0 && doorX == x) System.out.print("D");
+            else System.out.print("-");
+        }
+        System.out.println("+");
+
+        for (int y = 0; y < height; y++) {
+            if (doorWall == 2 && doorY == y) System.out.print("D");
+            else System.out.print("|");
+
+            for (int x = 0; x < width; x++) {
+                if (x == playerX && y == playerY) System.out.print("@");
+                else System.out.print(" ");
+            }
+
+            if (doorWall == 3 && doorY == y) System.out.println("D");
+            else System.out.println("|");
+        }
+
+        System.out.print("+");
+        for (int x = 0; x < width; x++) {
+            if (doorWall == 1 && doorX == x) System.out.print("D");
+            else System.out.print("-");
+        }
+        System.out.println("+");
+    }
+
+    static void showPathway() {
+        clearScreen();
+        System.out.println();
+        if (doorWall == 0 || doorWall == 1) {
+            for (int i = 0; i < 3; i++) {
+                System.out.println("|     |");
+            }
+            System.out.println("|  @  |");
+        } else {
+            for (int i = 0; i < 5; i++) System.out.print("-");
+            System.out.println("\n@");
+            for (int i = 0; i < 5; i++) System.out.print("-");
+        }
+
+        try {
+            Thread.sleep(1000); 
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    static void clearScreen() {
+        System.out.print("\033[2J\033[H");
+        System.out.flush();
+    }
+}
