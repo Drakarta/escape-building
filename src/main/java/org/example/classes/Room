@@ -1,23 +1,22 @@
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
 
-public class RoomGame {
+public abstract class Room {
 
-    static RandomGenerator random = RandomGenerator.getDefault();
+    protected RandomGenerator random = RandomGenerator.getDefault();
+    protected Scanner scanner = new Scanner(System.in);
 
-    static int width;
-    static int height;
+    protected int width;
+    protected int height;
 
-    static int playerX;
-    static int playerY;
+    protected int playerX;
+    protected int playerY;
 
-    static int doorX;
-    static int doorY;
-    static int doorWall; 
+    protected int doorX;
+    protected int doorY;
+    protected int doorWall;
 
-    static Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
+    public final void start() {
         generateRoom();
 
         while (true) {
@@ -28,30 +27,48 @@ public class RoomGame {
             if (input.isEmpty()) continue;
             char move = input.charAt(0);
 
-            switch (move) {
-                case 'w': if (playerY > 0 || (playerY == 0 && doorWall == 0 && playerX == doorX)) playerY--; break;
-                case 's': if (playerY < height - 1 || (playerY == height - 1 && doorWall == 1 && playerX == doorX)) playerY++; break;
-                case 'a': if (playerX > 0 || (playerX == 0 && doorWall == 2 && playerY == doorY)) playerX--; break;
-                case 'd': if (playerX < width - 1 || (playerX == width - 1 && doorWall == 3 && playerY == doorY)) playerX++; break;
-                case 'q': clearScreen(); System.exit(0);
-            }
+            handleInput(move);
 
-            if ((doorWall == 0 && playerY < 0) ||
-                (doorWall == 1 && playerY >= height) ||
-                (doorWall == 2 && playerX < 0) ||
-                (doorWall == 3 && playerX >= width)) {
+            if (isPlayerThroughDoor()) {
                 showPathway();
                 generateRoom();
             }
         }
     }
 
-    static void generateRoom() {
+    protected void handleInput(char move) {
+        switch (move) {
+            case 'w':
+                if (playerY > 0 || (playerY == 0 && doorWall == 0 && playerX == doorX)) playerY--;
+                break;
+            case 's':
+                if (playerY < height - 1 || (playerY == height - 1 && doorWall == 1 && playerX == doorX)) playerY++;
+                break;
+            case 'a':
+                if (playerX > 0 || (playerX == 0 && doorWall == 2 && playerY == doorY)) playerX--;
+                break;
+            case 'd':
+                if (playerX < width - 1 || (playerX == width - 1 && doorWall == 3 && playerY == doorY)) playerX++;
+                break;
+            case 'q':
+                clearScreen();
+                System.exit(0);
+        }
+    }
+
+    protected boolean isPlayerThroughDoor() {
+        return (doorWall == 0 && playerY < 0) ||
+               (doorWall == 1 && playerY >= height) ||
+               (doorWall == 2 && playerX < 0) ||
+               (doorWall == 3 && playerX >= width);
+    }
+
+    protected void generateRoom() {
         width = random.nextInt(5) + 5;
         height = random.nextInt(3) + 3;
 
-        playerX = random.nextInt(1, width-1);
-        playerY = random.nextInt(1, height-1);
+        playerX = random.nextInt(1, width - 1);
+        playerY = random.nextInt(1, height - 1);
 
         doorWall = random.nextInt(4);
         switch (doorWall) {
@@ -62,7 +79,7 @@ public class RoomGame {
         }
     }
 
-    static void drawRoom() {
+    protected void drawRoom() {
         System.out.print("+");
         for (int x = 0; x < width; x++) {
             if (doorWall == 0 && doorX == x) System.out.print("D");
@@ -91,13 +108,11 @@ public class RoomGame {
         System.out.println("+");
     }
 
-    static void showPathway() {
+    protected void showPathway() {
         clearScreen();
         System.out.println();
         if (doorWall == 0 || doorWall == 1) {
-            for (int i = 0; i < 3; i++) {
-                System.out.println("|     |");
-            }
+            for (int i = 0; i < 3; i++) System.out.println("|     |");
             System.out.println("|  @  |");
         } else {
             for (int i = 0; i < 5; i++) System.out.print("-");
@@ -108,12 +123,15 @@ public class RoomGame {
         try {
             Thread.sleep(1000); 
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            Thread.currentThread().interrupt(); 
         }
     }
 
-    static void clearScreen() {
+    protected void clearScreen() {
+        // \33[2J clears the terminal screen and \33[H resets the cursor
         System.out.print("\033[2J\033[H");
         System.out.flush();
     }
 }
+
+
