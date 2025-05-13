@@ -1,3 +1,5 @@
+package org.example.classes;
+
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
 
@@ -58,9 +60,9 @@ public abstract class Room {
 
     protected boolean isPlayerThroughDoor() {
         return (doorWall == 0 && playerY < 0) ||
-               (doorWall == 1 && playerY >= height) ||
-               (doorWall == 2 && playerX < 0) ||
-               (doorWall == 3 && playerX >= width);
+                (doorWall == 1 && playerY >= height) ||
+                (doorWall == 2 && playerX < 0) ||
+                (doorWall == 3 && playerX >= width);
     }
 
     protected void generateRoom() {
@@ -121,9 +123,9 @@ public abstract class Room {
         }
 
         try {
-            Thread.sleep(1000); 
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt(); 
+            Thread.currentThread().interrupt();
         }
     }
 
