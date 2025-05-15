@@ -4,13 +4,25 @@ import java.util.Scanner;
 
 
 //Heb nog geen subklasses
-public class Main extends Room{
+public class Main{
     public static void main(String[] args) {
-        new Main().start();
-        System.out.println("From what table do you want to see the data?");
         Scanner scanner = new Scanner(System.in);
-        String tableName = scanner.nextLine();
 
-        DatabaseConnection.searchFor(tableName);
+        System.out.print("Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Password: ");
+        String password = scanner.nextLine();
+
+        boolean success = Login.login(username, password);
+        if (success) {
+            Player player = CurrentUser.getInstance().getCurrentPlayer();
+            System.out.println("Welcome, " + player.getUsername() + "!");
+        } else {
+            System.out.println("Login failed.");
+        }
+
+        Game game = new Game();
+        game.gameplayLoop();
     }
 }
