@@ -165,54 +165,53 @@ public abstract class Room1 {
 
 
     protected void drawRoom() {
-        System.out.print("+");
-        for (int x = 0; x < width; x++) {
-            if (doorWall == 0 && doorX == x) 
-                System.out.print("D");
-            else if (prevDoorWall == 0 && prevDoorX == x)  
-                System.out.print("L");
-            else 
-                System.out.print("-");
-        }
-        System.out.println("+");
-    
-        for (int y = 0; y < height; y++) {
-            if (doorWall == 2 && doorY == y) 
-                System.out.print("D");
-            else if (prevDoorWall == 2 && prevDoorY == y)  
-                System.out.print("L");
-            else 
-                System.out.print("|");
-    
-            for (int x = 0; x < width; x++) {
-                if (x == playerX && y == playerY)
-                    System.out.print("@");
-                else if (x == questionX && y == questionY)
-                    System.out.print("?");
-                else
-                    System.out.print(" ");
-            }
-    
-            if (doorWall == 3 && doorY == y) 
-                System.out.print("D");
-            else if (prevDoorWall == 3 && prevDoorY == y)  
-                System.out.print("L");
-            else 
-                System.out.print("|");
-            System.out.println();
-        }
+    int totalWidth = width + 2;
+    int totalHeight = height + 2;
 
-        System.out.print("+");
-        for (int x = 0; x < width; x++) {
-            if (doorWall == 1 && doorX == x) 
-                System.out.print("D");
-            else if (prevDoorWall == 1 && prevDoorX == x)  
-                System.out.print("L");
-            else 
-                System.out.print("-");
+    List<List<Character>> grid = new ArrayList<>();
+    for (int y = 0; y < totalHeight; y++) {
+        List<Character> row = new ArrayList<>();
+        for (int x = 0; x < totalWidth; x++) {
+            row.add(' '); 
         }
-        System.out.println("+");
+        grid.add(row);
     }
+
+    grid.get(0).set(0, '+');
+    grid.get(0).set(totalWidth - 1, '+');
+    grid.get(totalHeight - 1).set(0, '+');
+    grid.get(totalHeight - 1).set(totalWidth - 1, '+');
+
+    for (int x = 1; x < totalWidth - 1; x++) {
+        grid.get(0).set(x, '-');
+        grid.get(totalHeight - 1).set(x, '-');
+    }
+
+    for (int y = 1; y < totalHeight - 1; y++) {
+        grid.get(y).set(0, '|');
+        grid.get(y).set(totalWidth - 1, '|');
+    }
+
+    if (doorWall == 0) grid.get(0).set(doorX + 1, 'D');
+    if (doorWall == 1) grid.get(totalHeight - 1).set(doorX + 1, 'D');
+    if (doorWall == 2) grid.get(doorY + 1).set(0, 'D');
+    if (doorWall == 3) grid.get(doorY + 1).set(totalWidth - 1, 'D');
+
+    if (prevDoorWall == 0) grid.get(0).set(prevDoorX + 1, 'L');
+    if (prevDoorWall == 1) grid.get(totalHeight - 1).set(prevDoorX + 1, 'L');
+    if (prevDoorWall == 2) grid.get(prevDoorY).set(0, 'L');
+    if (prevDoorWall == 3) grid.get(prevDoorY).set(totalWidth - 1, 'L');
+
+    grid.get(playerY + 1).set(playerX + 1, '@');
+    grid.get(questionY + 1).set(questionX + 1, '?');
+
+    for (List<Character> row : grid) {
+        for (char c : row) {
+            System.out.print(c);
+        }
+        System.out.println();
+    }
+}
     
     protected void showPathway() {
         clearScreen();
