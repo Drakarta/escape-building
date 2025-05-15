@@ -1,7 +1,16 @@
 package org.example;
+import org.example.classes.*;
+import java.util.Scanner;
 
-public class Main {
+
+//Heb nog geen subklasses
+public class Main extends Room{
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        new Main().start();
+        System.out.println("From what table do you want to see the data?");
+        Scanner scanner = new Scanner(System.in);
+        String tableName = scanner.nextLine();
+
+        DatabaseConnection.searchFor(tableName);
     }
 }
