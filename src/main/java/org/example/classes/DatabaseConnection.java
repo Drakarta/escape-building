@@ -38,5 +38,7 @@ public class DatabaseConnection {
             System.out.println("Query failed: " + e.getMessage());
         }
     }
+
+    public Static void savePlayerStatus(){}
 }
 
