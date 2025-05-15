@@ -25,12 +25,7 @@ public class RoomTypes extends RoomTemplate {
 
     @Override
     public void details() {
-        System.out.println("Room ID: " + id);
-        System.out.println("Room Name: " + name);
-        System.out.println("Description: " + description);
-        System.out.println("Is Locked: " + isLocked);
-        System.out.println("Question Category: " + questionCategory);
-        System.out.println("Room Layout: " + roomLayout);
+        System.out.println("Details:");
     }
 
     @Override

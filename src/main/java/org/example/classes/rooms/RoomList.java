@@ -22,7 +22,7 @@ public class RoomList {
             ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
 
             RoomTypes room = new RoomTypes(id, name, description, isLocked, questionCategory, roomLayout);
-            rooms.add(room);
+            addRoom(room);
         }
 
     }
