@@ -1,4 +1,4 @@
-package org.example.classes;
+package org.example.classes.rooms;
 
 public abstract class RoomTemplate {
     public final void play() {

@@ -4,25 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.example.classes.DatabaseConnection;
-import org.example.classes.RoomTypes;
+import org.example.utils.DatabaseConnection;
 
 public class RoomList {
     private static volatile RoomList instance;
     private final List<RoomTypes> rooms = new ArrayList<>();
 
     private RoomList() {
-        List<Map<String, String>> rows = DatabaseConnection.query("SELECT * FROM Room;");
-        for (Map<String, String> row : rows) {
-            int id = Integer.parseInt(row.get("id"));
-            String name = row.get("name");
-            String description = row.get("description");
-            boolean isLocked = Boolean.parseBoolean(row.get("isLocked"));
-            String questionCategory = row.get("questionCategory");
-            ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
+        Object rows = DatabaseConnection.execute("SELECT * FROM Room;", List.of());
+        if (rows instanceof List) {
+            for (Object obj : (List<?>) rows) {
+                if (obj instanceof Map<?, ?>) {
+                    Map<String, String> row = (Map<String, String>) obj;
+                    int id = Integer.parseInt(row.get("id"));
+                    String name = row.get("name");
+                    String description = row.get("description");
+                    boolean isLocked = Boolean.parseBoolean(row.get("isLocked"));
+                    String questionCategory = row.get("questionCategory");
+                    ArrayList<ArrayList<String>> roomLayout = new ArrayList<>();
 
-            RoomTypes room = new RoomTypes(id, name, description, isLocked, questionCategory, roomLayout);
-            addRoom(room);
+                    RoomTypes room = new RoomTypes(id, name, description, isLocked, questionCategory, roomLayout);
+                    addRoom(room);
+                }
+            }
         }
 
     }

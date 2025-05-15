@@ -1,10 +1,10 @@
-package org.example.classes;
+package org.example.classes.rooms;
 
 import java.util.ArrayList;
 
 import javax.xml.crypto.Data;
 
-import org.example.classes.DatabaseConnection;
+import org.example.utils.DatabaseConnection;
 
 public class RoomTypes extends RoomTemplate {
     private int id;

@@ -1,12 +1,10 @@
 package org.example;
-import javax.xml.crypto.Data;
 
-import org.example.classes.*;
-import org.example.classes.rooms.RoomList;
+import org.example.utils.DatabaseConnection;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(DatabaseConnection.query("SELECT * FROM Room;"));
-
+        System.out.println(DatabaseConnection.execute("SELECT * FROM Room;", List.of()));
     }
 }
