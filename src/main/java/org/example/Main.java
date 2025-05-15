@@ -1,16 +1,12 @@
 package org.example;
+import javax.xml.crypto.Data;
+
 import org.example.classes.*;
-import java.util.Scanner;
+import org.example.classes.rooms.RoomList;
 
-
-//Heb nog geen subklasses
-public class Main extends Room{
+public class Main {
     public static void main(String[] args) {
-        new Main().start();
-        System.out.println("From what table do you want to see the data?");
-        Scanner scanner = new Scanner(System.in);
-        String tableName = scanner.nextLine();
+        System.out.println(DatabaseConnection.query("SELECT * FROM Room;"));
 
-        DatabaseConnection.searchFor(tableName);
     }
 }

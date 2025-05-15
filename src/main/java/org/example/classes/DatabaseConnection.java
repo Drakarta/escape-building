@@ -1,44 +1,41 @@
 package org.example.classes;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.*;
+import java.util.*;
 
 public class DatabaseConnection {
 
     private static final String DB_PATH = "database/test.db";
 
-    // Reusable method to get DB connection
+    private DatabaseConnection() {
+    }
+
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:sqlite:" + DB_PATH;
         return DriverManager.getConnection(url);
     }
 
-    // Method to search for all rows in a given table
-    public static void searchFor(String tableName) {
-        String query = "SELECT * FROM " + tableName;
+    public static List<Map<String, String>> query(String sql) {
+        List<Map<String, String>> rows = new ArrayList<>();
 
-        try (Connection con = getConnection();
-             Statement stmt = con.createStatement();
-             ResultSet rs = stmt.executeQuery(query)) {
+        try (Connection conn = getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
 
             ResultSetMetaData meta = rs.getMetaData();
             int columnCount = meta.getColumnCount();
 
-            System.out.println("Results from table: " + tableName);
             while (rs.next()) {
+                Map<String, String> row = new HashMap<>();
                 for (int i = 1; i <= columnCount; i++) {
-                    System.out.print(meta.getColumnName(i) + ": " + rs.getString(i) + "  ");
+                    row.put(meta.getColumnName(i), rs.getString(i));
                 }
-                System.out.println();
+                rows.add(row);
             }
 
         } catch (SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
+            System.out.println("SQL Error: " + e.getMessage());
         }
+
+        return rows;
     }
-
-    public Static void savePlayerStatus(){}
 }
-
