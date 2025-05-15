@@ -5,16 +5,16 @@ import java.util.ArrayList;
 public class Question {
     QuestionsTemplate questionSort;
 
-    public boolean ask(String questionType, String correctAnwer, String question, ArrayList<String> questionsOrAnswers){
+    public boolean ask(String questionType, ArrayList<String> questionAndAnswer, ArrayList<String> questionsOrAnswers){
         if (questionType.equalsIgnoreCase("OpenQuestion")){
             questionSort = new OpenQuestions();
-            return questionSort.ask(question, correctAnwer, questionsOrAnswers);
+            return questionSort.ask(questionAndAnswer, questionsOrAnswers);
         } else if(questionType.equalsIgnoreCase("MultipleAnswersQuestion")){
             questionSort = new MultipleAnswersQuestion();
-            return questionSort.ask(question, correctAnwer, questionsOrAnswers);
+            return questionSort.ask(questionAndAnswer, questionsOrAnswers);
         } else if (questionType.equalsIgnoreCase("MultipleChoiceQuestions")){
             questionSort = new MultipleChoiceQuestions();
-            return questionSort.ask(question, correctAnwer, questionsOrAnswers);
+            return questionSort.ask(questionAndAnswer, questionsOrAnswers);
         } else {
                 System.out.println("Wrong question type found");
                 return false;

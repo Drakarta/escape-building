@@ -5,19 +5,23 @@ import java.util.Scanner;
 
 public class MultipleAnswersQuestion implements QuestionsTemplate{
     @Override
-    public boolean ask(String question, String correctAnswer, ArrayList<String> answers) {
-        System.out.println(question);
+    public boolean ask(ArrayList<String> questionAndAnswer, ArrayList<String> correctAnswers) {
+        System.out.println(questionAndAnswer.getFirst());
         ArrayList<String> inputs = new ArrayList<>();
-        int correctAnswers = 0;
+        int correctAnswered = 0;
         Scanner sc = new Scanner(System.in);
-        for (String x : answers) {
-            inputs.add(sc.nextLine());
+        for (int i = 1; i<= correctAnswers.size(); i++) {
+            String currentAnswer = sc.nextLine();
+            inputs.add(currentAnswer);
+            System.out.println(i + ". " + currentAnswer);
         }
-        for (int i = 0; i<= inputs.size(); i++ ) {
-            if (inputs.get(i).equalsIgnoreCase(answers.get(i))){
-                correctAnswers++;
+        System.out.println(inputs.getLast());
+        for (int i = 0; i< inputs.size(); i++ ) {
+            System.out.println(inputs.get(i));
+            if (inputs.get(i).equalsIgnoreCase(correctAnswers.get(i))){
+                correctAnswered++;
             }
         }
-        return correctAnswers == answers.size();
+        return correctAnswered == correctAnswers.size();
     }
 }
