@@ -2,8 +2,9 @@ package org.example;
 import org.example.classes.*;
 
 
-public class Main {
+//Heb nog geen subklasses
+public class Main extends Room{
     public static void main(String[] args) {
-        new Room().start();
+        new Main().start();
     }
 }
