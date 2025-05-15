@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class MultipleAnswersQuestion implements QuestionsTemplate{
     @Override
-    public boolean ask(ArrayList<String> questionAndAnswer, ArrayList<String> correctAnswers) {
-        System.out.println(questionAndAnswer.getFirst());
+    public boolean ask(String questions, ArrayList<String> correctAnswers) {
+        System.out.println(questions);
         ArrayList<String> inputs = new ArrayList<>();
         int correctAnswered = 0;
         Scanner sc = new Scanner(System.in);

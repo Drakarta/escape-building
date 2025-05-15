@@ -5,9 +5,9 @@ import java.util.Scanner;
 
 public class OpenQuestions implements QuestionsTemplate {
     @Override
-    public boolean ask(ArrayList<String> questionAndAnswer, ArrayList<String> answers) {
+    public boolean ask(String questions, ArrayList<String> answers) {
         boolean correct = false;
-        System.out.println(questionAndAnswer.getFirst());
+        System.out.println(questions);
         System.out.println("Geef uw antwoord");
         Scanner sc = new Scanner(System.in);
         String answer = sc.nextLine();
