@@ -14,16 +14,9 @@ public class DatabaseConnection {
         return DriverManager.getConnection(url);
     }
 
-    public enum QueryType {
-        SELECT,
-        INSERT,
-        UPDATE,
-        DELETE
-    }
-
     public static Object execute(String sql, List<Object> parameters) {
         // Voorbeeld van een SELECT-query:
-        // DatabaseConnection.Execute("SELECT * FROM Room WHERE name = ?", List.of("Room1"));
+        // DatabaseConnection.execute("SELECT * FROM Room WHERE name = ?", List.of("Room1"));
         
         try (Connection conn = getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -32,7 +25,7 @@ public class DatabaseConnection {
             for (int i = 0; i < parameters.size(); i++) {
                 stmt.setObject(i + 1, parameters.get(i));
             }
-
+            // Checkt of de query een SELECT-query is
             if (sql.trim().toUpperCase().startsWith("SELECT")) {
                 try (ResultSet rs = stmt.executeQuery()) {
                     List<Map<String, String>> result = new ArrayList<>();
@@ -58,5 +51,11 @@ public class DatabaseConnection {
             System.out.println("SQL Error: " + e.getMessage());
             return null;
         }
+    }
+
+    public static Object execute(String sql) {
+        // DatabaseConnection.execute("SELECT * FROM Room WHERE name = "Room1");
+        // zonder sql parameters
+        return execute(sql, List.of());
     }
 }

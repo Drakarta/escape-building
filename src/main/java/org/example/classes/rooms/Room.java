@@ -1,4 +1,4 @@
-package org.example.classes;
+package org.example.classes.rooms;
 
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
