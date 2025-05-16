@@ -18,7 +18,8 @@ public class PlayerCell implements Cell {
         return coordinates;
     }
 
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
+    public void setCoordinates(int x, int y) {
+        this.coordinates.setX(x);
+        this.coordinates.setY(y);
     }
 }
