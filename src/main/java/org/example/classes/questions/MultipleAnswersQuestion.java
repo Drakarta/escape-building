@@ -1,9 +1,9 @@
-package org.example.classes;
+package org.example.classes.questions;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MultipleAnswersQuestion implements QuestionsTemplate{
+public class MultipleAnswersQuestion implements QuestionsTemplate {
     @Override
     public boolean ask(String questions, ArrayList<String> correctAnswers) {
         System.out.println(questions);

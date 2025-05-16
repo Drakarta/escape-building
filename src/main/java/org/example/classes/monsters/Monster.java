@@ -1,6 +1,9 @@
-package org.example.classes;
+package org.example.classes.monsters;
 
-public abstract class Monster {
+import org.example.classes.Item;
+import org.example.classes.questions.QuestionObserver;
+
+public abstract class Monster implements QuestionObserver {
     private String name;
     private String description;
     private int hp;
@@ -44,5 +47,16 @@ public abstract class Monster {
     }
     public Item getLoot() {
         return loot;
+    }
+
+    @Override
+    public void questionsUpdate(boolean answeredCorrectly) {
+        if (answeredCorrectly){
+            setHp(0);
+            System.out.println("defeated the monster");
+        } else {
+            displayInfo();
+            System.out.println("Prepare for combat");
+        }
     }
 }
