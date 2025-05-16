@@ -1,20 +1,14 @@
 package org.example.classes.rooms;
 
-import java.util.ArrayList;
-
-import javax.xml.crypto.Data;
-
-import org.example.utils.DatabaseConnection;
-
 public class RoomTypes extends RoomTemplate {
     private int id;
     private String name;
     private String description;
     private boolean isLocked;
     private String questionCategory;
-    private ArrayList<ArrayList<String>> roomLayout;
+    private RoomLayout roomLayout;
 
-    public RoomTypes(int id, String name, String description, boolean isLocked, String questionCategory, ArrayList<ArrayList<String>> roomLayout) {
+    public RoomTypes(int id, String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
         this.id = id;
         this.name = name;
         this.description = description;
