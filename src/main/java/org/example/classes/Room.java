@@ -28,9 +28,13 @@ public abstract class Room {
 
     protected boolean doorUnlocked = false;
 
+    String roomDescription;
+
+
+
     public final void start() {
         generateRoom();
-        System.out.println(description());
+        System.out.println(getRoomDescription());
         pause(1000);
 
         while (true) {
@@ -49,7 +53,8 @@ public abstract class Room {
                 showPathway();
                 generateRoom();
                 clearScreen();
-                System.out.println(description());
+                System.out.println();
+                System.out.println(getRoomDescription());
                 pause(1000);
             }
         }
@@ -93,9 +98,9 @@ public abstract class Room {
         }
     }
 
-    protected String description() {
-        String description = "Test";
-        return description;
+    protected String getRoomDescription() {
+        roomDescription = "Descriptie van deze kamer.";
+        return roomDescription;
     }
     
     protected boolean isAdjacent(int x, int y) {
@@ -197,6 +202,7 @@ public abstract class Room {
     }
 
     protected void drawRoom() {
+        System.out.println("Gebruik wasd om te bewegen. Toets naast een object e om ermee te interacten. Toets q om de game te sluiten.");
         System.out.print("+");
         for (int x = 0; x < width; x++) {
             if (doorWall == 0 && doorX == x) 
