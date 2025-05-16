@@ -1,4 +1,4 @@
-package org.example.classes;
+package org.example.classes.rooms;
 
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
@@ -158,10 +158,10 @@ public abstract class Room {
 
         if (prevExitWall != -1) {
             switch (prevExitWall) {
-              case 0 -> prevDoorWall = 1;  
-              case 1 -> prevDoorWall = 0;  
-              case 2 -> prevDoorWall = 3;  
-              case 3 -> prevDoorWall = 2;  
+                case 0 -> prevDoorWall = 1;  
+                case 1 -> prevDoorWall = 0;  
+                case 2 -> prevDoorWall = 3;  
+                case 3 -> prevDoorWall = 2;  
             }
         } else {
             prevDoorWall = 1;

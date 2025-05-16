@@ -1,4 +1,4 @@
 package org.example.classes;
 
-public class Monster {
+public class Speler {
 }
