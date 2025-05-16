@@ -5,4 +5,9 @@ public class WallCell implements Cell {
     public String printIcon() {
         return "#";
     }
+
+    @Override
+    public boolean isWalkable() {
+        return false;
+    }
 }

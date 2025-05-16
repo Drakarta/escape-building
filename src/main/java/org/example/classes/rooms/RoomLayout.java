@@ -52,5 +52,26 @@ public class RoomLayout {
         System.out.println();
     }
     System.out.println("Room size: " + size.getX() + "x" + size.getY());
-}
+    }
+
+    public boolean isWalkable(int x, int y) {
+    if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.get(0).size()) {
+        return false;
+    }
+    return roomLayout.get(y).get(x).isWalkable();
+    }
+
+    public boolean isInsideBounds(int x, int y) {
+        return y >= 0 && y < roomLayout.size() &&
+           x >= 0 && x < roomLayout.get(y).size();
+    }
+
+    public Cell getCell(int x, int y) {
+        return roomLayout.get(y).get(x);
+    }
+
+    public void clearScreen() {
+        System.out.println("\033[2J\033[H");
+        System.out.flush();
+    }
 }
