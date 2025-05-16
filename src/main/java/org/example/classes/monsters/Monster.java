@@ -1,4 +1,6 @@
-package org.example.classes;
+package org.example.classes.monsters;
+
+import org.example.classes.Item;
 
 public abstract class Monster {
     private String name;

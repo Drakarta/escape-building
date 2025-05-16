@@ -1,6 +1,8 @@
-package org.example.classes;
+package org.example.classes.monsters;
 
-public class BossMonster extends Monster{
+import org.example.classes.Item;
+
+public class BossMonster extends Monster {
     private String dialogue;
     public BossMonster(String name, String description, int hp, Item loot) {
         super(name, description, hp, loot);
