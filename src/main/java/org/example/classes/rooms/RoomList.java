@@ -5,7 +5,7 @@ import java.util.List;
 
 public class RoomList {
     private static volatile RoomList instance;
-    private final List<RoomTypes> rooms = new ArrayList<>();
+    private final List<RoomTemplate> rooms = new ArrayList<>();
 
     private RoomList() {
     }
@@ -21,15 +21,15 @@ public class RoomList {
         return instance;
     }
 
-    public synchronized void addRoom(RoomTypes room) {
+    public synchronized void addRoom(RoomTemplate room) {
         rooms.add(room);
     }
 
-    public synchronized void removeRoom(RoomTypes room) {
+    public synchronized void removeRoom(RoomTemplate room) {
         rooms.remove(room);
     }
 
-    public List<RoomTypes> getRoomList() {
+    public List<RoomTemplate> getRoomList() {
         return List.copyOf(rooms);
     }
 }

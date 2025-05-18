@@ -17,29 +17,33 @@ public class RoomTypes extends RoomTemplate {
         this.roomLayout = roomLayout;
     }
 
-    //@Override
-    //public void details() {
-    //    System.out.println("Details:");
-    //}
+    @Override
+    public void details() {
+        System.out.println("Details:");
+    }
 
-    //@Override
-    //public void question() {
-    //    System.out.println("Question: What is the capital of France?");
-    //}
+    @Override
+    public void question() {
+        System.out.println("Question: What is the capital of France?");
+    }
 
-    //@Override
-    //public void answer() {
-    //    System.out.println("Answer: Paris");
-    //}
+    @Override
+    public void answer() {
+        System.out.println("Answer: Paris");
+    }
 
-    //@Override
-    //public void result() {
-    //    System.out.println("Result: Correct!");
-    //}
+    @Override
+    public void result() {
+        System.out.println("Result: Correct!");
+    }
 
-    //@Override
-    //public void feedback() {
-      //  System.out.println("Feedback: Well done!");
-    //}
+    @Override
+    public void feedback() {
+        System.out.println("Feedback: Well done!");
+    }
 
+    @Override
+    public RoomLayout getRoomLayout() {
+        return roomLayout;
+    }
 }

@@ -4,20 +4,24 @@ import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTypes;
 
 public class DoorCell implements Cell {
-    private Boolean isLocked;
-    private RoomTypes toRoom;
+    private boolean isLocked;
+    private final RoomTypes toRoom;
 
-    public DoorCell(Boolean isLocked, RoomTypes toRoom) {
+    public DoorCell(boolean isLocked, RoomTypes toRoom) {
         this.isLocked = isLocked;
         this.toRoom = toRoom;
     }
 
-    public Boolean getIsLocked() {
+    public boolean isLocked() {
         return isLocked;
     }
 
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
+    public void unlock() {
+        isLocked = false;
+    }
+
+    public void lock() {
+        isLocked = true;
     }
 
     public RoomTypes getToRoom() {
@@ -31,11 +35,11 @@ public class DoorCell implements Cell {
 
     @Override
     public boolean isWalkable() {
-       if(!isLocked) {
-        return false;
-       } else {
-        return true;
-       }
+        if (isLocked) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -45,28 +49,15 @@ public class DoorCell implements Cell {
 
     @Override
     public void interact(PlayerCell player, RoomLayout room) {
-        if (!isLocked) {
+        if (isLocked) {
             System.out.println("The door is locked.");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
         } else {
             System.out.println("The door is open. You may pass.");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
         }
-    }
-
-    public void unlock() {
-        isLocked = true;
-    }
-
-    public void lock() {
-        isLocked = false;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
