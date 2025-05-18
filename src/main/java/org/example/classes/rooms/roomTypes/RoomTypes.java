@@ -1,4 +1,7 @@
-package org.example.classes.rooms;
+package org.example.classes.rooms.roomTypes;
+
+import org.example.classes.rooms.RoomLayout;
+import org.example.classes.rooms.RoomTemplate;
 
 public class RoomTypes extends RoomTemplate {
     private int id;
@@ -14,7 +17,11 @@ public class RoomTypes extends RoomTemplate {
         this.description = description;
         this.isLocked = isLocked;
         this.questionCategory = questionCategory;
-        this.roomLayout = roomLayout;
+        if (roomLayout == null) {
+            this.roomLayout = new RoomLayout(5, 5, "Default Question");
+        } else {
+            this.roomLayout = roomLayout;
+        }
     }
 
     @Override
