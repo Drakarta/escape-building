@@ -1,7 +1,10 @@
 package org.example.classes.rooms.subclasses;
 
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
+
+import java.util.ArrayList;
 
 public class TestRoom2 extends RoomTemplate {
     @Override
@@ -31,6 +34,11 @@ public class TestRoom2 extends RoomTemplate {
     
     @Override
     public RoomLayout getRoomLayout() {
-        return new RoomLayout(7, 7, "2");
+        ArrayList<String> questionOrAnswer = new ArrayList<>();
+        questionOrAnswer.add("7");
+        String question = "Hoeveel dagen in een week?";
+        String questiontype = "openQuestion";
+        QuestionsForm question2 = new QuestionsForm(questiontype, question, questionOrAnswer);
+        return new RoomLayout(7, 7, question2);
     }
 }
