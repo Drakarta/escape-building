@@ -20,7 +20,7 @@ public abstract class RoomTemplate {
     public abstract void displayRoom();
     public abstract void question();
 
-    public Object getName() {
+    public String getName() {
         return name;
     }
     public String getDescription() {
