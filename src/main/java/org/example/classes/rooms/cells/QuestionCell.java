@@ -4,22 +4,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.random.RandomGenerator;
 
+import org.example.classes.hints.DisplayHint;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.RoomLayout;
 
 public class QuestionCell implements Cell {
-    private String question;
-    private String questiontype;
-    private ArrayList<String> questionsOrAnswers;
+    private QuestionsForm questionsForm;
     protected RandomGenerator random = RandomGenerator.getDefault();
 
 
     public QuestionCell(QuestionsForm questionForm){
-        this.questiontype = questionForm.getQuestionType();
-        this.question = questionForm.getQuestion();
-        this.questionsOrAnswers = questionForm.getQuestionsOrAnswers();
+        this.questionsForm = questionForm;
     }
 
     @Override
@@ -39,6 +36,9 @@ public class QuestionCell implements Cell {
 
      @Override
     public void interact(PlayerCell player, RoomLayout room) {
+        String questiontype = questionsForm.getQuestionType();
+        String question = questionsForm.getQuestion();
+        ArrayList<String> questionsOrAnswers = questionsForm.getQuestionsOrAnswers();
         Question questioner = new Question();
         boolean answer = questioner.ask(questiontype, question, questionsOrAnswers);
 
@@ -60,6 +60,14 @@ public class QuestionCell implements Cell {
             }
         } else {
             System.out.println("Wrong answer!");
+            System.out.println("Do you want a hint?");
+            Scanner sc = new Scanner(System.in);
+            String hintYN = sc.nextLine();
+            if (hintYN.equalsIgnoreCase("yes")){
+                int hintChooser = random.nextInt(questionsForm.getHints().getHintList().size());
+                DisplayHint chosenHint = questionsForm.getHints().getHintList().get(hintChooser);
+                System.out.println(chosenHint.getHintText());
+            }
         }
     }
 
