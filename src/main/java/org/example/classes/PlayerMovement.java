@@ -1,7 +1,10 @@
 package org.example.classes;
 
+import jdk.jshell.Snippet;
+import org.example.CurrentUser;
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.rooms.RoomLayout;
+import org.example.CurrentUser;
 
 public class PlayerMovement {
     private final PlayerCell player;
@@ -12,20 +15,25 @@ public class PlayerMovement {
         this.room = room;
     }
 
-    public void handleInput(char input) {
+    public void handleInput(String input) {
         int dx = 0, dy = 0;
 
-        switch (input) {
-            case 'w': dy = -1; break;
-            case 's': dy = 1; break;
-            case 'a': dx = -1; break;
-            case 'd': dx = 1; break;
-            case 'e':
+        switch (input.toLowerCase()) {
+            case "w": dy = -1; break;
+            case "s": dy = 1; break;
+            case "a": dx = -1; break;
+            case "d": dx = 1; break;
+            case "e":
                 interact();
                 return;
-            case 'q':
+            case "q":
                 System.exit(0);
                 return;
+            case "status":
+                Status status = new Status();
+                String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
+                System.out.println(currentState);
+                break;
         }
 
         int newX = player.getCoordinates().getX() + dx;

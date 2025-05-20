@@ -38,13 +38,13 @@ public abstract class RoomTemplate {
             String input = scanner.nextLine().toLowerCase();
             if (input.isEmpty()) continue;
 
-            movement.handleInput(input.charAt(0));
-            layout.clearScreen();
+            movement.handleInput(input);
+//            layout.clearScreen();
             layout.printRoomLayout(player);
             
             if (player.getCoordinates().getY() == 0) {
                 roomIndex++;
-                layout.clearScreen();
+//                layout.clearScreen();
                 rooms.getRoomList().get(roomIndex).play(roomIndex);
             }
             
