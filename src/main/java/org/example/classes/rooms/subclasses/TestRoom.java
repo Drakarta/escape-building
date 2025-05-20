@@ -1,9 +1,20 @@
 package org.example.classes.rooms.subclasses;
 
 import org.example.classes.rooms.RoomLayout;
-import org.example.classes.rooms.RoomTemplate;
+import org.example.classes.rooms.RoomTypes;
 
-public class TestRoom extends RoomTemplate {
+public class TestRoom extends RoomTypes {
+    public TestRoom() {
+        super(
+            1, // id
+            "Test Room", // name
+            "This is a test room.", // description
+            false, // isLocked
+            "Open question", // questionCategory
+            null // RoomLayout or pass appropriate RoomLayout if needed
+        );
+    }
+
     @Override
     public void details() {
         System.out.println("1!");

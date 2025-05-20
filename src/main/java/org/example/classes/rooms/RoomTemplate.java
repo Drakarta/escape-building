@@ -49,9 +49,7 @@ public abstract class RoomTemplate {
             }
             
             if (player.getCoordinates().getY() == layout.getRoomLayout().size() - 1) {
-                System.out.println("Test");
                 if (roomIndex > 0) {
-                    System.out.println("test2");
                     roomIndex--;
                     layout.clearScreen();
                     rooms.getRoomList().get(roomIndex).play(roomIndex);
