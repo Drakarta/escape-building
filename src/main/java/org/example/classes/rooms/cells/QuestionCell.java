@@ -1,13 +1,25 @@
 package org.example.classes.rooms.cells;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.random.RandomGenerator;
+
+import org.example.classes.questions.Question;
+import org.example.classes.questions.QuestionsForm;
+import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.RoomLayout;
 
 public class QuestionCell implements Cell {
     private String question;
+    private String questiontype;
+    private ArrayList<String> questionsOrAnswers;
+    protected RandomGenerator random = RandomGenerator.getDefault();
 
-    public QuestionCell(String question) {
-        this.question = question;
+
+    public QuestionCell(QuestionsForm questionForm){
+        this.questiontype = questionForm.getQuestionType();
+        this.question = questionForm.getQuestion();
+        this.questionsOrAnswers = questionForm.getQuestionsOrAnswers();
     }
 
     @Override
@@ -27,12 +39,10 @@ public class QuestionCell implements Cell {
 
      @Override
     public void interact(PlayerCell player, RoomLayout room) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Question: " + question);
-        System.out.print("Answer: ");
-        String answer = scanner.nextLine();
+        Question questioner = new Question();
+        boolean answer = questioner.ask(questiontype, question, questionsOrAnswers);
 
-        if (answer.trim().equalsIgnoreCase("1")) {
+        if (answer) {
             System.out.println("Correct!");
             for (int y = 0; y < room.getRoomLayout().size(); y++) {
                 for (int x = 0; x < room.getRoomLayout().get(y).size(); x++) {
@@ -52,4 +62,6 @@ public class QuestionCell implements Cell {
             System.out.println("Wrong answer!");
         }
     }
+
+
 }
