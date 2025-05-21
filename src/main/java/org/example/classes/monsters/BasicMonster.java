@@ -1,6 +1,6 @@
 package org.example.classes.monsters;
 
-import org.example.classes.Item;
+import org.example.classes.interactableItems.Item;
 
 public class BasicMonster extends Monster {
     public BasicMonster(String name, String description, int hp, Item loot) {

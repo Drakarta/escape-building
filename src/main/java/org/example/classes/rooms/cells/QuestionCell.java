@@ -1,13 +1,22 @@
 package org.example.classes.rooms.cells;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.random.RandomGenerator;
+
+import org.example.classes.hints.DisplayHint;
+import org.example.classes.questions.Question;
+import org.example.classes.questions.QuestionsForm;
+import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.RoomLayout;
 
 public class QuestionCell implements Cell {
-    private String question;
+    private QuestionsForm questionsForm;
+    protected RandomGenerator random = RandomGenerator.getDefault();
 
-    public QuestionCell(String question) {
-        this.question = question;
+
+    public QuestionCell(QuestionsForm questionForm){
+        this.questionsForm = questionForm;
     }
 
     @Override
@@ -25,14 +34,15 @@ public class QuestionCell implements Cell {
         return true;
     }
 
-     @Override
+    @Override
     public void interact(PlayerCell player, RoomLayout room) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Question: " + question);
-        System.out.print("Answer: ");
-        String answer = scanner.nextLine();
+        String questiontype = questionsForm.getQuestionType();
+        String question = questionsForm.getQuestion();
+        ArrayList<String> questionsOrAnswers = questionsForm.getQuestionsOrAnswers();
+        Question questioner = new Question();
+        boolean answer = questioner.ask(questiontype, question, questionsOrAnswers);
 
-        if (answer.trim().equalsIgnoreCase("1")) {
+        if (answer) {
             System.out.println("Correct!");
             for (int y = 0; y < room.getRoomLayout().size(); y++) {
                 for (int x = 0; x < room.getRoomLayout().get(y).size(); x++) {
@@ -50,6 +60,14 @@ public class QuestionCell implements Cell {
             }
         } else {
             System.out.println("Wrong answer!");
+            System.out.println("Do you want a hint?");
+            Scanner sc = new Scanner(System.in);
+            String hintYN = sc.nextLine();
+            if (hintYN.equalsIgnoreCase("yes")){
+                int hintChooser = random.nextInt(questionsForm.getHints().getHintList().size());
+                DisplayHint chosenHint = questionsForm.getHints().getHintList().get(hintChooser);
+                System.out.println(chosenHint.getHintText());
+            }
         }
     }
 }

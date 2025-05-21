@@ -1,15 +1,17 @@
 package org.example.classes.rooms.cells;
 
 import org.example.classes.rooms.RoomLayout;
-import org.example.classes.rooms.RoomTypes;
+import org.example.classes.rooms.DoorExtra.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoorCell implements Cell {
     private boolean isLocked;
-    private final RoomTypes toRoom;
+    private final List<DoorObserver> observers = new ArrayList<>();
 
-    public DoorCell(boolean isLocked, RoomTypes toRoom) {
+    public DoorCell(boolean isLocked) {
         this.isLocked = isLocked;
-        this.toRoom = toRoom;
     }
 
     public boolean isLocked() {
@@ -18,14 +20,26 @@ public class DoorCell implements Cell {
 
     public void unlock() {
         isLocked = false;
+        notifyObservers();
     }
 
     public void lock() {
         isLocked = true;
+        notifyObservers();
     }
 
-    public RoomTypes getToRoom() {
-        return toRoom;
+    public void addObserver(DoorObserver observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(DoorObserver observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        for (DoorObserver observer : observers) {
+            observer.onDoorStateChanged(isLocked);
+        }
     }
 
     @Override
@@ -35,11 +49,7 @@ public class DoorCell implements Cell {
 
     @Override
     public boolean isWalkable() {
-        if (isLocked) {
-            return false;
-        } else {
-            return true;
-        }
+        return !isLocked;
     }
 
     @Override

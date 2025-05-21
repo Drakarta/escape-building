@@ -39,12 +39,12 @@ public abstract class RoomTemplate {
             if (input.isEmpty()) continue;
 
             movement.handleInput(input);
-//            layout.clearScreen();
+            layout.clearScreen();
             layout.printRoomLayout(player);
             
             if (player.getCoordinates().getY() == 0) {
                 roomIndex++;
-//                layout.clearScreen();
+                layout.clearScreen();
                 rooms.getRoomList().get(roomIndex).play(roomIndex);
             }
             

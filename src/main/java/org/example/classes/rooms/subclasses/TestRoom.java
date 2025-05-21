@@ -1,9 +1,26 @@
 package org.example.classes.rooms.subclasses;
 
-import org.example.classes.rooms.RoomLayout;
-import org.example.classes.rooms.RoomTemplate;
+import java.util.ArrayList;
 
-public class TestRoom extends RoomTemplate {
+import org.example.classes.hints.FunnyHint;
+import org.example.classes.hints.HelpHint;
+import org.example.classes.hints.HintList;
+import org.example.classes.questions.QuestionsForm;
+import org.example.classes.rooms.RoomLayout;
+import org.example.classes.rooms.RoomTypes;
+
+public class TestRoom extends RoomTypes {
+    public TestRoom() {
+        super(
+            1, 
+            "Test Room", 
+            "This is a test room.", 
+            false, 
+            "Open question",
+            null 
+        );
+    }
+
     @Override
     public void details() {
         System.out.println("1!");
@@ -31,6 +48,16 @@ public class TestRoom extends RoomTemplate {
     
     @Override
     public RoomLayout getRoomLayout() {
-        return new RoomLayout(9, 9, "?");
+        ArrayList<String> questionOrAnswer = new ArrayList<>();
+        questionOrAnswer.add("365");
+        String question = "Hoeveel dagen in een normaal jaar?";
+        String questiontype = "openQuestion";
+        FunnyHint funhint = new FunnyHint("Een jaar heeft 1 dag minder dan een schrikkeljaar!");
+        HelpHint hulphint = new HelpHint("Een jaar heeft 52 weken");
+        HintList hintList = new HintList();
+        hintList.addHint(funhint);
+        hintList.addHint(hulphint);
+        QuestionsForm question1 = new QuestionsForm(questiontype, question, questionOrAnswer, hintList);
+        return new RoomLayout(9, 9, question1);
     }
 }

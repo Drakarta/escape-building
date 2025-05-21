@@ -1,4 +1,4 @@
-package org.example.classes;
+package org.example.classes.interactableItems;
 
 public class Item {
     private String name;

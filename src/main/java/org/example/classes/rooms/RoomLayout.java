@@ -2,25 +2,36 @@ package org.example.classes.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.classes.questions.QuestionsForm;
+import org.example.classes.rooms.DoorExtra.DoorLogger;
 import org.example.classes.rooms.cells.*;
 
 public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private Coordinates size;
+    private boolean IsDoorForeward = true;
 
     public RoomLayout(List<List<Cell>> roomLayout) {
         this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, String Question) {
+    public RoomLayout(int width, int height, QuestionsForm Question) {
         this.roomLayout = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
             if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                if (j == width / 2) {
-                    row.add(new DoorCell(true, null));
+                if (j == width / 2 && IsDoorForeward) {
+                    DoorCell door = new DoorCell(true);
+                    door.addObserver(new DoorLogger("Next door"));
+                    row.add(door);
+                    IsDoorForeward = false;
+                } else if (j == width / 2 && !IsDoorForeward) {
+                    DoorCell door = new DoorCell(false);
+                    door.addObserver(new DoorLogger("Back door"));
+                    row.add(door);
                 } else{
                     row.add(new WallCell());
                 }
