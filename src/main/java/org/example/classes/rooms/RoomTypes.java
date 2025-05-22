@@ -18,6 +18,11 @@ public class RoomTypes extends RoomTemplate {
     }
 
     @Override
+    public String getName(){
+        return name;
+    }
+
+    @Override
     public void details() {
         System.out.println("Details:");
     }

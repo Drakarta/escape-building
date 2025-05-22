@@ -32,7 +32,6 @@ public class Game {
                 }
             }
             Player player = CurrentUser.getInstance().getCurrentPlayer();
-            player.setCurrentRoom("Start Room");
             System.out.println("Welcome, " + player.getUsername() + "!");
 
             //this is the game logic loop

@@ -2,10 +2,12 @@ package org.example.classes.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.example.classes.rooms.RoomTypes;
+import org.example.classes.rooms.*;
 
 public class RoomList {
     private static volatile RoomList instance;
-    private final List<RoomTemplate> rooms = new ArrayList<>();
+    private final List<RoomTypes> rooms = new ArrayList<>();
 
     private RoomList() {
     }
@@ -21,15 +23,15 @@ public class RoomList {
         return instance;
     }
 
-    public synchronized void addRoom(RoomTemplate room) {
+    public synchronized void addRoom(RoomTypes room) {
         rooms.add(room);
     }
 
-    public synchronized void removeRoom(RoomTemplate room) {
+    public synchronized void removeRoom(RoomTypes room) {
         rooms.remove(room);
     }
 
-    public List<RoomTemplate> getRoomList() {
+    public List<RoomTypes> getRoomList() {
         return List.copyOf(rooms);
     }
 }

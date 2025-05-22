@@ -2,8 +2,11 @@ package org.example.classes.rooms;
 
 import java.util.Scanner;
 
+import org.example.classes.Player;
 import org.example.classes.PlayerMovement;
 import org.example.classes.rooms.cells.PlayerCell;
+
+import org.example.CurrentUser;
 
 public abstract class RoomTemplate {
     protected RoomLayout layout;
@@ -14,16 +17,21 @@ public abstract class RoomTemplate {
     public abstract void feedback();
     public abstract RoomLayout getRoomLayout();
 
+    public abstract String getName();
+
     public final void play(int roomIndex) {
         RoomList rooms = RoomList.getInstance();
         PlayerCell player = new PlayerCell(new Coordinates(1, 1));
         RoomLayout layout = getRoomLayout();
         PlayerMovement movement = new PlayerMovement(player, layout);
+        String roomName;
 
         Scanner scanner = new Scanner(System.in);
         layout.printRoomLayout(player);
 
         details();
+//        String roomName = rooms.getRoomList().get(roomIndex).getName();
+//        System.out.println(roomName);
         //question();
         //answer();
         //result();
@@ -45,6 +53,11 @@ public abstract class RoomTemplate {
             if (player.getCoordinates().getY() == 0) {
                 roomIndex++;
                 layout.clearScreen();
+
+                roomName = rooms.getRoomList().get(roomIndex).getName();
+                Player currentPlayer = CurrentUser.getInstance().getCurrentPlayer();
+                currentPlayer.setCurrentRoom(roomName);
+
                 rooms.getRoomList().get(roomIndex).play(roomIndex);
             }
             
@@ -53,7 +66,13 @@ public abstract class RoomTemplate {
                 if (roomIndex > 0) {
                     System.out.println("test2");
                     roomIndex--;
+
                     layout.clearScreen();
+
+                    roomName = rooms.getRoomList().get(roomIndex).getName();
+                    Player currentPlayer = CurrentUser.getInstance().getCurrentPlayer();
+                    currentPlayer.setCurrentRoom(roomName);
+
                     rooms.getRoomList().get(roomIndex).play(roomIndex);
                 } else {
                     System.out.println("This is the first room");
