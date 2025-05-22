@@ -32,4 +32,17 @@ public class RoomList {
     public List<RoomTemplate> getRoomList() {
         return List.copyOf(rooms);
     }
+
+    public RoomTemplate get(int index) {
+        return rooms.get(index);
+    }
+
+    public RoomTemplate GetRoomByName(String name) {
+        for (RoomTemplate room : rooms) {
+            if (room.getName().equals(name)) {
+                return room;
+            }
+        }
+        return null;
+    }
 }
