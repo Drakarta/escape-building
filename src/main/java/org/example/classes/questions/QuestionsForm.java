@@ -6,11 +6,15 @@ import org.example.classes.hints.HintList;
 import java.util.ArrayList;
 
 public class QuestionsForm {
+    private int belongsToRoomID;
     private String questionType;
     private String question;
     private ArrayList<String> questionsOrAnswers;
-    private HintList hintlist;
+    private ArrayList<DisplayHint> hintList;
 
+    public int getBelongsToRoomID() {
+        return belongsToRoomID;
+    }
     public ArrayList<String> getQuestionsOrAnswers() {
         return questionsOrAnswers;
     }
@@ -20,14 +24,15 @@ public class QuestionsForm {
     public String getQuestionType() {
         return questionType;
     }
-    public HintList getHints() {
-        return hintlist;
+    public ArrayList<DisplayHint> getHints() {
+        return hintList;
     }
 
-    public QuestionsForm(String questionType, String question, ArrayList<String> questionsOrAnswers, HintList hintlist){
+    public QuestionsForm(int belongsToRoomID, String questionType, String question, ArrayList<String> questionsOrAnswers, ArrayList<DisplayHint> hintList){
+        this.belongsToRoomID = belongsToRoomID;
         this.question = question;
         this.questionType = questionType;
         this.questionsOrAnswers = questionsOrAnswers;
-        this.hintlist = hintlist;
+        this.hintList = hintList;
     }
 }

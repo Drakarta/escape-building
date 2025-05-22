@@ -46,4 +46,8 @@ public class RoomTypes extends RoomTemplate {
     public RoomLayout getRoomLayout() {
         return roomLayout;
     }
+
+    public int getId() {
+        return id;
+    }
 }

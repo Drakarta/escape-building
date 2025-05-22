@@ -1,13 +1,11 @@
 package org.example.classes.rooms.subclasses;
 
-import java.util.ArrayList;
-
-import org.example.classes.hints.FunnyHint;
-import org.example.classes.hints.HelpHint;
-import org.example.classes.hints.HintList;
 import org.example.classes.questions.QuestionsForm;
+import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTypes;
+
+import java.util.ArrayList;
 
 public class TestRoom extends RoomTypes {
     public TestRoom() {
@@ -48,16 +46,7 @@ public class TestRoom extends RoomTypes {
     
     @Override
     public RoomLayout getRoomLayout() {
-        ArrayList<String> questionOrAnswer = new ArrayList<>();
-        questionOrAnswer.add("365");
-        String question = "Hoeveel dagen in een normaal jaar?";
-        String questiontype = "openQuestion";
-        FunnyHint funhint = new FunnyHint("Een jaar heeft 1 dag minder dan een schrikkeljaar!");
-        HelpHint hulphint = new HelpHint("Een jaar heeft 52 weken");
-        HintList hintList = new HintList();
-        hintList.addHint(funhint);
-        hintList.addHint(hulphint);
-        QuestionsForm question1 = new QuestionsForm(questiontype, question, questionOrAnswer, hintList);
-        return new RoomLayout(9, 9, question1);
+        QuestionsForm question = new QuestionsList().getRandomQuestionWithRoomID(this.getId());
+        return new RoomLayout(9, 9, question);
     }
 }

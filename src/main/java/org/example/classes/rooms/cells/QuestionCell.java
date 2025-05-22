@@ -1,18 +1,16 @@
 package org.example.classes.rooms.cells;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
-import java.util.random.RandomGenerator;
 
 import org.example.classes.hints.DisplayHint;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
-import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.RoomLayout;
 
 public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
-    protected RandomGenerator random = RandomGenerator.getDefault();
 
 
     public QuestionCell(QuestionsForm questionForm){
@@ -60,13 +58,19 @@ public class QuestionCell implements Cell {
             }
         } else {
             System.out.println("Wrong answer!");
-            System.out.println("Do you want a hint?");
+            System.out.println("Do you want a hint? Y/N");
             Scanner sc = new Scanner(System.in);
             String hintYN = sc.nextLine();
-            if (hintYN.equalsIgnoreCase("yes")){
-                int hintChooser = random.nextInt(questionsForm.getHints().getHintList().size());
-                DisplayHint chosenHint = questionsForm.getHints().getHintList().get(hintChooser);
-                System.out.println(chosenHint.getHintText());
+            if (hintYN.equalsIgnoreCase("Y")){
+                Random random = new Random();
+                ArrayList<DisplayHint> hints = questionsForm.getHints();
+                questionsForm.getHints().getFirst().getHintText();
+                if (!hints.isEmpty()) {
+                    DisplayHint chosenHint = hints.get(random.nextInt(hints.size()));
+                    System.out.println(chosenHint.getHintText());
+                } else {
+                    System.out.println("No hints available.");
+                }
             }
         }
     }
