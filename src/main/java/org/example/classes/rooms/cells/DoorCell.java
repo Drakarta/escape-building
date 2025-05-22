@@ -1,5 +1,7 @@
 package org.example.classes.rooms.cells;
 
+import org.example.classes.rooms.RoomTypes;
+
 public class DoorCell implements Cell {
     private Boolean isLocked;
     private String doorPosition;
@@ -11,12 +13,16 @@ public class DoorCell implements Cell {
         this.toRoomID = toRoom;
     }
 
-    public Boolean getIsLocked() {
+    public boolean isLocked() {
         return isLocked;
     }
 
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
+    public void unlock() {
+        isLocked = false;
+    }
+
+    public void lock() {
+        isLocked = true;
     }
 
     public String getToRoom() {
@@ -30,5 +36,33 @@ public class DoorCell implements Cell {
     @Override
     public String printIcon() {
         return "D";
+    }
+
+    @Override
+    public boolean isWalkable() {
+        if (isLocked) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean isInteractive() {
+        return true;
+    }
+
+    @Override
+    public void interact(PlayerCell player, RoomLayout room) {
+        if (isLocked) {
+            System.out.println("The door is locked.");
+        } else {
+            System.out.println("The door is open. You may pass.");
+        }
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

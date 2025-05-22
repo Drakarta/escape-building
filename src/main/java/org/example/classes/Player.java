@@ -5,7 +5,7 @@ public class Player {
     private String name;
     private String username;
     private int hp;
-    private int currentRoom;
+    private String currentRoom;
 
 
     public void setId(int id) {this.id = id;}
@@ -34,10 +34,10 @@ public class Player {
         return this.hp;
     }
 
-    public void setCurrentRoom(int currentRoom){
+    public void setCurrentRoom(String currentRoom){
         this.currentRoom = currentRoom;
     }
-    public int getCurrentRoom(){
+    public String getCurrentRoom(){
         return this.currentRoom;
     }
 }
