@@ -3,6 +3,7 @@ package org.example.classes.rooms;
 import java.util.Scanner;
 
 import org.example.classes.PlayerMovement;
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.cells.PlayerCell;
 
 public abstract class RoomTemplate {
@@ -10,10 +11,12 @@ public abstract class RoomTemplate {
     public String name;
     private String description;
     private boolean isLocked;
-    private String questionCategory;
+    private QuestionsForm questionCategory;
     private RoomLayout roomLayout;
 
-    public RoomTemplate(int id, String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
+    protected RoomTemplate(){}
+
+    public RoomTemplate(int id, String name, String description, boolean isLocked, QuestionsForm questionCategory, RoomLayout roomLayout) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -21,6 +24,13 @@ public abstract class RoomTemplate {
         this.questionCategory = questionCategory;
         this.roomLayout = roomLayout;
     }
+    public RoomTemplate(int id, String name, RoomLayout roomLayout){
+        this.id = id;
+        this.name = name;
+        this.roomLayout = roomLayout;
+    }
+
+    public abstract void details();
 
     public abstract void displayRoom();
     public abstract void question();
@@ -34,13 +44,13 @@ public abstract class RoomTemplate {
     public boolean isLocked() {
         return isLocked;
     }
-    public String getQuestionCategory() {
+    public QuestionsForm getQuestionCategory() {
         return questionCategory;
     }
     public RoomLayout getRoomLayout() {
         return roomLayout;
     }
-    public abstract RoomLayout getRoomLayout();
+
 
     public final void play(int roomIndex) {
         RoomList rooms = RoomList.getInstance();
@@ -51,7 +61,7 @@ public abstract class RoomTemplate {
         Scanner scanner = new Scanner(System.in);
         layout.printRoomLayout(player);
 
-        details();
+        //details();
         //question();
         //answer();
         //result();

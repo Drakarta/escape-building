@@ -2,19 +2,23 @@ package org.example.classes.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.cells.*;
 
 public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private List<DoorCell> doors;
     private Coordinates size;
+    private ArrayList<Integer> questionCoordinates = new ArrayList<>();
+
 
     public RoomLayout(List<List<Cell>> roomLayout) {
         this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, String Question, List<DoorCell> doors) {
+    public RoomLayout(int width, int height, List<DoorCell> doors) {
         this.roomLayout = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
@@ -22,7 +26,9 @@ public class RoomLayout {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     row.add(new WallCell());
                 } else if (i == height / 2 && j == width / 2) {
-                    row.add(new QuestionCell(Question));
+                    row.add(new QuestionCell());
+                    questionCoordinates.add(i);
+                    questionCoordinates.add(j);
                 } else {
                     row.add(new EmptyCell());
                 }
@@ -81,8 +87,14 @@ public class RoomLayout {
         return roomLayout.get(y).get(x);
     }
 
+
     public void clearScreen() {
         System.out.println("\033[2J\033[H");
         System.out.flush();
+    }
+
+
+    public void setQuestion(QuestionsForm question){
+        getCell(questionCoordinates.getFirst(), questionCoordinates.getLast()).setQuestion(question);
     }
 }

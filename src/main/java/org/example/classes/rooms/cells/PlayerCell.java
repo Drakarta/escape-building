@@ -1,5 +1,6 @@
 package org.example.classes.rooms.cells;
 
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.Coordinates;
 
 public class PlayerCell implements Cell {
@@ -13,6 +14,12 @@ public class PlayerCell implements Cell {
     public String printIcon() {
         return "@";
     }
+
+    @Override
+    public void setQuestion(QuestionsForm question) {
+
+    }
+
 
     public Coordinates getCoordinates() {
         return coordinates;

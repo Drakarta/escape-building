@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
+import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomList;
 import org.example.classes.rooms.RoomTemplate;
 import org.example.classes.rooms.cells.DoorCell;
@@ -31,6 +32,7 @@ public class GameLoop {
 
     public void handleInput(String input) {
         boolean moved = false;
+        RoomLayout temp = currentRoom.getRoomLayout();
         for (DoorCell door : currentRoom.getRoomLayout().getDoors()) {
             if (("up".equalsIgnoreCase(input) && "north".equalsIgnoreCase(door.getDoorPosition())) ||
                 ("down".equalsIgnoreCase(input) && "south".equalsIgnoreCase(door.getDoorPosition()))) {
