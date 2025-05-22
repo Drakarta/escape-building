@@ -1,14 +1,14 @@
 package org.example.classes.rooms.cells;
 
-import org.example.classes.rooms.RoomTypes;
-
 public class DoorCell implements Cell {
     private Boolean isLocked;
-    private RoomTypes toRoom;
+    private String doorPosition;
+    private String toRoomID;
 
-    public DoorCell(Boolean isLocked, RoomTypes toRoom) {
+    public DoorCell(Boolean isLocked, String doorPosition, String toRoom) {
         this.isLocked = isLocked;
-        this.toRoom = toRoom;
+        this.doorPosition = doorPosition;
+        this.toRoomID = toRoom;
     }
 
     public Boolean getIsLocked() {
@@ -19,8 +19,12 @@ public class DoorCell implements Cell {
         this.isLocked = isLocked;
     }
 
-    public RoomTypes getToRoom() {
-        return toRoom;
+    public String getToRoom() {
+        return toRoomID;
+    }
+
+    public String getDoorPosition() {
+        return doorPosition;
     }
 
     @Override
