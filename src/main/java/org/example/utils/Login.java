@@ -3,7 +3,7 @@ package org.example.utils;
 import java.util.List;
 import java.util.Map;
 
-import org.example.CurrentUser;
+import org.example.utils.CurrentUser;
 import org.example.classes.Player;
 
 public class Login {

@@ -1,10 +1,10 @@
 package org.example.classes;
 
 import jdk.jshell.Snippet;
-import org.example.CurrentUser;
+import org.example.utils.CurrentUser;
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.rooms.RoomLayout;
-import org.example.CurrentUser;
+
 
 public class PlayerMovement {
     private final PlayerCell player;
