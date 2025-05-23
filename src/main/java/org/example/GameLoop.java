@@ -10,7 +10,7 @@ public class GameLoop {
     private RoomTemplate currentRoom;
 
     public GameLoop() {
-        this.currentRoom = RoomList.getInstance().GetRoomByName("Start Room");
+        this.currentRoom = RoomList.getInstance().getRoomByName("Start Room");
     }
 
     public void start() {
@@ -35,7 +35,7 @@ public class GameLoop {
             if (("up".equalsIgnoreCase(input) && "north".equalsIgnoreCase(door.getDoorPosition())) ||
                 ("down".equalsIgnoreCase(input) && "south".equalsIgnoreCase(door.getDoorPosition()))) {
 
-                RoomTemplate nextRoom = RoomList.getInstance().GetRoomByName(door.getToRoom());
+                RoomTemplate nextRoom = RoomList.getInstance().getRoomByName(door.getToRoom());
                 if (nextRoom != null) {
                     currentRoom = nextRoom;
                     moved = true;

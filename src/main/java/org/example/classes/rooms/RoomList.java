@@ -37,7 +37,7 @@ public class RoomList {
         return rooms.get(index);
     }
 
-    public RoomTemplate GetRoomByName(String name) {
+    public RoomTemplate getRoomByName(String name) {
         for (RoomTemplate room : rooms) {
             if (room.getName().equals(name)) {
                 return room;

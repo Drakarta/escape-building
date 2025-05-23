@@ -8,8 +8,8 @@ import org.example.classes.rooms.RoomTemplate;
 import org.example.classes.rooms.cells.PlayerCell;
 
 public class Room extends RoomTemplate {
-    public Room(int id, String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
-        super(id, name, description, isLocked, questionCategory, roomLayout);
+    public Room(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
+        super(name, description, isLocked, questionCategory, roomLayout);
     }
 
     @Override
