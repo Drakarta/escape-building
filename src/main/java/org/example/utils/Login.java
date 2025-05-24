@@ -1,60 +1,38 @@
-// package org.example.utils;
 
-// import java.util.List;
-// import java.util.Map;
+package org.example.utils;
 
-// import org.example.CurrentUser;
-// import org.example.classes.Player;
+import java.util.List;
+import java.util.Map;
 
-// public class Login {
+import org.example.classes.rooms.Coordinates;
+import org.example.classes.rooms.cells.PlayerCell;
+import org.example.utils.CurrentUser;
+import org.example.classes.Player;
 
-//     public static boolean login(String username, String password) {
-//         // WARNING: This is still vulnerable to SQL injection
-//         String query = "SELECT * FROM player WHERE username = '" + username + "' AND password = '" + password + "'";
+public class Login {
 
-//         List<Map<String, String>> result = (List<Map<String, String>>) DatabaseConnection.execute(query);
+    public static boolean login(String username, String password) {
+        // WARNING: This is still vulnerable to SQL injection
+        String query = "SELECT * FROM player WHERE username = '" + username + "' AND password = '" + password + "'";
 
-//         if (result.isEmpty()) {
-//             System.out.println("Invalid username or password.");
-//             return false;
-//         }
+        List<Map<String, String>> result = (List<Map<String, String>>) DatabaseConnection.execute(query);
 
-//         // Get the first result row
-//         Map<String, String> row = result.get(0);
+        if (result.isEmpty()) {
+            System.out.println("Invalid username or password.");
+            return false;
+        }
 
-//         // Build a Player object
-//         Player player = new Player();
-//         player.setName(row.get("name"));
-//         player.setUsername(row.get("username"));
+        // Get the first result row
+        Map<String, String> row = result.get(0);
 
-//         try {
-//             String hpStr = row.get("hp");
-//             String roomStr = row.get("currentRoom");
+        // Build a Player object
 
-//             if (hpStr != null && !hpStr.isEmpty()) {
-//                 player.setHp(Integer.parseInt(hpStr));
-//             } else {
-//                 System.out.println("Warning: HP is missing or null.");
-//                 player.setHp(100); // or some sensible default
-//             }
 
-//             if (roomStr != null && !roomStr.isEmpty()) {
-//                 player.setCurrentRoom(roomStr);
-//             } else {
-//                 System.out.println("Warning: Current room is missing or null.");
-//                 player.setCurrentRoom("No room assigned"); // or another default
-//             }
+        // Optional: set player ID if needed
+        // player.setId(Integer.parseInt(row.get("id")));
 
-//         } catch (NumberFormatException e) {
-//             System.out.println("Error parsing numeric fields: " + e.getMessage());
-//             return false;
-//         }
-
-//         // Optional: set player ID if needed
-//         // player.setId(Integer.parseInt(row.get("id")));
-
-//         // Set the player in the singleton
-//         CurrentUser.getInstance().setCurrentPlayer(player);
-//         return true;
-//     }
-// }
+        // Set the player in the singleton
+        CurrentUser.getInstance().setCurrentPlayer(new Player(row.get("name"), row.get("username"), Integer.parseInt(row.get("hp")), row.get("currentRoom"), new PlayerCell(new Coordinates(1, 1))));
+        return true;
+    }
+}
