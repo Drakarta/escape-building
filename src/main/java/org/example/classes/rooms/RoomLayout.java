@@ -59,6 +59,10 @@ public class RoomLayout {
         return roomLayout;
     }
 
+    public Coordinates getSize() {
+        return size;
+    }
+
     public void printRoomLayout(PlayerCell player) {
         for (int y = 0; y < roomLayout.size(); y++) {
             List<Cell> row = roomLayout.get(y);
@@ -81,6 +85,10 @@ public class RoomLayout {
         return false;
     }
     return roomLayout.get(y).get(x).isWalkable();
+    }
+
+    public boolean isDoor(int x, int y) {
+        return roomLayout.get(y).get(x).isDoor();
     }
 
     public boolean isInsideBounds(int x, int y) {

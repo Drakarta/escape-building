@@ -1,4 +1,6 @@
-package org.example.classes;
+package org.example.classes.singleton;
+
+import org.example.classes.Player;
 
 public class CurrentUser {
     private static CurrentUser instance;

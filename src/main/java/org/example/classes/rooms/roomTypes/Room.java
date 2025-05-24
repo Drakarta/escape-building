@@ -2,6 +2,7 @@ package org.example.classes.rooms.roomTypes;
 
 import java.util.Scanner;
 
+import org.example.CurrentUser;
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
@@ -15,7 +16,7 @@ public class Room extends RoomTemplate {
     @Override
     public void displayRoom() {
         System.out.println(getName());
-        getRoomLayout().printRoomLayout(new PlayerCell(new Coordinates(2, 2)));
+        getRoomLayout().printRoomLayout(CurrentUser.getInstance().getCurrentPlayer().getPlayerCell());
     }
 
     @Override
