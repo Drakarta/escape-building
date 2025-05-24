@@ -44,6 +44,11 @@ public class DoorCell implements Cell {
     }
 
     @Override
+    public boolean isDoor() {
+        return true;
+    }
+
+    @Override
     public boolean isInteractive() {
         return true;
     }
