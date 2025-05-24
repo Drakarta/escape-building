@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.cells.PlayerCell;
-import org.example.utils.CurrentUser;
+import org.example.classes.singleton.CurrentUser;
 import org.example.classes.Player;
 
 public class Login {
@@ -32,7 +32,7 @@ public class Login {
         // player.setId(Integer.parseInt(row.get("id")));
 
         // Set the player in the singleton
-        CurrentUser.getInstance().setCurrentPlayer(new Player(row.get("name"), row.get("username"), Integer.parseInt(row.get("hp")), row.get("currentRoom"), new PlayerCell(new Coordinates(1, 1))));
+        CurrentUser.getInstance().setCurrentPlayer(new Player(1, row.get("name"), row.get("username"), Integer.parseInt(row.get("hp")), row.get("currentRoom"), new PlayerCell(new Coordinates(1, 1))));
         return true;
     }
 }

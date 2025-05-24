@@ -1,12 +1,8 @@
 package org.example.classes.rooms.roomTypes;
 
-import java.util.Scanner;
-
-import org.example.CurrentUser;
-import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
-import org.example.classes.rooms.cells.PlayerCell;
+import org.example.classes.singleton.CurrentUser;
 
 public class Room extends RoomTemplate {
     public Room(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {

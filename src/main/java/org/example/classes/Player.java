@@ -2,8 +2,6 @@ package org.example.classes;
 
 import org.example.classes.rooms.Coordinates;
 
-import org.example.classes.rooms.RoomTemplate;
-
 import org.example.classes.rooms.cells.PlayerCell;
 
 public class Player {
@@ -23,13 +21,13 @@ public class Player {
         this.currentRoom = currentRoom2;
         this.playerCell = new PlayerCell(new Coordinates(2, 2));
     }
-  public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell, playerCell) {
+    public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell playerCell) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.hp = hp;
         this.currentRoom = currentRoom2;
-        this.playerCell = playercell;
+        this.playerCell = playerCell;
     }
 
     public void setId(int id) {this.id = id;}

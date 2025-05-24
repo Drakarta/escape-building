@@ -7,7 +7,7 @@ public class CurrentUser {
 
     private Player currentUser;
 
-    private CurrentUser() {
+    public CurrentUser() {
 
     }
 
