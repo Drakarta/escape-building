@@ -1,9 +1,6 @@
 package org.example.classes.rooms;
 
-import java.util.Scanner;
-
 import org.example.classes.PlayerMovement;
-import org.example.classes.rooms.cells.PlayerCell;
 
 public abstract class RoomTemplate {
     private final String name;
@@ -11,6 +8,7 @@ public abstract class RoomTemplate {
     private boolean isLocked;
     private String questionCategory;
     private RoomLayout roomLayout;
+    private PlayerMovement playerMovement;
 
     public RoomTemplate(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
         this.name = name;
@@ -18,6 +16,7 @@ public abstract class RoomTemplate {
         this.isLocked = isLocked;
         this.questionCategory = questionCategory;
         this.roomLayout = roomLayout;
+        this.playerMovement = new PlayerMovement(roomLayout);
     }
 
     public abstract void displayRoom();
@@ -38,4 +37,8 @@ public abstract class RoomTemplate {
     public RoomLayout getRoomLayout() {
         return roomLayout;
     }
+
+    public void getPlayerMovement(String input) {
+        playerMovement.handleInput(input);
+    }   
 }

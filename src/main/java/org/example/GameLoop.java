@@ -8,53 +8,40 @@ import org.example.classes.rooms.RoomTemplate;
 import org.example.classes.rooms.cells.DoorCell;
 import org.example.utils.CurrentUser;
 
+import org.example.classes.singleton.CurrentRoom;
+
+
 public class GameLoop {
-    private RoomTemplate currentRoom;
 
     public GameLoop() {
-        this.currentRoom = RoomList.getInstance().getRoomByName("Start Room");
+
     }
 
     public void start() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            currentRoom.displayRoom();
-            System.out.println("Where do you want to go? (up/down/quit)");
+            CurrentRoom.getInstance().getCurrentRoom().displayRoom();
+            CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(CurrentRoom.getInstance().getCurrentRoom().getName());
 
             String input = scanner.nextLine().trim();
+            handleInput(input);
+            
             if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Goodbye!");
                 break;
             }
-            handleInput(input);
         }
         scanner.close();
     }
 
     public void handleInput(String input) {
-        boolean moved = false;
-        for (DoorCell door : currentRoom.getRoomLayout().getDoors()) {
-            if("status".equalsIgnoreCase(input)) {
-                Status status = new Status();
-                System.out.println(status.getStatus(CurrentUser.getInstance().getCurrentPlayer()));
-            }
-            else if (("up".equalsIgnoreCase(input) && "north".equalsIgnoreCase(door.getDoorPosition())) ||
-                ("down".equalsIgnoreCase(input) && "south".equalsIgnoreCase(door.getDoorPosition()))) {
-
-                RoomTemplate nextRoom = RoomList.getInstance().getRoomByName(door.getToRoom());
-                if (nextRoom != null) {
-                    currentRoom = nextRoom;
-                    CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(currentRoom.getName());
-                    moved = true;
-                } else {
-                    System.out.println("The door leads to an unknown room.");
-                }
+        switch (input) {
+            case "w", "a", "s", "d":
+                CurrentRoom.getInstance().getCurrentRoom().getPlayerMovement(input);
+                break;  
+        
+            default:
                 break;
-            }
-        }
-
-        if (!moved) {
-            System.out.println("No door in that direction or invalid input.");
         }
     }
 }
