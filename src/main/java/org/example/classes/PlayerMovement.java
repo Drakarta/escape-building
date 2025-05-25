@@ -69,12 +69,19 @@ public class PlayerMovement {
             }
         }        
     }
-    
+
     private void RoomChange(String direction) {
         for (DoorCell door : room.getDoors()) {
             if (door.getDoorPosition().equals(direction)) {
                 RoomTemplate nextRoom = RoomList.getInstance().getRoomByName(door.getToRoom());
+
+                // 🔄 Update current room in the CurrentUser
+                CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(door.getToRoom());
+
+                // 🔄 Update singleton CurrentRoom
                 CurrentRoom.getInstance().setCurrentRoom(nextRoom);
+
+                // Reposition the player based on entry direction
                 Coordinates nextRoomSize = nextRoom.getRoomLayout().getSize();
                 switch (direction) {
                     case "north":
@@ -92,9 +99,11 @@ public class PlayerMovement {
                     default:
                         break;
                 }
+                return;
             }
         }
     }
+
 
     // private void interact() {
     //     int x = player.getCoordinates().getX();

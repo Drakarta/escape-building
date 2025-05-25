@@ -3,7 +3,10 @@ package org.example;
 import java.util.Scanner;
 
 import org.example.classes.Player;
+import org.example.classes.rooms.RoomLoader;
 import org.example.classes.singleton.*;
+import org.example.utils.DatabaseConnection;
+import org.example.utils.Login;
 
 public class Game {
     public void gameloop(){
@@ -13,12 +16,12 @@ public class Game {
 
         if (answer.equalsIgnoreCase("Y")) {
 
-            // login(scanner);
-            CurrentUser.getInstance().setCurrentPlayer(new Player(0, null, null, 0, null));
+            login(scanner);
 
             //this is the game logic loop
             new InitialiseRooms();
-            CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName("Start Room"));
+            CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(RoomLoader.getInstance().getCurrentDatabaseRoom());
+            CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
             GameLoop gameLoop = new GameLoop();
             gameLoop.start();
         }
@@ -37,13 +40,16 @@ public class Game {
             System.out.print("Password: ");
             String password = scanner.nextLine();
 
-            // success = Login.login(username, password);
+            success = Login.login(username, password);
+
             if (!success) {
                 System.out.println("Login failed. Please try again.\n");
             }
         }
+
         Player player = CurrentUser.getInstance().getCurrentPlayer();
-        player.setCurrentRoom("Start Room");
+        player.setCurrentRoom(RoomLoader.getInstance().getCurrentDatabaseRoom());
         System.out.println("Welcome, " + player.getUsername() + "!");
     }
+
 }

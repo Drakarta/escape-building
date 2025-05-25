@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.List;
 
-import org.example.classes.rooms.roomTypes.Room;
+import org.example.classes.rooms.roomTypes.*;
 import org.example.classes.singleton.RoomList;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.cells.DoorCell;
