@@ -1,46 +1,22 @@
 package org.example.classes.rooms.roomTypes;
 
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-
-import org.example.classes.questions.QuestionsForm;
-import org.example.classes.questions.QuestionsList;
-import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
-import org.example.classes.rooms.cells.PlayerCell;
+import org.example.classes.singleton.CurrentUser;
 
 public class Room extends RoomTemplate {
-    QuestionsForm questionsForm;
-    RoomLayout roomLayout;
-    public Room(int roomId, String name, RoomLayout roomLayout) {
-        super(roomId, name, roomLayout);
-        ArrayList<QuestionsForm> list = new QuestionsList().getQuestionsListWithRoomID(roomId);
-        Random random = new Random();
-        questionsForm = list.get(random.nextInt(list.size()));
-        roomLayout.setQuestion(questionsForm);
-        this.roomLayout = roomLayout;
-    }
-
-    @Override
-    public void details() {
-
+    public Room(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
+        super(name, description, isLocked, questionCategory, roomLayout);
     }
 
     @Override
     public void displayRoom() {
         System.out.println(getName());
-        super.getRoomLayout().printRoomLayout(new PlayerCell(new Coordinates(2, 2)));
+        getRoomLayout().printRoomLayout(CurrentUser.getInstance().getCurrentPlayer().getPlayerCell());
     }
 
     @Override
     public void question() {
         
-    }
-
-    @Override
-    public RoomLayout getRoomLayout() {
-        return roomLayout;
     }
 }

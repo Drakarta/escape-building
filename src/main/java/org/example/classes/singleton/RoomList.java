@@ -1,7 +1,9 @@
-package org.example.classes.rooms;
+package org.example.classes.singleton;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.classes.rooms.RoomTemplate;
 
 public class RoomList {
     private static volatile RoomList instance;

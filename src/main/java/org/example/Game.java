@@ -3,7 +3,7 @@ package org.example;
 import java.util.Scanner;
 
 import org.example.classes.Player;
-import org.example.utils.*;
+import org.example.classes.singleton.*;
 
 public class Game {
     public void gameloop(){
@@ -13,10 +13,12 @@ public class Game {
 
         if (answer.equalsIgnoreCase("Y")) {
 
-            login(scanner);
+            // login(scanner);
+            CurrentUser.getInstance().setCurrentPlayer(new Player(0, null, null, 0, null));
 
             //this is the game logic loop
             new InitialiseRooms();
+            CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName("Start Room"));
             GameLoop gameLoop = new GameLoop();
             gameLoop.start();
         }
@@ -35,7 +37,7 @@ public class Game {
             System.out.print("Password: ");
             String password = scanner.nextLine();
 
-            success = Login.login(username, password);
+            // success = Login.login(username, password);
             if (!success) {
                 System.out.println("Login failed. Please try again.\n");
             }

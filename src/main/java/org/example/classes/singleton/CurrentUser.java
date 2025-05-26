@@ -1,4 +1,4 @@
-package org.example;
+package org.example.classes.singleton;
 
 import org.example.classes.Player;
 
