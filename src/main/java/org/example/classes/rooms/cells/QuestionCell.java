@@ -25,7 +25,7 @@ public class QuestionCell implements Cell {
         return true;
     }
 
-     @Override
+    @Override
     public void interact(PlayerCell player, RoomLayout room) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Question: " + question);

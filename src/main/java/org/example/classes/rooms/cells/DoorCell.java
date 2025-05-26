@@ -1,6 +1,6 @@
 package org.example.classes.rooms.cells;
 
-import org.example.classes.rooms.RoomTypes;
+import org.example.classes.rooms.RoomLayout;
 
 public class DoorCell implements Cell {
     private Boolean isLocked;
@@ -40,11 +40,12 @@ public class DoorCell implements Cell {
 
     @Override
     public boolean isWalkable() {
-        if (isLocked) {
-            return false;
-        } else {
-            return true;
-        }
+        return !isLocked;
+    }
+
+    @Override
+    public boolean isDoor() {
+        return true;
     }
 
     @Override

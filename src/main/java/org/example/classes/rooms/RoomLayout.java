@@ -14,7 +14,7 @@ public class RoomLayout {
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, String Question, List<DoorCell> doors) {
+    public RoomLayout(int width, int height, String question, List<DoorCell> doors) {
         this.roomLayout = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
@@ -22,30 +22,45 @@ public class RoomLayout {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     row.add(new WallCell());
                 } else if (i == height / 2 && j == width / 2) {
-                    row.add(new QuestionCell(Question));
+                    row.add(new QuestionCell(question));
                 } else {
                     row.add(new EmptyCell());
                 }
             }
             this.roomLayout.add(row);
         }
-        for (DoorCell door : doors) {
-            if (door.getDoorPosition().equals("north")) {
-                roomLayout.get(0).set(width / 2, door);
-            } else if (door.getDoorPosition().equals("south")) {
-                roomLayout.get(height - 1).set(width / 2, door);
-            } else if (door.getDoorPosition().equals("east")) {
-                roomLayout.get(height / 2).set(width - 1, door);
-            } else if (door.getDoorPosition().equals("west")) {
-                roomLayout.get(height / 2).set(0, door);
-            }
-        }
+        placeDoors(doors, width, height);
         this.doors = doors;
         this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
     }
 
+    private void placeDoors(List<DoorCell> doors, int width, int height) {
+        for (DoorCell door : doors) {
+            switch (door.getDoorPosition()) {
+                case "north":
+                    roomLayout.get(0).set(width / 2, door);
+                    break;
+                case "south":
+                    roomLayout.get(height - 1).set(width / 2, door);
+                    break;
+                case "east":
+                    roomLayout.get(height / 2).set(width - 1, door);
+                    break;
+                case "west":
+                    roomLayout.get(height / 2).set(0, door);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     public List<List<Cell>> getRoomLayout() {
         return roomLayout;
+    }
+
+    public Coordinates getSize() {
+        return size;
     }
 
     public void printRoomLayout(PlayerCell player) {
@@ -70,6 +85,10 @@ public class RoomLayout {
         return false;
     }
     return roomLayout.get(y).get(x).isWalkable();
+    }
+
+    public boolean isDoor(int x, int y) {
+        return roomLayout.get(y).get(x).isDoor();
     }
 
     public boolean isInsideBounds(int x, int y) {
