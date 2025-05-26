@@ -1,6 +1,7 @@
 package org.example.classes.rooms.cells;
 
-import org.example.classes.rooms.RoomLayout;
+
+import org.example.classes.questions.QuestionsForm;
 
 public class DoorCell implements Cell {
     private Boolean isLocked;
@@ -40,7 +41,11 @@ public class DoorCell implements Cell {
 
     @Override
     public boolean isWalkable() {
-        return !isLocked;
+        if (isLocked) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override
@@ -49,7 +54,12 @@ public class DoorCell implements Cell {
     }
 
     @Override
-    public void interact(PlayerCell player, RoomLayout room) {
+    public void setQuestion(QuestionsForm question) {
+
+    }
+
+
+    public void interact() {
         if (isLocked) {
             System.out.println("The door is locked.");
         } else {

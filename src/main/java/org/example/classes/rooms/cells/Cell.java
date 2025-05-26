@@ -1,5 +1,6 @@
 package org.example.classes.rooms.cells;
 
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 
 public interface Cell {
@@ -7,4 +8,5 @@ public interface Cell {
     default boolean isWalkable() { return true;} 
     default boolean isInteractive() { return false;}
     default void interact(PlayerCell player, RoomLayout room) {}
+    void setQuestion(QuestionsForm question);
 }
