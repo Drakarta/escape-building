@@ -37,7 +37,7 @@ public class QuestionCell implements Cell {
         return true;
     }
 
-     @Override
+    @Override
     public void interact(PlayerCell player, RoomLayout room) {
         Question questioner = new Question();
         boolean answer = questioner.ask(questiontype, question, questionsOrAnswers);
