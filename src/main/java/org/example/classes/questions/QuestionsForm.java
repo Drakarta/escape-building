@@ -5,14 +5,14 @@ import org.example.classes.hints.DisplayHint;
 import java.util.ArrayList;
 
 public class QuestionsForm {
-    private int belongsToRoomID;
+    private String questionSort;
     private String questionType;
     private String question;
     private ArrayList<String> questionsOrAnswers;
     private ArrayList<DisplayHint> hintList;
 
-    public int getBelongsToRoomID() {
-        return belongsToRoomID;
+    public String getQuestionSort() {
+        return questionSort;
     }
     public ArrayList<String> getQuestionsOrAnswers() {
         return questionsOrAnswers;
@@ -27,8 +27,8 @@ public class QuestionsForm {
         return hintList;
     }
 
-    public QuestionsForm(int belongsToRoomID, String questionType, String question, ArrayList<String> questionsOrAnswers, ArrayList<DisplayHint> hintList){
-        this.belongsToRoomID = belongsToRoomID;
+    public QuestionsForm(String belongsToRoomID, String questionType, String question, ArrayList<String> questionsOrAnswers, ArrayList<DisplayHint> hintList){
+        this.questionSort = belongsToRoomID;
         this.question = question;
         this.questionType = questionType;
         this.questionsOrAnswers = questionsOrAnswers;

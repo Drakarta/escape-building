@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class QuestionsList {
-    protected int belongsToRoomID;
+    protected String questionSort;
     protected String questiontype;
     protected String question;
     protected ArrayList<String> questionOrAnswer = new ArrayList<>();
@@ -18,41 +18,41 @@ public class QuestionsList {
 
     public QuestionsList(){
         // hier nieuw questions aanmaken en toevoegen aan de questionslist
-        belongsToRoomID = 1;
+        questionSort = "dailyStandup";
         questiontype = "openquestion";
         question = "Hoeveel dagen heeft een jaar?";
         questionOrAnswer.add("365");
         hintList.add(new FunnyHint("Een jaar heeft 1 dag minder dan een schrikkeljaar!"));
         hintList.add(new HelpHint("Een jaar heeft 52 weken"));
-        questionslist.add(new QuestionsForm(belongsToRoomID, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
         questionOrAnswer.clear();
         hintList.clear();
 
-        belongsToRoomID = 2;
+        questionSort = "review";
         questionOrAnswer.add("7");
         question = "Hoeveel dagen in een week?";
         questiontype = "openQuestion";
         hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
         hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
-        questionslist.add(new QuestionsForm(belongsToRoomID, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
         questionOrAnswer.clear();
         hintList.clear();
     }
 
-    public ArrayList<QuestionsForm> getQuestionsListWithRoomID(int roomID) {
+    public ArrayList<QuestionsForm> getQuestionsListWithQuestionSort(String questionSort) {
         ArrayList<QuestionsForm> tempRoomList = new ArrayList<>();
         for (QuestionsForm q : questionslist){
-            if (q.getBelongsToRoomID() == roomID){
+            if (q.getQuestionSort() == questionSort){
                 tempRoomList.add(q);
             }
         }
         return tempRoomList;
     }
 
-    public QuestionsForm getRandomQuestionWithRoomID(int roomID) {
+    public QuestionsForm getRandomQuestionWithQuestionSort(String questionSort) {
         ArrayList<QuestionsForm> tempRoomList = new ArrayList<>();
         for (QuestionsForm q : questionslist){
-            if (q.getBelongsToRoomID() == roomID){
+            if (q.getQuestionSort() == questionSort){
                 tempRoomList.add(q);
             }
         }
