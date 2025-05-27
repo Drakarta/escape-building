@@ -35,17 +35,17 @@ public class PlayerMovement {
             case "d": 
                 dx = 1; 
                 break;
-            // case "e":
-            //     interact();
-            //     return;
-            // case "q":
-            //     System.exit(0);
-            //     return;
-            // case "status":
-            //     Status status = new Status();
-            //     String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
-            //     System.out.println(currentState);
-            //     break;
+             case "e":
+                 interact();
+                 return;
+             case "q":
+                 System.exit(0);
+                 return;
+             case "status":
+                 Status status = new Status();
+                 String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
+                 System.out.println(currentState);
+                 break;
             default:
                 break;
         }
@@ -105,23 +105,23 @@ public class PlayerMovement {
     }
 
 
-    // private void interact() {
-    //     int x = player.getCoordinates().getX();
-    //     int y = player.getCoordinates().getY();
+     private void interact() {
+         int x = player.getCoordinates().getX();
+         int y = player.getCoordinates().getY();
 
-    //     // Try interaction with adjacent cells
-    //     int[][] directions = {{0,-1},{0,1},{-1,0},{1,0}};
-    //     for (int[] dir : directions) {
-    //         int nx = x + dir[0];
-    //         int ny = y + dir[1];
+         // Try interaction with adjacent cells
+         int[][] directions = {{0,-1},{0,1},{-1,0},{1,0}};
+         for (int[] dir : directions) {
+             int nx = x + dir[0];
+             int ny = y + dir[1];
 
-    //         if (room.getRoomLayout().isInsideBounds(nx, ny)) {
-    //             var cell = room.getRoomLayout().getCell(nx, ny);
-    //             if (cell.isInteractive()) {
-    //                 cell.interact(player, room);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    // }
+             if (room.isInsideBounds(nx, ny)) {
+                 var cell = room.getCell(nx, ny);
+                 if (cell.isInteractive()) {
+                     cell.interact(player, room);
+                     break;
+                 }
+             }
+         }
+     }
 }

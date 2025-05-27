@@ -3,8 +3,10 @@ package org.example;
 import java.util.Scanner;
 
 import org.example.classes.Status;
+import org.example.classes.rooms.DoorLink;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
+import org.example.classes.singleton.DoorList;
 import org.example.classes.singleton.RoomList;
 
 
@@ -33,7 +35,7 @@ public class GameLoop {
 
     public void handleInput(String input) {
         switch (input.toLowerCase()) {
-            case "w", "a", "s", "d":
+            case "w", "a", "s", "d", "e":
                 CurrentRoom.getInstance().getCurrentRoom().getPlayerMovement(input);
                 break;
             case "status":
@@ -41,6 +43,16 @@ public class GameLoop {
                 String currentStatus = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
                 System.out.println(currentStatus);
                 break;
+            case "doorlist":
+                for (DoorLink doorLink : DoorList.getInstance().getAllDoorLinks()) {
+                    System.out.printf("Door from '%s' to '%s' [%s] - Locked: %s%n",
+                            doorLink.getSourceRoom(),
+                            doorLink.getTargetRoom(),
+                            doorLink.getDoor().getDoorPosition(),
+                            doorLink.getDoor().isLocked());
+                }
+                break;
+
             default:
                 break;
         }
