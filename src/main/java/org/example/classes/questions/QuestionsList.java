@@ -42,7 +42,7 @@ public class QuestionsList {
     public ArrayList<QuestionsForm> getQuestionsListWithQuestionSort(String questionSort) {
         ArrayList<QuestionsForm> tempRoomList = new ArrayList<>();
         for (QuestionsForm q : questionslist){
-            if (q.getQuestionSort() == questionSort){
+            if (q.getQuestionSort().equalsIgnoreCase(questionSort)){
                 tempRoomList.add(q);
             }
         }
@@ -50,13 +50,8 @@ public class QuestionsList {
     }
 
     public QuestionsForm getRandomQuestionWithQuestionSort(String questionSort) {
-        ArrayList<QuestionsForm> tempRoomList = new ArrayList<>();
-        for (QuestionsForm q : questionslist){
-            if (q.getQuestionSort() == questionSort){
-                tempRoomList.add(q);
-            }
-        }
+        ArrayList<QuestionsForm> tempRoomList = getQuestionsListWithQuestionSort(questionSort);
         Random random = new Random();
-        return tempRoomList.get(random.nextInt(questionslist.size()));
+        return tempRoomList.get(random.nextInt(questionslist.size() - 1));
     }
 }

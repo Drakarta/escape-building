@@ -12,9 +12,6 @@ import org.example.classes.rooms.RoomLayout;
 public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
 
-    public void setQuestionsForm(ArrayList<Integer> questionCoordinates, RoomLayout roomLayout) {
-        this.questionsForm = questionsForm;
-    }
 
     @Override
     public String printIcon() {
@@ -61,16 +58,19 @@ public class QuestionCell implements Cell {
              Scanner sc = new Scanner(System.in);
              String hintYN = sc.nextLine();
              if (hintYN.equalsIgnoreCase("Y")){
-                 Random random = new Random();
-                 ArrayList<DisplayHint> hints = questionsForm.getHints();
-                 questionsForm.getHints().getFirst().getHintText();
-                 if (hints.isEmpty()) {
-                     System.out.println("No hints available.");
-                 } else {
-                     DisplayHint chosenHint = hints.get(random.nextInt(hints.size()));
-                     System.out.println(chosenHint.getHintText());
-                 }
+                 displayHint();
              }
+         }
+     }
+     public void displayHint(){
+         Random random = new Random();
+         ArrayList<DisplayHint> hints = questionsForm.getHints();
+         questionsForm.getHints().getFirst().getHintText();
+         if (hints.isEmpty()) {
+             System.out.println("No hints available.");
+         } else {
+             DisplayHint chosenHint = hints.get(random.nextInt(hints.size()));
+             System.out.println(chosenHint.getHintText());
          }
      }
 

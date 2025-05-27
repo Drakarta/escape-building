@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.classes.questions.QuestionsForm;
+import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.cells.*;
 
 public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private List<DoorCell> doors;
     private Coordinates size;
-    private ArrayList<Integer> questionCoordinates = new ArrayList<>();
+    private String questionsSort;
+    private QuestionsForm question;
 
 
     public RoomLayout(List<List<Cell>> roomLayout) {
@@ -20,6 +22,7 @@ public class RoomLayout {
 
     public RoomLayout(int width, int height, String questionsSort, List<DoorCell> doors) {
         this.roomLayout = new ArrayList<>();
+        this.questionsSort = questionsSort;
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
@@ -27,8 +30,7 @@ public class RoomLayout {
                     row.add(new WallCell());
                 } else if (i == height / 2 && j == width / 2) {
                     row.add(new QuestionCell());
-                    questionCoordinates.add(i);
-                    questionCoordinates.add(j);
+                    setQuestion(questionsSort, i, j);
                 } else {
                     row.add(new EmptyCell());
                 }
@@ -102,7 +104,13 @@ public class RoomLayout {
     }
 
 
-    public void setQuestion(QuestionsForm question){
-        getCell(questionCoordinates.getFirst(), questionCoordinates.getLast()).setQuestion(question);
+    public void setQuestion(String questionsSort,int xCoordinate, int yCoordinate){
+        QuestionsList list = new QuestionsList();
+        this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
+        getCell(xCoordinate -1, yCoordinate -1).setQuestion(question);
+    }
+
+    public QuestionsForm getQuestion() {
+        return question;
     }
 }
