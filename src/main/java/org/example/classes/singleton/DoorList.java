@@ -11,7 +11,7 @@ public class DoorList {
     private final List<DoorLink> doorLinks = new ArrayList<>();
 
     // Private constructor prevents instantiation from outside
-    private DoorList() {}
+    public DoorList() {}
 
     // Thread-safe Singleton accessor
     public static DoorList getInstance() {

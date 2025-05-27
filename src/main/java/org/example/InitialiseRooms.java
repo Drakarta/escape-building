@@ -1,25 +1,31 @@
 package org.example;
 
-import java.util.List;
-
-import org.example.classes.rooms.roomTypes.*;
-import org.example.classes.singleton.RoomList;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.cells.DoorCell;
+import org.example.classes.rooms.roomTypes.Room;
+import org.example.classes.singleton.DoorList;
+import org.example.classes.singleton.RoomList;
+
+import java.util.List;
 
 public class InitialiseRooms {
     InitialiseRooms() {
         RoomList roomList = RoomList.getInstance();
+        DoorList doorList = DoorList.getInstance(); // Could be singleton if needed
 
-        RoomLayout startRoomLayout = new RoomLayout(9, 9, "Sample Question", List.of(
-            new DoorCell(true, "north", "Room 2")
-        ));
+        // Start room → Room 2
+        DoorCell doorToRoom2 = new DoorCell(true, "north", "Room 2");
+        RoomLayout startRoomLayout = new RoomLayout(9, 9, "Sample Question", List.of(doorToRoom2));
         Room startRoom = new Room("Start Room", "This is room 1", false, "Category 1", startRoomLayout);
 
-        RoomLayout layout2 = new RoomLayout(9, 9, "Sample Question", List.of(
-            new DoorCell(false,"south", "Start Room")
-        ));
+        doorList.addDoor("Start Room", "Room 2", doorToRoom2);
+
+        // Room 2 → Start room
+        DoorCell doorToStartRoom = new DoorCell(true, "south", "Start Room");
+        RoomLayout layout2 = new RoomLayout(9, 9, "Sample Question", List.of(doorToStartRoom));
         Room room2 = new Room("Room 2", "This is room 2", false, "Category 2", layout2);
+
+        doorList.addDoor("Room 2", "Start Room", doorToStartRoom);
 
         roomList.addRoom(startRoom);
         roomList.addRoom(room2);
