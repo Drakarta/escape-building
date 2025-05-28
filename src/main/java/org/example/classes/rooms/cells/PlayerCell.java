@@ -1,5 +1,6 @@
 package org.example.classes.rooms.cells;
 
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.Coordinates;
 
 public class PlayerCell implements Cell {
@@ -22,4 +23,7 @@ public class PlayerCell implements Cell {
         this.coordinates.setX(x);
         this.coordinates.setY(y);
     }
+
+    @Override
+    public void setQuestion(QuestionsForm question) {}
 }

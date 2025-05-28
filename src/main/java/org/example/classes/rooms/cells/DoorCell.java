@@ -1,5 +1,6 @@
 package org.example.classes.rooms.cells;
 
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 
 public class DoorCell implements Cell {
@@ -52,6 +53,9 @@ public class DoorCell implements Cell {
     public boolean isInteractive() {
         return true;
     }
+
+    @Override
+    public void setQuestion(QuestionsForm question) {}
 
     @Override
     public void interact(PlayerCell player, RoomLayout room) {
