@@ -1,13 +1,19 @@
 package org.example.classes.jokers;
 
 import org.example.classes.rooms.RoomTemplate;
-import org.example.classes.rooms.roomTypes.Room;
 
 public abstract class Joker {
-    public void useJoker(RoomTemplate room){
-        if (room.getDescription().equalsIgnoreCase("This is room 1") || room.getDescription().equalsIgnoreCase("Review")){
+    public final void useJoker(RoomTemplate room) {
+        if (canUseInRoom(room)) {
+            applyEffect(room);
         } else {
-            System.out.println("Cant use this joker here!");
+            System.out.println("Can't use this joker here!");
         }
     }
+
+    protected boolean canUseInRoom(RoomTemplate room) {
+        return true;
+    }
+
+    protected abstract void applyEffect(RoomTemplate room);
 }
