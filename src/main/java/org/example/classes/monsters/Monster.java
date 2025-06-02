@@ -1,17 +1,21 @@
 package org.example.classes.monsters;
 
-import org.example.classes.Item;
+import org.example.classes.combat.LootTable;
+import org.example.classes.items.Item;
 
 public abstract class Monster {
     private String name;
     private String description;
     private int hp;
+    private int attackDamage;
     private Item loot;
+    private LootTable lootTable;
 
-    public Monster(String name, String description, int hp, Item loot){
+    public Monster(String name, String description, int hp, int attackDamage, Item loot){
         this.name = name;
         this.description = description;
         this.hp = hp;
+        this.attackDamage = attackDamage;
         this.loot = loot;
     }
     public void displayInfo(){
@@ -34,6 +38,10 @@ public abstract class Monster {
         return description;
     }
 
+    public int getAttackDamage() {
+        return attackDamage;
+    }
+
     public void setHp(int hp) {
         this.hp = hp;
     }
@@ -41,10 +49,20 @@ public abstract class Monster {
         return hp;
     }
 
-    public void setLoot(Item loot) {
-        this.loot = loot;
+    public boolean isAlive() {
+        return hp > 0;
     }
-    public Item getLoot() {
-        return loot;
+
+    public void takeDamage(int damage) {
+        hp -= damage;
+        System.out.println(name + " takes " + damage + " damage.");
+    }
+
+    public void setLootTable(LootTable lootTable) {
+        this.lootTable = lootTable;
+    }
+
+    public Item rollLoot() {
+        return lootTable != null ? lootTable.rollLoot() : null;
     }
 }

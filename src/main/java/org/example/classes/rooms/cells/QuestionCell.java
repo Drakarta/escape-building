@@ -30,7 +30,7 @@ public class QuestionCell implements Cell {
     @Override
     public void interact(PlayerCell player, RoomLayout room) {
     if (questionsForm == null) {
-        System.err.println("⚠️ No question assigned to this cell.");
+        System.err.println("No question assigned to this cell.");
         return;
     }
 

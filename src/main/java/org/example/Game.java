@@ -7,6 +7,8 @@ import org.example.classes.rooms.RoomLoader;
 import org.example.classes.singleton.*;
 import org.example.utils.DatabaseConnection;
 import org.example.utils.Login;
+import org.example.classes.items.weapons.*;
+import org.example.classes.items.armor.*;
 
 public class Game {
     public void gameloop(){
@@ -17,7 +19,9 @@ public class Game {
         if (answer.equalsIgnoreCase("Y")) {
 
             login(scanner);
-
+            CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new Sword("Wooden sword", 999, 999));
+            CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new Armor("Leather armor", 3, 5));
+            CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new Armor("Chainmail armor", 3, 4));
             //this is the game logic loop
             new InitialiseRooms();
             CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(RoomLoader.getInstance().getCurrentDatabaseRoom());
