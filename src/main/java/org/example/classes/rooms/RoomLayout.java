@@ -40,7 +40,6 @@ public class RoomLayout {
         this.roomLayout.add(row);
     }
 
-    // Now it's safe to set the question
     setQuestion(questionsSort, centerX, centerY);
 
     placeDoors(doors, width, height);

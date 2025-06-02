@@ -1,14 +1,18 @@
 package org.example.classes;
 
 
+import org.example.classes.rooms.DoorLink;
 import org.example.classes.rooms.cells.DoorCell;
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
+import org.example.classes.singleton.DoorList;
 import org.example.classes.singleton.RoomList;
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
+
+import java.util.Scanner;
 
 public class PlayerMovement {
     private final PlayerCell player;
@@ -37,17 +41,26 @@ public class PlayerMovement {
                 break;
             case "e":
                 interact();
-                return;
+                break;
             case "q":
                 System.exit(0);
-                return;
+                break;
             case "status":
-                Status status = new Status();
-                String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
-                System.out.println(currentState);
+                Player statusPlayer = CurrentUser.getInstance().getCurrentPlayer();
+                System.out.println("Username: " + statusPlayer.getUsername() + "\n" + "Current Room: " + statusPlayer.getCurrentRoom() + "\n" + "Hp: " + statusPlayer.getHp());
                 break;
             case "inventory":
-                CurrentUser.getInstance().getCurrentPlayer().getInventory().printInventory(CurrentUser.getInstance().getCurrentPlayer());
+                inventory();
+                break;
+            case "doorlist":
+                for (DoorLink doorLink : DoorList.getInstance().getAllDoorLinks()) {
+                    System.out.printf("Door from '%s' to '%s' [%s] - Locked: %s%n",
+                    doorLink.getSourceRoom(),
+                    doorLink.getTargetRoom(),
+                    doorLink.getDoor().getDoorPosition(),
+                    doorLink.getDoor().isLocked());
+                }
+                break;
             default:
                 break;
         }
@@ -58,32 +71,50 @@ public class PlayerMovement {
         if (room.isWalkable(newX, newY)) {
             player.setCoordinates(newX, newY);
             if (room.isDoor(newX, newY)) {
-                Coordinates coordinates = new Coordinates(newX, newY);
-                if (coordinates.getY() == 0) {
-                    RoomChange("north");
-                } else if (coordinates.getY() == room.getSize().getY() - 1) {
-                    RoomChange("south");
-                } else if (coordinates.getX() == 0) {
-                    RoomChange("west");
-                } else if (coordinates.getX() == room.getSize().getX() - 1) {
-                    RoomChange("east");
+                if (newY == 0) {
+                    roomChange("north");
+                } else if (newY == room.getSize().getY() - 1) {
+                    roomChange("south");
+                } else if (newX == 0) {
+                    roomChange("west");
+                } else if (newX == room.getSize().getX() - 1) {
+                    roomChange("east");
                 }
             }
         }        
     }
 
-    private void RoomChange(String direction) {
+
+    private void inventory() {
+        while (true) {
+            Player currentPlayer = CurrentUser.getInstance().getCurrentPlayer();
+            currentPlayer.getInventory().printInventory(currentPlayer);
+            System.out.println("Type 'equip <#>' to equip, or 'back' to exit inventory.");
+            Scanner scanner = new Scanner(System.in);
+            String invInput = scanner.nextLine().trim().toLowerCase();
+
+            if (invInput.startsWith("equip ")) {
+                try {
+                    int num = Integer.parseInt(invInput.split(" ")[1]);
+                    currentPlayer.equipItemByNumber(num);
+                } catch (Exception e) {
+                    System.out.println("Invalid command. Try 'equip 1'");
+                }
+            } else if (invInput.equals("back")) {
+                break;
+            } else {
+                System.out.println("Unknown command. Try 'equip <#>' or 'back'.");
+            }
+        }
+    }
+    private void roomChange(String direction) {
         for (DoorCell door : room.getDoors()) {
             if (door.getDoorPosition().equals(direction)) {
                 RoomTemplate nextRoom = RoomList.getInstance().getRoomByName(door.getToRoom());
 
-                // 🔄 Update current room in the CurrentUser
                 CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(door.getToRoom());
-
-                // 🔄 Update singleton CurrentRoom
                 CurrentRoom.getInstance().setCurrentRoom(nextRoom);
 
-                // Reposition the player based on entry direction
                 Coordinates nextRoomSize = nextRoom.getRoomLayout().getSize();
                 switch (direction) {
                     case "north":
@@ -116,13 +147,10 @@ public class PlayerMovement {
          for (int[] dir : directions) {
              int nx = x + dir[0];
              int ny = y + dir[1];
-
-             if (room.isInsideBounds(nx, ny)) {
-                 var cell = room.getCell(nx, ny);
-                 if (cell.isInteractive()) {
-                     cell.interact(player, room);
-                     break;
-                 }
+             var cell = room.getCell(nx, ny);
+             if (cell.isInteractive()) {
+                 cell.interact(player, room);
+                 break;
              }
          }
      }

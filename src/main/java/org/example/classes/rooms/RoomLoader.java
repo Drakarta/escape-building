@@ -23,8 +23,7 @@ public class RoomLoader {
 
         List<Map<String, String>> result = (List<Map<String, String>>) DatabaseConnection.execute(query);
 
-        // Get the first result row
-        Map<String, String> row = result.get(0);
+        Map<String, String> row = result.getFirst();
 
         System.out.println(row.get("currentRoom"));
         return row.get("currentRoom");

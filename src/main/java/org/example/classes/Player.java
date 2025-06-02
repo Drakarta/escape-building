@@ -16,8 +16,8 @@ public class Player {
     private String username;
     private int hp;
     private String currentRoom;
-    private PlayerCell playerCell;
-    private Inventory inventory;
+    private PlayerCell playerCell = new PlayerCell(new Coordinates(1, 1));
+    private Inventory inventory = new Inventory();
     private WeaponBase equippedWeapon;
     private ArmorBase equippedArmor;
 
@@ -28,18 +28,8 @@ public class Player {
         this.username = username;
         this.hp = hp;
         this.currentRoom = currentRoom2;
-        this.playerCell = new PlayerCell(new Coordinates(2, 2));
-        this.inventory = new Inventory();
     }
-    public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell playerCell) {
-        this.id = id;
-        this.name = name;
-        this.username = username;
-        this.hp = hp;
-        this.currentRoom = currentRoom2;
-        this.playerCell = playerCell;
-        this.inventory = new Inventory();
-    }
+
 
     public void equipWeapon(WeaponBase weapon) {
         this.equippedWeapon = weapon;
@@ -50,57 +40,52 @@ public class Player {
         return equippedWeapon;
     }
 
-    public void useEquippedWeapon() {
-        if (equippedWeapon == null) {
-            System.out.println("No weapon equipped.");
-            return;
-        }
 
-        boolean used = equippedWeapon.use();
-        if (used) {
-            System.out.println("You used " + equippedWeapon.getName() + ". Remaining durability: " + equippedWeapon.getDurability());
-        } else {
-            System.out.println(equippedWeapon.getName() + " is broken!");
-        }
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setId(int id) {this.id = id;}
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
 
-    public void setUsername(String username){
+    public void setUsername(String username) {
         this.username = username;
     }
-    public String getUsername(){
+
+    public String getUsername() {
         return this.username;
     }
 
-    public void setHp(int hp){
+    public void setHp(int hp) {
         this.hp = hp;
     }
-    public int getHp(){
+
+    public int getHp() {
         return this.hp;
     }
 
-    public void setCurrentRoom(String currentRoom){
+    public void setCurrentRoom(String currentRoom) {
         this.currentRoom = currentRoom;
     }
-    public String getCurrentRoom(){
+
+    public String getCurrentRoom() {
         return this.currentRoom;
     }
 
-    public void setPlayerCell(PlayerCell playerCell){
+    public void setPlayerCell(PlayerCell playerCell) {
         this.playerCell = playerCell;
     }
-    public PlayerCell getPlayerCell(){
+
+    public PlayerCell getPlayerCell() {
         return this.playerCell;
     }
 
@@ -118,21 +103,23 @@ public class Player {
     }
 
     public void equipItemByNumber(int index) {
-    List<Item> items = inventory.getItems();
-    if (index < 1 || index > items.size()) {
-        System.out.println("Invalid item number.");
-        return;
+        List<Item> items = inventory.getItems();
+        if (index < 1 || index > items.size()) {
+            System.out.println("Invalid item number.");
+            return;
+        }
+
+        Item item = items.get(index - 1);
+
+        switch (item) {
+            case WeaponBase weapon:
+                equipWeapon(weapon);
+                break;
+            case ArmorBase armor:
+                equipArmor(armor);
+                break;
+            default:
+                System.out.println("You can't equip that item.");
+        }
     }
-
-    Item item = items.get(index - 1);
-
-    if (item instanceof WeaponBase weapon) {
-        equipWeapon(weapon);
-    } else if (item instanceof ArmorBase armor) {
-        equipArmor(armor);
-    } else {
-        System.out.println("You can't equip that item.");
-    }
-}
-
 }

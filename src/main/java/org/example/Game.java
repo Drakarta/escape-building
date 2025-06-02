@@ -24,8 +24,6 @@ public class Game {
             CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new Armor("Chainmail armor", 3, 4));
             //this is the game logic loop
             new InitialiseRooms();
-            CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(RoomLoader.getInstance().getCurrentDatabaseRoom());
-            CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
             GameLoop gameLoop = new GameLoop();
             gameLoop.start();
         }
@@ -53,6 +51,8 @@ public class Game {
 
         Player player = CurrentUser.getInstance().getCurrentPlayer();
         player.setCurrentRoom(RoomLoader.getInstance().getCurrentDatabaseRoom());
+        CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(player.getCurrentRoom()));
+
         System.out.println("Welcome, " + player.getUsername() + "!");
     }
 

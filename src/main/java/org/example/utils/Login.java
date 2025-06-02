@@ -4,8 +4,6 @@ package org.example.utils;
 import java.util.List;
 import java.util.Map;
 
-import org.example.classes.rooms.Coordinates;
-import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.Player;
 
@@ -23,16 +21,10 @@ public class Login {
         }
 
         // Get the first result row
-        Map<String, String> row = result.get(0);
-
-        // Build a Player object
+        Map<String, String> row = result.getFirst();
 
 
-        // Optional: set player ID if needed
-        // player.setId(Integer.parseInt(row.get("id")));
-
-        // Set the player in the singleton
-        CurrentUser.getInstance().setCurrentPlayer(new Player(1, row.get("name"), row.get("username"), Integer.parseInt(row.get("hp")), row.get("currentRoom"), new PlayerCell(new Coordinates(1, 1))));
+        CurrentUser.getInstance().setCurrentPlayer(new Player(Integer.parseInt(row.get("id")), row.get("name"), row.get("username"), Integer.parseInt(row.get("hp")), row.get("currentRoom")));
         return true;
     }
 }
