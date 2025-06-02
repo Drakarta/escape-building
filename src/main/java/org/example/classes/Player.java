@@ -1,11 +1,16 @@
 package org.example.classes;
 
-import org.example.classes.rooms.Coordinates;
+import jakarta.persistence.*;
 
+import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.cells.PlayerCell;
 
+@Entity
+@Table(name = "players")
 public class Player {
+    @Column(name = "id")
     private int id;
+
     private String name;
     private String username;
     private int hp;

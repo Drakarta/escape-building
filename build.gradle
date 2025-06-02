@@ -14,11 +14,14 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    // SQLite driver
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
 
-    // https://mvnrepository.com/artifact/at.favre.lib/bcrypt
+    // BCrypt for password hashing
     implementation("at.favre.lib:bcrypt:0.10.2")
+
+    // JPA and Hibernate
+    implementation("org.hibernate.orm:hibernate-core:7.0.0.Final")
 }
 
 test {
