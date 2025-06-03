@@ -19,8 +19,7 @@ public class CombatLoop {
     }
 
     public void startCombat() {
-        //monster.displayInfo();
-
+        monster.printName();
         while (player.getHp() > 0 && monster.isAlive()) {
             System.out.println("\n--- Your Turn ---");
             System.out.println("1. Attack");
@@ -59,43 +58,52 @@ public class CombatLoop {
             }
 
             if (!monster.isAlive()) {
-                System.out.println("You defeated the " + monster.getName() + "!");
-
-                Item loot = monster.rollLoot();
-                if (loot != null) {
-                    System.out.println("You received: " + loot.getName());
-                    player.getInventory().addItem(loot);
-                } else {
-                    System.out.println("The monster dropped nothing.");
-                }
+                killedMonster();
                 return;
             }
 
-            // Monster's turn
-            System.out.println("\n--- " + monster.getName() + "'s Turn ---");
-            int damage = monster.getAttackDamage();
-            ArmorBase armor = player.getEquippedArmor();
-            int reducedDamage = damage;
+            monsterTurn();
+        }
+    }
 
-            if (armor != null && armor.getDurability() > 0) {
-                boolean stillEffective = armor.use();
-                if (stillEffective) {
-                    reducedDamage -= armor.getShield();
-                    if (reducedDamage < 0) reducedDamage = 0;
-                        System.out.println("Your armor blocks " + armor.getShield() + " damage!");
-                    System.out.println("Armor durability left: " + armor.getDurability());
-                } else {
-                    System.out.println("Your armor is broken!");
+    protected void monsterTurn(){
+        System.out.println("\n--- " + monster.getName() + "'s Turn ---");
+        int damage = monster.getAttackDamage();
+        ArmorBase armor = player.getEquippedArmor();
+        int reducedDamage = damage;
+
+        if (armor != null && armor.getDurability() > 0) {
+            boolean stillEffective = armor.use();
+            if (stillEffective) {
+                reducedDamage -= armor.getShield();
+                if (reducedDamage < 0) {
+                    reducedDamage = 0;
+                    System.out.println("Your armor blocks " + armor.getShield() + " damage!");
                 }
+                System.out.println("Armor durability left: " + armor.getDurability());
+            } else {
+                System.out.println("Your armor is broken!");
             }
+        }
 
-            player.setHp(player.getHp() - reducedDamage);
-            System.out.println(monster.getName() + " hits you for " + reducedDamage + " damage. Your HP: " + Math.max(player.getHp(), 0));
+        player.setHp(player.getHp() - reducedDamage);
+        System.out.println(monster.getName() + " hits you for " + reducedDamage + " damage. Your HP: " + Math.max(player.getHp(), 0));
 
 
-            if (player.getHp() <= 0) {
-                System.out.println("You died!");
-            }
+        if (player.getHp() <= 0) {
+            System.out.println("You died!");
+        }
+    }
+
+    protected void killedMonster(){
+        System.out.println("You defeated the " + monster.getName() + "!");
+
+        Item loot = monster.rollLoot();
+        if (loot != null) {
+            System.out.println("You received: " + loot.getName());
+            player.getInventory().addItem(loot);
+        } else {
+            System.out.println("The monster dropped nothing.");
         }
     }
 }

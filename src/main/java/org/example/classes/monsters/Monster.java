@@ -11,7 +11,7 @@ public abstract class Monster {
     private Item loot;
     private LootTable lootTable;
 
-    public Monster(String name, String description, int hp, int attackDamage, Item loot){
+    protected Monster(String name, String description, int hp, int attackDamage, Item loot){
         this.name = name;
         this.description = description;
         this.hp = hp;
@@ -19,11 +19,15 @@ public abstract class Monster {
         this.loot = loot;
     }
     public void displayInfo(){
-        System.out.println("You are facing: " + name);
+        printName();
         System.out.println("It can be described as: " + description);
         System.out.println("It seems to have " + hp + " hp left");
         System.out.println("You have a gut feeling defeating it will give you " + loot.getName());
     }
+    public void printName(){
+        System.out.println("You are facing: " + name);
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -2,7 +2,7 @@ package org.example.classes.items.armor;
 
 import org.example.classes.items.Item;
 
-public abstract class ArmorBase extends Item {
+public class ArmorBase extends Item {
     protected int durability;
     protected double shield;
 

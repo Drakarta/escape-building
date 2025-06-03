@@ -6,7 +6,7 @@ public abstract class PotionBase extends Item {
     protected String effectDescription;
     protected int potency; // e.g. healing amount or effect strength
 
-    public PotionBase(String name, String effectDescription, int potency) {
+    protected PotionBase(String name, String effectDescription, int potency) {
         super(name);
         this.effectDescription = effectDescription;
         this.potency = potency;

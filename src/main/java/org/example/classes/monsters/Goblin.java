@@ -1,8 +1,8 @@
 package org.example.classes.monsters;
 
 import org.example.classes.combat.LootTable;
-import org.example.classes.items.armor.*;
-import org.example.classes.items.weapons.Sword;;
+import org.example.classes.items.armor.ArmorBase;
+import org.example.classes.items.weapons.WeaponBase;
 
 public class Goblin extends Monster {
     public Goblin() {
@@ -11,8 +11,8 @@ public class Goblin extends Monster {
 
     private LootTable createGoblinLoot() {
         LootTable lootTable = new LootTable();
-        lootTable.addLoot(new Sword("Wooden dagger", 10, 3), 0.8); // 50% chance
-        lootTable.addLoot(new Armor("Leather armor", 8, 3), 0.2); // 20% chance
+        lootTable.addLoot(new WeaponBase("Wooden dagger", 10, 3), 0.8); // 50% chance
+        lootTable.addLoot(new ArmorBase("Leather armor", 8, 3), 0.2); // 20% chance
         return lootTable;
     }
 }

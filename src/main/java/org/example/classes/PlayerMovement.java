@@ -42,9 +42,6 @@ public class PlayerMovement {
             case "e":
                 interact();
                 break;
-            case "q":
-                System.exit(0);
-                break;
             case "status":
                 Player statusPlayer = CurrentUser.getInstance().getCurrentPlayer();
                 System.out.println("Username: " + statusPlayer.getUsername() + "\n" + "Current Room: " + statusPlayer.getCurrentRoom() + "\n" + "Hp: " + statusPlayer.getHp());

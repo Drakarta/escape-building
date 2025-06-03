@@ -6,9 +6,11 @@ import org.example.classes.items.Inventory;
 import org.example.classes.items.Item;
 import org.example.classes.items.armor.ArmorBase;
 import org.example.classes.items.weapons.WeaponBase;
+import org.example.classes.jokers.Joker;
 import org.example.classes.rooms.Coordinates;
 
 import org.example.classes.rooms.cells.PlayerCell;
+import org.example.classes.singleton.CurrentRoom;
 
 public class Player {
     private int id;
@@ -35,16 +37,13 @@ public class Player {
         this.equippedWeapon = weapon;
         System.out.println("You have equipped: " + weapon.getName());
     }
-
     public WeaponBase getEquippedWeapon() {
         return equippedWeapon;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }
-
     public int getId() {
         return this.id;
     }
@@ -52,7 +51,6 @@ public class Player {
     public void setName(String name) {
         this.name = name;
     }
-
     public String getName() {
         return this.name;
     }
@@ -60,7 +58,6 @@ public class Player {
     public void setUsername(String username) {
         this.username = username;
     }
-
     public String getUsername() {
         return this.username;
     }
@@ -68,7 +65,6 @@ public class Player {
     public void setHp(int hp) {
         this.hp = hp;
     }
-
     public int getHp() {
         return this.hp;
     }
@@ -76,7 +72,6 @@ public class Player {
     public void setCurrentRoom(String currentRoom) {
         this.currentRoom = currentRoom;
     }
-
     public String getCurrentRoom() {
         return this.currentRoom;
     }
@@ -84,7 +79,6 @@ public class Player {
     public void setPlayerCell(PlayerCell playerCell) {
         this.playerCell = playerCell;
     }
-
     public PlayerCell getPlayerCell() {
         return this.playerCell;
     }
@@ -117,6 +111,9 @@ public class Player {
                 break;
             case ArmorBase armor:
                 equipArmor(armor);
+                break;
+            case Joker joker:
+                joker.useJoker(CurrentRoom.getInstance().getCurrentRoom());
                 break;
             default:
                 System.out.println("You can't equip that item.");

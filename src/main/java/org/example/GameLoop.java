@@ -9,9 +9,7 @@ import org.example.classes.singleton.RoomList;
 
 public class GameLoop {
     Scanner scanner = new Scanner(System.in);
-    public GameLoop() {
 
-    }
 
     public void start() {
         
@@ -20,7 +18,7 @@ public class GameLoop {
             CurrentRoom.getInstance().getCurrentRoom().displayRoom();
 
             String input = scanner.nextLine().trim();
-            handleInput(input);
+            CurrentRoom.getInstance().getCurrentRoom().getPlayerMovement(input);
             
             if (input.equalsIgnoreCase("quit")) {
                 System.out.println("Goodbye!");
@@ -28,10 +26,6 @@ public class GameLoop {
             }
         }
         scanner.close();
-    }
-
-    public void handleInput(String input) {
-        CurrentRoom.getInstance().getCurrentRoom().getPlayerMovement(input);
     }
 }
 

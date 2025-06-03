@@ -39,8 +39,8 @@ public class RoomLayout {
         }
         this.roomLayout.add(row);
     }
-
     setQuestion(questionsSort, centerX, centerY);
+
 
     placeDoors(doors, width, height);
     this.doors = doors;
@@ -53,7 +53,7 @@ public class RoomLayout {
         for (DoorCell door : doors) {
             switch (door.getDoorPosition()) {
                 case "north":
-                    roomLayout.get(0).set(width / 2, door);
+                    roomLayout.getFirst().set(width / 2, door);
                     break;
                 case "south":
                     roomLayout.get(height - 1).set(width / 2, door);
@@ -96,7 +96,7 @@ public class RoomLayout {
         return doors;
     }
     public boolean isWalkable(int x, int y) {
-    if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.get(0).size()) {
+    if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.getFirst().size()) {
         return false;
     }
     return roomLayout.get(y).get(x).isWalkable();
@@ -106,10 +106,6 @@ public class RoomLayout {
         return roomLayout.get(y).get(x).isDoor();
     }
 
-    public boolean isInsideBounds(int x, int y) {
-        return y >= 0 && y < roomLayout.size() &&
-            x >= 0 && x < roomLayout.get(y).size();
-    }
 
     public Cell getCell(int x, int y) {
         return roomLayout.get(y).get(x);
@@ -124,17 +120,8 @@ public class RoomLayout {
         QuestionsList list = new QuestionsList();
         this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
 
-        if (this.question == null) {
-            System.err.println("Failed to set question: No question found for sort = " + questionsSort);
-            return;
-        }
-
         Cell cell = getCell(x, y);
-        if (cell instanceof QuestionCell) {
-            cell.setQuestion(this.question);
-        } else {
-            System.err.println("Expected QuestionCell at (" + x + "," + y + "), found " + cell.getClass().getSimpleName());
-        }
+        cell.setQuestion(this.question);
     }
 
     public QuestionsForm getQuestion() {

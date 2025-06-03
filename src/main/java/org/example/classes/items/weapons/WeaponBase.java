@@ -2,7 +2,7 @@ package org.example.classes.items.weapons;
 
 import org.example.classes.items.Item;
 
-public abstract class WeaponBase extends Item {
+public class WeaponBase extends Item {
     protected int durability;
     protected double damage;
 

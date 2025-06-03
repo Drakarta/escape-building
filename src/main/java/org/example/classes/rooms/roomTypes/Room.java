@@ -5,8 +5,8 @@ import org.example.classes.rooms.RoomTemplate;
 import org.example.classes.singleton.CurrentUser;
 
 public class Room extends RoomTemplate {
-    public Room(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
-        super(name, description, isLocked, questionCategory, roomLayout);
+    public Room(String name, String description, String questionCategory, RoomLayout roomLayout) {
+        super(name, description, questionCategory, roomLayout);
     }
 
     @Override
