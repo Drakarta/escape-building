@@ -1,6 +1,5 @@
 package org.example.classes;
 
-
 import org.example.classes.rooms.DoorLink;
 import org.example.classes.rooms.cells.DoorCell;
 import org.example.classes.rooms.cells.PlayerCell;
@@ -135,20 +134,20 @@ public class PlayerMovement {
     }
 
 
-     private void interact() {
-         int x = player.getCoordinates().getX();
-         int y = player.getCoordinates().getY();
+    private void interact() {
+        int x = player.getCoordinates().getX();
+        int y = player.getCoordinates().getY();
 
-         // Try interaction with adjacent cells
-         int[][] directions = {{0,-1},{0,1},{-1,0},{1,0}};
-         for (int[] dir : directions) {
-             int nx = x + dir[0];
-             int ny = y + dir[1];
-             var cell = room.getCell(nx, ny);
-             if (cell.isInteractive()) {
-                 cell.interact(player, room);
-                 break;
-             }
-         }
-     }
+        // Try interaction with adjacent cells
+        int[][] directions = {{0,-1},{0,1},{-1,0},{1,0}};
+        for (int[] dir : directions) {
+            int nx = x + dir[0];
+            int ny = y + dir[1];
+            var cell = room.getCell(nx, ny);
+            if (cell.isInteractive()) {
+                cell.interact(player, room);
+                break;
+            }
+        }
+    }
 }

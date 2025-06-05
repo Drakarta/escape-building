@@ -10,6 +10,7 @@ import org.example.classes.singleton.*;
 import org.example.utils.Login;
 import org.example.classes.items.weapons.*;
 import org.example.classes.items.armor.*;
+import org.example.classes.items.consumables.scrolls.MonsterInfoScroll;
 
 public class Game {
     Scanner scanner = new Scanner(System.in);
@@ -68,7 +69,6 @@ public class Game {
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new WeaponBase("Wooden sword", 999, 999));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Leather armor", 3, 5));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Chainmail armor", 3, 4));
-
+        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll("", ""));
     }
-
 }

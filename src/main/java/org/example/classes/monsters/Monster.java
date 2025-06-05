@@ -28,6 +28,16 @@ public abstract class Monster {
         System.out.println("You are facing: " + name);
     }
 
+    public void generateLoot() {
+        if (loot == null) {
+            loot = lootTable.rollLoot();
+        }
+    }
+
+    public Item getRolledLoot() {
+        return loot;
+    }
+
     public void setName(String name) {
         this.name = name;
     }

@@ -23,11 +23,19 @@ public class LootTable {
     }
 
     public Item rollLoot() {
-        for (LootEntry entry : entries) {
-            if (random.nextDouble() < entry.dropChance) {
-                return entry.item;
-            }
+    List<Item> possibleLoot = new ArrayList<>();
+    for (LootEntry entry : entries) {
+        if (random.nextDouble() < entry.dropChance) {
+            possibleLoot.add(entry.item);
         }
-        return null; // No loot dropped
     }
+    if (possibleLoot.isEmpty()) {
+        // Fallback: guarantee one drop randomly
+        return entries.get(random.nextInt(entries.size())).item;
+    } else {
+        // Return one of the successful drops
+        return possibleLoot.get(random.nextInt(possibleLoot.size()));
+    }
+}
+
 }
