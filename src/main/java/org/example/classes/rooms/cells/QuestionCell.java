@@ -9,6 +9,7 @@ import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.UnlockDoors;
+import org.example.classes.singleton.CurrentRoom;
 
 public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
@@ -77,10 +78,13 @@ public class QuestionCell implements Cell {
          }
      }
 
-    @Override
     public void setQuestion(QuestionsForm question) {
-        this.questionsForm = question;
+        if (question == null) {
+            System.err.println("Question could not be set, door automatically unlocked");
+            unlockDoors(CurrentRoom.getInstance().getCurrentRoom().getRoomLayout());
+
+        } else {
+            this.questionsForm = question;
+        }
     }
-
-
 }

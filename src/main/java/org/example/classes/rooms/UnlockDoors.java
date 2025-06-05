@@ -8,8 +8,8 @@ public class UnlockDoors {
         for (int y = 0; y < room.getRoomLayout().size(); y++) {
             for (int x = 0; x < room.getRoomLayout().get(y).size(); x++) {
                 Cell cell = room.getCell(x, y);
-                if (cell instanceof DoorCell) {
-                    ((DoorCell) cell).unlock();
+                if (cell instanceof DoorCell doorCell) {
+                    doorCell.unlock();
                 }
             }
         }

@@ -55,9 +55,6 @@ public class DoorCell implements Cell {
     }
 
     @Override
-    public void setQuestion(QuestionsForm question) {}
-
-    @Override
     public void interact(PlayerCell player, RoomLayout room) {
         if (isLocked) {
             System.out.println("The door is locked.");

@@ -23,7 +23,4 @@ public class PlayerCell implements Cell {
         this.coordinates.setX(x);
         this.coordinates.setY(y);
     }
-
-    @Override
-    public void setQuestion(QuestionsForm question) {}
 }
