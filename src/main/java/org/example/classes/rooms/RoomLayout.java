@@ -2,6 +2,8 @@ package org.example.classes.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.cells.*;
 
 public class RoomLayout {
@@ -14,7 +16,7 @@ public class RoomLayout {
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, String question, List<DoorCell> doors) {
+    public RoomLayout(int width, int height, QuestionsForm question) {
         this.roomLayout = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
