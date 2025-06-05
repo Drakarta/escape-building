@@ -24,6 +24,4 @@ public class MonsterCell implements Cell {
         this.coordinates.setY(y);
     }
 
-    @Override
-    public void setQuestion(QuestionsForm question) {}
 }

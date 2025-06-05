@@ -11,43 +11,26 @@ public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private List<DoorCell> doors;
     private Coordinates size;
-    private String questionsSort;
     private QuestionsForm question;
 
     public RoomLayout(List<List<Cell>> roomLayout) {
-        this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
+        this.size = new Coordinates(roomLayout.getFirst().size(), roomLayout.size());
         this.roomLayout = roomLayout;
     }
 
     public RoomLayout(int width, int height, String questionSort, List<DoorCell> doors) {
-    this.questionsSort = questionSort;
-    this.roomLayout = new ArrayList<>();
+        this.roomLayout = new ArrayList<>();
 
-    int centerX = width / 2;
-    int centerY = height / 2;
+        int centerX = width / 2;
+        int centerY = height / 2;
 
-    for (int i = 0; i < height; i++) {
-        List<Cell> row = new ArrayList<>();
-        for (int j = 0; j < width; j++) {
-            if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
-                row.add(new WallCell());
-            } else if (i == centerY && j == centerX) {
-                row.add(new QuestionCell());
-            } else {
-                row.add(new EmptyCell());
-            }
-        }
-        this.roomLayout.add(row);
+        generateRoom(height, width, centerX, centerY);
+        setQuestion(questionSort, centerX, centerY);
+
+        placeDoors(doors, width, height);
+        this.doors = doors;
+        this.size = new Coordinates(width, height);
     }
-    setQuestion(questionsSort, centerX, centerY);
-
-
-    placeDoors(doors, width, height);
-    this.doors = doors;
-    this.size = new Coordinates(width, height);
-}
-
-
 
     private void placeDoors(List<DoorCell> doors, int width, int height) {
         for (DoorCell door : doors) {
@@ -95,6 +78,7 @@ public class RoomLayout {
     public List<DoorCell> getDoors() {
         return doors;
     }
+
     public boolean isWalkable(int x, int y) {
     if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.getFirst().size()) {
         return false;
@@ -106,9 +90,16 @@ public class RoomLayout {
         return roomLayout.get(y).get(x).isDoor();
     }
 
-
     public Cell getCell(int x, int y) {
         return roomLayout.get(y).get(x);
+    }
+
+    public QuestionCell getQuestionCell(int x, int y) {
+        Cell cell = roomLayout.get(y).get(x);
+        if (cell instanceof QuestionCell questionCell){
+            return questionCell;
+        }
+        return null;
     }
 
     public void clearScreen() {
@@ -120,11 +111,27 @@ public class RoomLayout {
         QuestionsList list = new QuestionsList();
         this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
 
-        Cell cell = getCell(x, y);
+        QuestionCell cell = getQuestionCell(x, y);
         cell.setQuestion(this.question);
     }
 
     public QuestionsForm getQuestion() {
         return question;
+    }
+
+    protected void generateRoom(int height, int width, int centerX, int centerY){
+        for (int i = 0; i < height; i++) {
+            List<Cell> row = new ArrayList<>();
+            for (int j = 0; j < width; j++) {
+                if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
+                    row.add(new WallCell());
+                } else if (i == centerY && j == centerX) {
+                    row.add(new QuestionCell());
+                } else {
+                    row.add(new EmptyCell());
+                }
+            }
+            this.roomLayout.add(row);
+        }
     }
 }

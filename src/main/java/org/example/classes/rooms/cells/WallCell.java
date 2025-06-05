@@ -13,6 +13,4 @@ public class WallCell implements Cell {
         return false;
     }
 
-    @Override
-    public void setQuestion(QuestionsForm question) {}
 }

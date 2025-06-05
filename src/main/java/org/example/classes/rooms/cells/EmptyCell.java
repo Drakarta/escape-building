@@ -8,6 +8,4 @@ public class EmptyCell implements Cell {
         return " ";
     }
 
-    @Override
-    public void setQuestion(QuestionsForm question) {}
 }
