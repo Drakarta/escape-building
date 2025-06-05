@@ -4,57 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.example.classes.questions.QuestionsForm;
+import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.cells.*;
 
 public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private List<DoorCell> doors;
     private Coordinates size;
+    private String questionsSort;
+    private QuestionsForm question;
+
 
     public RoomLayout(List<List<Cell>> roomLayout) {
         this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, QuestionsForm question) {
+    public RoomLayout(int width, int height, String questionsSort, List<DoorCell> doors) {
         this.roomLayout = new ArrayList<>();
+        this.questionsSort = questionsSort;
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     row.add(new WallCell());
                 } else if (i == height / 2 && j == width / 2) {
-                    row.add(new QuestionCell(question));
+                    row.add(new QuestionCell());
+                    setQuestion(questionsSort, i, j);
                 } else {
                     row.add(new EmptyCell());
                 }
             }
             this.roomLayout.add(row);
         }
-        placeDoors(doors, width, height);
-        this.doors = doors;
-        this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
-    }
-
-    private void placeDoors(List<DoorCell> doors, int width, int height) {
         for (DoorCell door : doors) {
-            switch (door.getDoorPosition()) {
-                case "north":
-                    roomLayout.get(0).set(width / 2, door);
-                    break;
-                case "south":
-                    roomLayout.get(height - 1).set(width / 2, door);
-                    break;
-                case "east":
-                    roomLayout.get(height / 2).set(width - 1, door);
-                    break;
-                case "west":
-                    roomLayout.get(height / 2).set(0, door);
-                    break;
-                default:
-                    break;
+            if (door.getDoorPosition().equals("north")) {
+                roomLayout.get(0).set(width / 2, door);
+            } else if (door.getDoorPosition().equals("south")) {
+                roomLayout.get(height - 1).set(width / 2, door);
+            } else if (door.getDoorPosition().equals("east")) {
+                roomLayout.get(height / 2).set(width - 1, door);
+            } else if (door.getDoorPosition().equals("west")) {
+                roomLayout.get(height / 2).set(0, door);
             }
         }
+        this.doors = doors;
+        this.size = new Coordinates(roomLayout.get(0).size(), roomLayout.size());
     }
 
     public List<List<Cell>> getRoomLayout() {
@@ -102,8 +97,20 @@ public class RoomLayout {
         return roomLayout.get(y).get(x);
     }
 
+
     public void clearScreen() {
         System.out.println("\033[2J\033[H");
         System.out.flush();
+    }
+
+
+    public void setQuestion(String questionsSort,int xCoordinate, int yCoordinate){
+        QuestionsList list = new QuestionsList();
+        this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
+        getCell(xCoordinate -1, yCoordinate -1).setQuestion(question);
+    }
+
+    public QuestionsForm getQuestion() {
+        return question;
     }
 }
