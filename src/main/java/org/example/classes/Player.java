@@ -1,17 +1,29 @@
 package org.example.classes;
 
+import jakarta.persistence.*;
+
 import org.example.classes.rooms.Coordinates;
-
 import org.example.classes.rooms.cells.PlayerCell;
+import org.example.utils.PlayerCellConverter;
 
+@Entity
+@Table(name = "Player")
 public class Player {
+    @Id
+    @Column(name = "id")
     private int id;
+
     private String name;
     private String username;
+    
+    @Column(nullable = false)
+    private String password;
     private int hp;
     private String currentRoom;
+    @Convert(converter = PlayerCellConverter.class)
     private PlayerCell playerCell;
 
+    public Player() {}
 
     public Player(int id, String name, String username, int hp, String currentRoom2) {
         this.id = id;
@@ -21,6 +33,16 @@ public class Player {
         this.currentRoom = currentRoom2;
         this.playerCell = new PlayerCell(new Coordinates(2, 2));
     }
+    public Player(int id, String name, String username, String password, int hp, String currentRoom2, PlayerCell playerCell) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.hp = hp;
+        this.currentRoom = currentRoom2;
+        this.playerCell = playerCell;
+    }
+
     public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell playerCell) {
         this.id = id;
         this.name = name;
@@ -66,6 +88,10 @@ public class Player {
     public void setPlayerCell(PlayerCell playerCell){
         this.playerCell = playerCell;
     }
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
     public PlayerCell getPlayerCell(){
         return this.playerCell;
     }
