@@ -28,6 +28,7 @@ public class QuestionsList {
         questionOrAnswer.clear();
         hintList.clear();
 
+
         questionSort = "review";
         questionOrAnswer.add("7");
         question = "Hoeveel dagen in een week?";

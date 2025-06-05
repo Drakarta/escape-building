@@ -7,7 +7,10 @@ import org.example.classes.rooms.RoomTemplate;
 public class TestRoom extends RoomTemplate {
 
 
-    @Override
+    public TestRoom(String name, String description, boolean isLocked, String questionCategory, RoomLayout roomLayout) {
+        super(name, description, isLocked, questionCategory, roomLayout);
+    }
+
     public void details() {
         System.out.println("1!");
     }

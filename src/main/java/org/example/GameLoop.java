@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
+import org.example.classes.rooms.RoomLayout;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 
@@ -31,7 +32,7 @@ public class GameLoop {
 
     public void handleInput(String input) {
         switch (input) {
-            case "w", "a", "s", "d":
+            case "w", "a", "s", "d", "e":
                 CurrentRoom.getInstance().getCurrentRoom().getPlayerMovement(input);
                 break;  
         

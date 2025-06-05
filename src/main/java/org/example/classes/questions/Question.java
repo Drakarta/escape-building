@@ -6,14 +6,14 @@ public class Question {
     QuestionsTemplate questionSort;
 
     public boolean ask(String questionType, String question, ArrayList<String> questionsOrAnswers) {
-        switch (questionType) {
-            case "OpenQuestion":
+        switch (questionType.toUpperCase()) {
+            case "OPENQUESTION":
                 questionSort = new OpenQuestions();
                 break;
-            case "MultipleAnswersQuestion":
+            case "MULTIPLEANSWERSQUESTION":
                 questionSort = new MultipleAnswersQuestion();
                 break;
-            case "MultipleChoiceQuestions":
+            case "MULTIPLECHOICEQUESTION":
                 questionSort = new MultipleChoiceQuestions();
                 break;
             case null, default:

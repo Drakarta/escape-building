@@ -23,20 +23,22 @@ public class RoomLayout {
     public RoomLayout(int width, int height, String questionsSort, List<DoorCell> doors) {
         this.roomLayout = new ArrayList<>();
         this.questionsSort = questionsSort;
+        int centerX = width/2;
+        int centerY = height/2;
         for (int i = 0; i < height; i++) {
             List<Cell> row = new ArrayList<>();
             for (int j = 0; j < width; j++) {
                 if (i == 0 || i == height - 1 || j == 0 || j == width - 1) {
                     row.add(new WallCell());
-                } else if (i == height / 2 && j == width / 2) {
+                } else if (i == centerY && j == centerX) {
                     row.add(new QuestionCell());
-                    setQuestion(questionsSort, i, j);
                 } else {
                     row.add(new EmptyCell());
                 }
             }
             this.roomLayout.add(row);
         }
+        setQuestion(questionsSort, centerX, centerY);
         for (DoorCell door : doors) {
             if (door.getDoorPosition().equals("north")) {
                 roomLayout.get(0).set(width / 2, door);
@@ -107,7 +109,9 @@ public class RoomLayout {
     public void setQuestion(String questionsSort,int xCoordinate, int yCoordinate){
         QuestionsList list = new QuestionsList();
         this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
-        getCell(xCoordinate -1, yCoordinate -1).setQuestion(question);
+        Cell cell = getCell(xCoordinate, yCoordinate);
+        cell.setQuestion(question);
+
     }
 
     public QuestionsForm getQuestion() {
