@@ -6,7 +6,8 @@ import org.example.classes.items.weapons.WeaponBase;
 
 public class Thijs extends Monster {
     public Thijs() {
-        super("Weirdo Thijs", "You just sometimes see him using emojis for variable names", 1, 40, null);
+        super("Weirdo Thijs", "You just sometimes see him using emojis for variable names", 1, 40);
+        setLootTable(createThijsLoot());
     }
 
     private LootTable createThijsLoot() {

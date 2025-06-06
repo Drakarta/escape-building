@@ -1,5 +1,6 @@
 package org.example.classes.items.consumables.potions;
 
+import org.example.classes.Player;
 import org.example.classes.items.Item;
 
 public abstract class PotionBase extends Item {
@@ -20,5 +21,5 @@ public abstract class PotionBase extends Item {
         return potency;
     }
 
-    public abstract void consume();
+    public abstract void consume(Player player);
 }

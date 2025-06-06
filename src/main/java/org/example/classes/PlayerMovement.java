@@ -7,6 +7,9 @@ import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.DoorList;
 import org.example.classes.singleton.RoomList;
+import org.example.classes.combat.CombatLoop;
+import org.example.classes.monsters.Goblin;
+import org.example.classes.monsters.Monster;
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
@@ -16,6 +19,7 @@ import java.util.Scanner;
 public class PlayerMovement {
     private final PlayerCell player;
     private final RoomLayout room;
+    Scanner scanner = new Scanner(System.in);
 
     public PlayerMovement(RoomLayout currentRoom) {
         this.player = CurrentUser.getInstance().getCurrentPlayer().getPlayerCell();
@@ -28,6 +32,12 @@ public class PlayerMovement {
         switch (input.toLowerCase()) {
             case "w":
                 dy = -1; 
+                if (Math.random() < 1) { //chance of encounter
+                    Player player = CurrentUser.getInstance().getCurrentPlayer();
+                    Monster goblin = new Goblin();
+                    CombatLoop combat = new CombatLoop(player, goblin, scanner);
+                    combat.startCombat();
+                }
                 break;
             case "s": 
                 dy = 1; 
@@ -86,7 +96,6 @@ public class PlayerMovement {
             Player currentPlayer = CurrentUser.getInstance().getCurrentPlayer();
             currentPlayer.getInventory().printInventory(currentPlayer);
             System.out.println("Type 'equip <#>' to equip, or 'back' to exit inventory.");
-            Scanner scanner = new Scanner(System.in);
             String invInput = scanner.nextLine().trim().toLowerCase();
 
             if (invInput.startsWith("equip ")) {

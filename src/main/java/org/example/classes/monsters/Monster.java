@@ -11,12 +11,11 @@ public abstract class Monster {
     private Item loot;
     private LootTable lootTable;
 
-    protected Monster(String name, String description, int hp, int attackDamage, Item loot){
+    protected Monster(String name, String description, int hp, int attackDamage){
         this.name = name;
         this.description = description;
         this.hp = hp;
         this.attackDamage = attackDamage;
-        this.loot = loot;
     }
     public void displayInfo(){
         printName();

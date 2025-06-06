@@ -6,7 +6,8 @@ import org.example.classes.items.weapons.WeaponBase;
 
 public class Alexander extends Monster {
     public Alexander() {
-        super("Your boss Alexander", "Your very evil surperior, he wants to punnish you for no reason", 100, 20, null);
+        super("Your boss Alexander", "Your very evil surperior, he wants to punnish you for no reason", 100, 20);
+        setLootTable(createAlexanderLoot());
     }
 
     private LootTable createAlexanderLoot() {

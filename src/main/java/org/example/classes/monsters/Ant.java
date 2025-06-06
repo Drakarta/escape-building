@@ -6,7 +6,8 @@ import org.example.classes.items.weapons.WeaponBase;
 
 public class Ant extends Monster {
     public Ant() {
-        super("Your colleague Ant", "A usesless worker that only shows up during the daily stand up", 10, 1, null);
+        super("Your colleague Ant", "A usesless worker that only shows up during the daily stand up", 10, 1);
+        setLootTable(createAntLoot());
     }
 
     private LootTable createAntLoot() {

@@ -27,30 +27,33 @@ public class Inventory {
     }
 
     public void printInventory(Player player) {
-        List<Item> items = getItems();
-        if (items.isEmpty()) {
-            System.out.println("Your inventory is empty.");
-        } else {
-            System.out.println("Your inventory contains:");
-            for (int i = 0; i < items.size(); i++) {
-                Item item = items.get(i);
-                String equippedMarker = "";
-                String stats = "";
+    List<Item> items = getItems();
+    if (items.isEmpty()) {
+        System.out.println("Your inventory is empty.");
+    } else {
+        System.out.println("Your inventory contains:");
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            String equippedMarker = "";
+            String stats = "";
 
-                if (item.equals(player.getEquippedWeapon())) {
-                    equippedMarker = " [Equipped Weapon]";
-                } else if (item.equals(player.getEquippedArmor())) {
-                    equippedMarker = " [Equipped Armor]";
-                }
-
-                if (item instanceof WeaponBase weapon) {
-                    stats = String.format(" (Damage: %.1f, Durability: %d)", weapon.getDamage(), weapon.getDurability());
-                } else if (item instanceof ArmorBase armor) {
-                    stats = String.format(" (Shield: %.1f, Durability: %d)", armor.getShield(), armor.getDurability());
-                }
-
-                System.out.println((i + 1) + ". " + item.getName() + stats + equippedMarker);
+            if (item.equals(player.getEquippedWeapon())) {
+                equippedMarker = " [Equipped Weapon]";
+            } else if (item.equals(player.getEquippedArmor())) {
+                equippedMarker = " [Equipped Armor]";
             }
+
+            if (item instanceof WeaponBase weapon) {
+                stats = String.format(" (Damage: %.1f, Durability: %d)", weapon.getDamage(), weapon.getDurability());
+            } else if (item instanceof ArmorBase armor) {
+                stats = String.format(" (Shield: %.1f, Durability: %d)", armor.getShield(), armor.getDurability());
+            } else if (item instanceof org.example.classes.items.consumables.scrolls.ScrollBase scroll) {
+                stats = String.format(" (Scroll: %s, Uses left: %d)", scroll.getSpellDescription(), scroll.getAmount());
+            }
+
+            System.out.println((i + 1) + ". " + item.getName() + stats + equippedMarker);
         }
     }
+}
+
 }

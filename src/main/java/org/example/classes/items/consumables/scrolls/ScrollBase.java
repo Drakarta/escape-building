@@ -1,9 +1,8 @@
 package org.example.classes.items.consumables.scrolls;
 
 import org.example.classes.items.Item;
-import org.example.classes.monsters.Monster;
 
-public abstract class ScrollBase extends Item {
+public abstract class ScrollBase<T> extends Item {
     protected String spellDescription;
     protected int amount;
 
@@ -21,5 +20,11 @@ public abstract class ScrollBase extends Item {
         return amount;
     }
 
-    public abstract void cast(Monster monster);
+    protected void decreaseAmount() {
+        if (amount > 0) {
+            amount--;
+        }
+    }
+
+    public abstract void cast(T target);
 }

@@ -3,6 +3,10 @@ package org.example.classes.combat;
 import org.example.classes.Player;
 import org.example.classes.items.Item;
 import org.example.classes.items.armor.ArmorBase;
+import org.example.classes.items.consumables.potions.PotionBase;
+import org.example.classes.items.consumables.scrolls.MonsterInfoScroll;
+import org.example.classes.items.consumables.scrolls.RoomScroll;
+import org.example.classes.items.consumables.scrolls.ScrollBase;
 import org.example.classes.monsters.Monster;
 
 import java.util.Scanner;
@@ -11,6 +15,8 @@ public class CombatLoop {
     private final Player player;
     private final Monster monster;
     private final Scanner scanner;
+    private Item loot;
+    
 
     public CombatLoop(Player player, Monster monster, Scanner scanner) {
         this.player = player;
@@ -19,6 +25,9 @@ public class CombatLoop {
     }
 
     public void startCombat() {
+        monster.generateLoot();
+        this.loot = monster.getRolledLoot();
+
         monster.printName();
         while (player.getHp() > 0 && monster.isAlive()) {
             System.out.println("\n--- Your Turn ---");
@@ -46,6 +55,40 @@ public class CombatLoop {
 
                 case "2":
                     player.getInventory().printInventory(player);
+                    System.out.println("Type the number of the item to use, or 'back' to cancel:");
+                    String useInput = scanner.nextLine().trim().toLowerCase();
+
+                    if (useInput.equals("back")) break;
+
+                    try {
+                        int itemNum = Integer.parseInt(useInput) - 1;
+                        Item selectedItem = player.getInventory().getItems().get(itemNum);
+
+                        if (selectedItem instanceof ScrollBase<?> scroll) {
+                            if (selectedItem instanceof MonsterInfoScroll monsterScroll) {
+                                monsterScroll.cast(monster);
+                                if (monsterScroll.getAmount() <= 0) {
+                                    player.getInventory().removeItem(monsterScroll);
+                                    System.out.println("The scroll crumbles to dust after being used up.");
+                                }
+                            } else if (selectedItem instanceof RoomScroll roomScroll) {
+                                roomScroll.cast();
+                                if (roomScroll.getAmount() <= 0) {
+                                    player.getInventory().removeItem(roomScroll);
+                                    System.out.println("The scroll crumbles to dust after being used up.");
+                                }
+                            }
+                        }
+
+                         else if (selectedItem instanceof PotionBase potion) {
+                            potion.consume(player);
+                            player.getInventory().removeItem(selectedItem); // remove potion after use
+                        } else {
+                            System.out.println("You can't use this item right now.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Invalid input.");
+                    }
                     break;
 
                 case "3":
@@ -98,7 +141,6 @@ public class CombatLoop {
     protected void killedMonster(){
         System.out.println("You defeated the " + monster.getName() + "!");
 
-        Item loot = monster.rollLoot();
         if (loot != null) {
             System.out.println("You received: " + loot.getName());
             player.getInventory().addItem(loot);
