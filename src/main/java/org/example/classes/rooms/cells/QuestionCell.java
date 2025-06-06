@@ -67,16 +67,16 @@ public class QuestionCell implements Cell {
         new UnlockDoors(room);
     }
 
-     public void displayHint(){
-         ArrayList<DisplayHint> hints = questionsForm.getHints();
-         questionsForm.getHints().getFirst().getHintText();
-         if (hints.isEmpty()) {
-             System.out.println("No hints available.");
-         } else {
-             DisplayHint chosenHint = hints.get(random.nextInt(hints.size()));
-             System.out.println(chosenHint.getHintText());
-         }
-     }
+    public void displayHint(){
+        ArrayList<DisplayHint> hints = questionsForm.getHints();
+        questionsForm.getHints().getFirst().getHintText();
+        if (hints.isEmpty()) {
+            System.out.println("No hints available.");
+        } else {
+            DisplayHint chosenHint = hints.get(random.nextInt(hints.size()));
+            System.out.println(chosenHint.getHintText());
+        }
+    }
 
     public void setQuestion(QuestionsForm question) {
         if (question == null) {
