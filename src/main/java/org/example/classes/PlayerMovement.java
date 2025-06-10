@@ -30,14 +30,25 @@ public class PlayerMovement {
         int dx = 0;
         int dy = 0;
         switch (input.toLowerCase()) {
-            case "w":
-                dy = -1; 
+            case "help":
+                System.out.printf("%-15s %s%n", "W, A, S, D", "Are the movement keys");
+                System.out.printf("%-15s %s%n", "E", "This is the interact key");
+                System.out.printf("%-15s %s%n", "Inventory", "Opens your inventory");
+                System.out.printf("%-15s %s%n", "Status", "Displays basic information of your character and surroundings");
+                System.out.printf("%-15s %s%n", "Taunt", "Aggravates enemy, automatically starts combat");
+
+                System.out.println();
+                break;
+            case "taunt":
                 if (Math.random() < 1) { //chance of encounter
                     Player player = CurrentUser.getInstance().getCurrentPlayer();
                     Monster goblin = new Goblin();
                     CombatLoop combat = new CombatLoop(player, goblin, scanner);
                     combat.startCombat();
                 }
+                break;
+            case "w":
+                dy = -1;
                 break;
             case "s": 
                 dy = 1; 

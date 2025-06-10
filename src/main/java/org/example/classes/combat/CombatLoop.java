@@ -135,6 +135,12 @@ public class CombatLoop {
 
         if (player.getHp() <= 0) {
             System.out.println("You died!");
+            try {
+                Thread.sleep(3000);  // pause 1.5 seconds before exiting
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            System.exit(0);
         }
     }
 

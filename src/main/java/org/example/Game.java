@@ -25,6 +25,7 @@ public class Game {
             startingItems();
             //this is the game logic loop
             new InitialiseRooms();
+            System.out.println("Type 'help' to see a list of commands and controls.");
             GameLoop gameLoop = new GameLoop();
             gameLoop.start();
         }
