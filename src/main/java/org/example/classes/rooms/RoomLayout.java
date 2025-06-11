@@ -26,11 +26,11 @@ public class RoomLayout {
         int centerY = height / 2;
 
         generateRoom(height, width, centerX, centerY);
+        this.doors = doors; // Assign before calling setQuestion
         setQuestion(questionSort, centerX, centerY);
 
         placeDoors(doors, width, height);
         placeChests(chests);
-        this.doors = doors;
         this.size = new Coordinates(width, height);
     }
 
@@ -57,7 +57,7 @@ public class RoomLayout {
 
     private void placeChests(List<ChestCell> chests) {
         if (chests == null) return;
-        
+
         for (ChestCell chest : chests) {
             Coordinates pos = chest.getCoordinates();
             int x = pos.getX();
@@ -70,7 +70,6 @@ public class RoomLayout {
             }
         }
     }
-
 
     public List<List<Cell>> getRoomLayout() {
         return roomLayout;
@@ -93,16 +92,16 @@ public class RoomLayout {
             System.out.println();
         }
     }
-    
+
     public List<DoorCell> getDoors() {
         return doors;
     }
 
     public boolean isWalkable(int x, int y) {
-    if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.getFirst().size()) {
-        return false;
-    }
-    return roomLayout.get(y).get(x).isWalkable();
+        if (y < 0 || y >= roomLayout.size() || x < 0 || x >= roomLayout.getFirst().size()) {
+            return false;
+        }
+        return roomLayout.get(y).get(x).isWalkable();
     }
 
     public boolean isDoor(int x, int y) {
@@ -131,7 +130,18 @@ public class RoomLayout {
         this.question = list.getRandomQuestionWithQuestionSort(questionsSort);
 
         QuestionCell cell = getQuestionCell(x, y);
-        cell.setQuestion(this.question);
+        if (cell != null) {
+            cell.setQuestion(this.question);
+
+            // ✅ Add all doors as observers
+            if (doors != null) {
+                for (DoorCell door : doors) {
+                    cell.addObserver(door);
+                }
+            }
+        } else {
+            System.err.println("No QuestionCell found at coordinates (" + x + ", " + y + ")");
+        }
     }
 
     public QuestionsForm getQuestion() {
