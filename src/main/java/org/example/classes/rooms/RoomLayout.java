@@ -133,7 +133,7 @@ public class RoomLayout {
         if (cell != null) {
             cell.setQuestion(this.question);
 
-            // ✅ Add all doors as observers
+            //Add all doors as observers
             if (doors != null) {
                 for (DoorCell door : doors) {
                     cell.addObserver(door);

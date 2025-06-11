@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.example.classes.Player;
+import org.example.classes.combat.CombatLoop;
 import org.example.classes.hints.DisplayHint;
+import org.example.classes.monsters.Goblin;
+import org.example.classes.monsters.Monster;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.singleton.CurrentRoom;
+import org.example.classes.singleton.CurrentUser;
 
 public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
@@ -32,7 +37,11 @@ public class QuestionCell implements Cell {
     }
 
     public void updateObserversIncorrect() {
-        // Optionally handle incorrect answer logic
+        Scanner scanner = new Scanner(System.in);
+        Player player = CurrentUser.getInstance().getCurrentPlayer();
+        Monster goblin = new Goblin();
+        CombatLoop combat = new CombatLoop(player, goblin, scanner);
+        combat.startCombat();
     }
 
     @Override
@@ -78,6 +87,15 @@ public class QuestionCell implements Cell {
                 if (hintYN.equalsIgnoreCase("Y")) {
                     displayHint();
                 }
+                try {
+                    Thread.sleep(1000);
+                    System.out.println("Also Prepare for Combat...    GoodLuck!");
+                    Thread.sleep(2000);
+                }
+                catch(InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                updateObserversIncorrect();
             }
         }
     }
