@@ -11,6 +11,7 @@ public class RoomLayout {
     private List<List<Cell>> roomLayout;
     private List<DoorCell> doors;
     private List<ChestCell> chests;
+    private List<TriggerCell> triggers;
     private Coordinates size;
     private QuestionsForm question;
 
@@ -19,7 +20,7 @@ public class RoomLayout {
         this.roomLayout = roomLayout;
     }
 
-    public RoomLayout(int width, int height, String questionSort, List<DoorCell> doors, List<ChestCell> chests) {
+    public RoomLayout(int width, int height, String questionSort, List<DoorCell> doors, List<ChestCell> chests, List<TriggerCell> triggers) {
         this.roomLayout = new ArrayList<>();
 
         int centerX = width / 2;
@@ -30,6 +31,7 @@ public class RoomLayout {
 
         placeDoors(doors, width, height);
         placeChests(chests);
+        placeTriggers(triggers);
         this.doors = doors;
         this.size = new Coordinates(width, height);
     }
@@ -71,6 +73,20 @@ public class RoomLayout {
         }
     }
 
+    private void placeTriggers(List<TriggerCell> triggers) {
+        if (triggers == null) return;
+
+        for (TriggerCell trigger : triggers) {
+            int x = trigger.getCoordinates().getX();
+            int y = trigger.getCoordinates().getY();
+
+            if (y >= 0 && y < roomLayout.size() && x >= 0 && x < roomLayout.get(0).size()) {
+                roomLayout.get(y).set(x, trigger);
+            } else {
+                System.out.println("Warning: Trigger position out of bounds: (" + x + ", " + y + ")");
+            }
+        }
+    }
 
     public List<List<Cell>> getRoomLayout() {
         return roomLayout;

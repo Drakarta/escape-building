@@ -78,11 +78,9 @@ public class CombatLoop {
                                     System.out.println("The scroll crumbles to dust after being used up.");
                                 }
                             }
-                        }
-
-                         else if (selectedItem instanceof PotionBase potion) {
+                        } else if (selectedItem instanceof PotionBase potion) {
                             potion.consume(player);
-                            player.getInventory().removeItem(selectedItem); // remove potion after use
+                            player.getInventory().removeItem(selectedItem); 
                         } else {
                             System.out.println("You can't use this item right now.");
                         }

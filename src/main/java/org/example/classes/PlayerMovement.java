@@ -1,8 +1,10 @@
 package org.example.classes;
 
 import org.example.classes.rooms.DoorLink;
+import org.example.classes.rooms.cells.Cell;
 import org.example.classes.rooms.cells.DoorCell;
 import org.example.classes.rooms.cells.PlayerCell;
+import org.example.classes.rooms.cells.TriggerCell;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.DoorList;
@@ -30,24 +32,37 @@ public class PlayerMovement {
         int dx = 0;
         int dy = 0;
         switch (input.toLowerCase()) {
-            case "w":
-                dy = -1; 
-                if (Math.random() < 1) { //chance of encounter
+            case "w", "s", "a", "d":
+                    if (Math.random() < 0.05) { //chance of encounter
                     Player player = CurrentUser.getInstance().getCurrentPlayer();
                     Monster goblin = new Goblin();
                     CombatLoop combat = new CombatLoop(player, goblin, scanner);
                     combat.startCombat();
-                }
-                break;
-            case "s": 
-                dy = 1; 
-                break;
-            case "a": 
-                dx = -1; 
-                break;
-            case "d": 
-                dx = 1; 
-                break;
+                    }
+
+                    switch(input.toLowerCase()) {
+                        case "w":
+                            dy = -1; 
+                            break;
+                        case "s": 
+                            dy = 1; 
+                            break;
+                        case "a": 
+                            dx = -1; 
+                            break;
+                        case "d": 
+                            dx = 1; 
+                            break;
+                    } 
+
+                    int triggerX = player.getCoordinates().getX() + dx;
+                    int triggerY = player.getCoordinates().getY() + dy;
+
+                    Cell newCell = room.getCell(triggerX, triggerY);
+                    if (newCell instanceof TriggerCell trigger) {
+                        trigger.stepOnTrigger(player, room);
+                    }
+                    break;
             case "e":
                 interact();
                 break;
@@ -95,23 +110,32 @@ public class PlayerMovement {
         while (true) {
             Player currentPlayer = CurrentUser.getInstance().getCurrentPlayer();
             currentPlayer.getInventory().printInventory(currentPlayer);
-            System.out.println("Type 'equip <#>' to equip, or 'back' to exit inventory.");
+            System.out.println("Type 'equip <#>', 'use <#>', or 'back' to exit inventory.");
+
             String invInput = scanner.nextLine().trim().toLowerCase();
 
-            if (invInput.startsWith("equip ")) {
-                try {
+            if  (invInput.startsWith("equip ")) {
+                try  {
                     int num = Integer.parseInt(invInput.split(" ")[1]);
                     currentPlayer.equipItemByNumber(num);
                 } catch (Exception e) {
                     System.out.println("Invalid command. Try 'equip 1'");
                 }
+            } else if (invInput.startsWith("use ")) {
+                try {
+                    int num = Integer.parseInt(invInput.split(" ")[1]);
+                    currentPlayer.useItemByNumber(num);
+                } catch (Exception e) {
+                    System.out.println("Invalid command. Try 'use 1'");
+                }
             } else if (invInput.equals("back")) {
                 break;
             } else {
-                System.out.println("Unknown command. Try 'equip <#>' or 'back'.");
+                System.out.println("Unknown command. Try 'equip <#>', 'use <#>' or 'back'.");
             }
-        }
+        }   
     }
+
     private void roomChange(String direction) {
         for (DoorCell door : room.getDoors()) {
             if (door.getDoorPosition().equals(direction)) {
@@ -144,6 +168,7 @@ public class PlayerMovement {
 
 
     private void interact() {
+        System.out.println("[DEBUG] Interact triggered at " + player.getCoordinates().getX() + player.getCoordinates().getY() );
         int x = player.getCoordinates().getX();
         int y = player.getCoordinates().getY();
 
