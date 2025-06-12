@@ -74,6 +74,6 @@ public class DoorCell implements Cell, QuestionObserver {
 
     @Override
     public void update(boolean trigger) {
-        new UnlockDoors(CurrentRoom.getInstance().getCurrentRoom().getRoomLayout());
+        if (trigger){new UnlockDoors(CurrentRoom.getInstance().getCurrentRoom().getRoomLayout());}
     }
 }
