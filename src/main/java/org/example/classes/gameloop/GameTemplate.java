@@ -8,6 +8,7 @@ import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.RoomList;
 import org.example.utils.Login;
 import org.example.utils.Register;
+import org.example.utils.Save;
 import org.example.classes.items.StarterItems;
 
 public abstract class GameTemplate {
@@ -99,7 +100,8 @@ public abstract class GameTemplate {
         while(true) {
             displayRoom();
             String input = handleInput();
-            if (input.equalsIgnoreCase("quit")) {
+            if (input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q")) {
+                Save.saveGame();
                 System.out.println("Goodbye!");
                 return;
             }
