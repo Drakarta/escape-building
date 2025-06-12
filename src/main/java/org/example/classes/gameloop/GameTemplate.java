@@ -7,6 +7,7 @@ import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.RoomList;
 import org.example.utils.Login;
+import org.example.utils.Register;
 import org.example.classes.items.StarterItems;
 
 public abstract class GameTemplate {
@@ -71,8 +72,24 @@ public abstract class GameTemplate {
     }
 
     public void register() {
-        // This method will be implemented in the Game class
-        // It will handle user registration logic
+        while (true) {
+            System.out.print("username: ");
+            String username = handleInput();
+            System.out.print("password: ");
+            String password = handleInput();
+            System.out.print("repeat password: ");
+            String repeatPassword = handleInput(); 
+            if (!password.equals(repeatPassword)) {
+                System.out.println("Passwords do not match. Please try again.");
+                return;
+            }
+            if (Register.register(username, password)) {
+                System.out.println("Registration successful!");
+                break;
+            } else {
+                System.out.println("Registration failed. Please try again.");
+            }
+        }
         StarterItems.startingItems();
     }
 
