@@ -1,6 +1,5 @@
 package org.example.classes.rooms.cells;
 
-import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
 
 public interface Cell {

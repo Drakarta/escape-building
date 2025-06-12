@@ -4,7 +4,7 @@ import org.example.classes.singleton.CurrentRoom;
 
 public class Game extends GameTemplate {
 
-    private Game() {
+    public Game() {
     }
 
     @Override

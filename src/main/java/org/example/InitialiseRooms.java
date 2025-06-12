@@ -22,7 +22,7 @@ public class InitialiseRooms {
                 new TriggerCell(TriggerCell.TriggerType.MESSAGE, "Press WASD (and enter) to walk around the room", 1, 5),
                 new TriggerCell(TriggerCell.TriggerType.MESSAGE, "10", 1, 2)
         );
-        ChestCell potionChest = new ChestCell(new HealthPotion(null, 20), 5, 5);
+        ChestCell potionChest = new ChestCell(new HealthPotion(20), 5, 5);
         DoorCell doorToRoom2 = new DoorCell(true, "north", "Room 2");
         RoomLayout startRoomLayout = new RoomLayout(9, 9, "dailyStandup", List.of(doorToRoom2), List.of(potionChest), triggers);
         Room startRoom = new Room("Start Room", "This is room 1", "Category 1", startRoomLayout);

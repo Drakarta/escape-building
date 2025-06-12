@@ -1,7 +1,8 @@
 package org.example.classes.rooms.cells;
 
 import org.example.classes.rooms.Coordinates;
-import org.example.utils.PlayerCellConverter;
+import org.example.utils.databaseconverters.PlayerCellConverter;
+
 import jakarta.persistence.Convert;
 
 public class PlayerCell implements Cell {
