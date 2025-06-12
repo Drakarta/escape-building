@@ -19,7 +19,7 @@ public class QuestionsList {
 
     public QuestionsList(){
         // hier nieuw questions aanmaken en toevoegen aan de questionslist
-        questionSort = "dailyStandup";
+        questionSort = "introduction";
         questiontype = "openquestion";
         question = "Hoeveel dagen heeft een jaar?";
         questionOrAnswer.add("365");
@@ -29,10 +29,74 @@ public class QuestionsList {
         questionOrAnswer.clear();
         hintList.clear();
 
-        questionSort = "review";
-        questionOrAnswer.add("7");
-        question = "Hoeveel dagen in een week?";
+        questionSort = "sprintPlanning";
+        questionOrAnswer.add("2 weken");
+        questionOrAnswer.add("1 week");
+        questionOrAnswer.add("2 weken");
+        questionOrAnswer.add("1 maand");
+        question = "Hoelang duren de sprints voor ons?";
+        questiontype = "multipleChoiceQuestions";
+        hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
+        hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
+        questionSort = "TIA";
+        questionOrAnswer.add("ja");
+        question = "Was de game leuk?";
         questiontype = "openQuestion";
+        hintList.add(new FunnyHint("Niemand heeft een mes mee :)"));
+        hintList.add(new HelpHint("Pas op voor het mes achter de laptop :)"));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
+        questionSort = "scrumBoard";
+        questionOrAnswer.add("Sprint backlog");
+        questionOrAnswer.add("Product backlog");
+        questionOrAnswer.add("Doing");
+        questionOrAnswer.add("Review");
+        questionOrAnswer.add("Done");
+        question = "Wat zijn de onderdelen van een trello board?";
+        questiontype = "multipleAnswersQuestion";
+        hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
+        hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
+        questionSort = "dailyScrum";
+        questionOrAnswer.add("Wat je vandaag gaat doen.");
+        questionOrAnswer.add("Wat je voor ontbijt had.");
+        questionOrAnswer.add("Wat je vandaag gaat doen.");
+        questionOrAnswer.add("Hoeveel je hebt geslapen.");
+        question = "Wat moet in de daily standup worden genoemd?";
+        questiontype = "multipleChoiceQuestions";
+        hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
+        hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
+        questionSort = "sprintReview";
+        questionOrAnswer.add("Aan het begin van de week.");
+        questionOrAnswer.add("Aan het begin van de week.");
+        questionOrAnswer.add("Aan het einde van de week.");
+        question = "Wanneer houd je een sprint review?";
+        questiontype = "multipleChoiceQuestions";
+        hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
+        hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
+        questionSort = "retrospective";
+        questionOrAnswer.add("Aan het einde van de week.");
+        questionOrAnswer.add("Aan het begin van de week.");
+        questionOrAnswer.add("Aan het einde van de week.");
+        question = "Wanneer houd je een sprint retrospective?";
+        questiontype = "multipleChoiceQuestions";
         hintList.add(new FunnyHint("Heb jij de peuterspeelzaal wel gehaald?"));
         hintList.add(new HelpHint("Je kan op je vingers tellen hoeveel er zijn."));
         questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
