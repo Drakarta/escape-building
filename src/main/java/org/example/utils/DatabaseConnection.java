@@ -10,7 +10,7 @@ public class DatabaseConnection {
     }
 
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:sqlite:" + DB_PATH;
+        String url = "jdbc:sqlite:database/test.db" + DB_PATH;
         return DriverManager.getConnection(url);
     }
 
