@@ -35,17 +35,17 @@ public class PlayerMovement {
             case "d": 
                 dx = 1; 
                 break;
-             case "e":
-                 interact();
-                 return;
-             case "q":
-                 System.exit(0);
-                 return;
-             case "status":
-                 Status status = new Status();
-                 String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
-                 System.out.println(currentState);
-                 break;
+            case "e":
+                interact();
+                return;
+            case "q":
+                System.exit(0);
+                return;
+            case "status":
+                Status status = new Status();
+                String currentState = status.getStatus(CurrentUser.getInstance().getCurrentPlayer());
+                System.out.println(currentState);
+                break;
             default:
                 break;
         }

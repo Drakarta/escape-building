@@ -8,7 +8,7 @@ import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.cells.DoorCell;
 
 public class InitialiseRooms {
-    InitialiseRooms() {
+    public InitialiseRooms() {
         RoomList roomList = RoomList.getInstance();
 
         RoomLayout startRoomLayout = new RoomLayout(9, 9, "dailyStandup", List.of(

@@ -2,7 +2,10 @@ package org.example.classes.gameloop;
 
 import java.util.Scanner;
 
+import org.example.InitialiseRooms;
 import org.example.classes.singleton.CurrentRoom;
+import org.example.classes.singleton.CurrentUser;
+import org.example.classes.singleton.RoomList;
 import org.example.utils.Login;
 
 public abstract class GameTemplate {
@@ -59,6 +62,10 @@ public abstract class GameTemplate {
             if (!success) {
                 System.out.println("Login failed. Please try again.\n");
             }
+            else {
+                System.out.println("Login successful!");
+                break; 
+            }
         }
     }
 
@@ -68,7 +75,9 @@ public abstract class GameTemplate {
     }
 
     public void gameLoop() {
-        while( true) {
+        new InitialiseRooms();
+        CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
+        while(true) {
             displayRoom();
             String input = handleInput();
             if (input.equalsIgnoreCase("quit")) {
