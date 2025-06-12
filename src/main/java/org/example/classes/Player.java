@@ -5,12 +5,15 @@ import java.util.List;
 import org.example.classes.items.Inventory;
 import org.example.classes.items.Item;
 import org.example.classes.items.armor.ArmorBase;
+import org.example.classes.items.consumables.scrolls.RoomScroll;
+import org.example.classes.items.consumables.scrolls.ScrollBase;
 import org.example.classes.items.weapons.WeaponBase;
 import org.example.classes.jokers.Joker;
 import org.example.classes.rooms.Coordinates;
 
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentRoom;
+import org.example.classes.singleton.CurrentUser;
 
 public class Player {
     private int id;
@@ -112,11 +115,40 @@ public class Player {
             case ArmorBase armor:
                 equipArmor(armor);
                 break;
-            case Joker joker:
-                joker.useJoker(CurrentRoom.getInstance().getCurrentRoom());
-                break;
             default:
                 System.out.println("You can't equip that item.");
         }
     }
+
+    public void useItemByNumber(int index) {
+        List<Item> items = inventory.getItems();
+        if (index < 1 || index > items.size()) {
+            System.out.println("Invalid item number.");
+            return;
+        }
+
+        Item item = items.get(index - 1);
+
+        switch (item) {
+            case ScrollBase<?> scroll -> {
+                if (item instanceof RoomScroll roomScroll) {
+                    roomScroll.cast();
+                    if (roomScroll.getAmount() <= 0) {
+                    CurrentUser.getInstance().getCurrentPlayer().getInventory().removeItem(roomScroll);
+                    System.out.println("The scroll crumbles to dust after being used up.");
+                    }
+                } else {
+                    System.out.println("You can't use this scroll outside of battle");
+                }
+            }
+            case Joker joker -> {
+                joker.useJoker(CurrentRoom.getInstance().getCurrentRoom());
+                inventory.removeItem(item); 
+            }
+            default -> {
+                System.out.println("That item can't be used right now.");
+            }
+        }
+    }
+
 }
