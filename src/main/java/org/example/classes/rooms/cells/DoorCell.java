@@ -1,6 +1,10 @@
 package org.example.classes.rooms.cells;
 
-public class DoorCell implements Cell {
+import org.example.classes.observers.interfaces.QuestionObserver;
+import org.example.classes.rooms.UnlockDoors;
+import org.example.classes.singleton.CurrentRoom;
+
+public class DoorCell implements Cell, QuestionObserver {
     private Boolean isLocked;
     private String doorPosition;
     private String toRoomID;
@@ -66,5 +70,10 @@ public class DoorCell implements Cell {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    @Override
+    public void update(boolean trigger) {
+        new UnlockDoors(CurrentRoom.getInstance().getCurrentRoom().getRoomLayout());
     }
 }

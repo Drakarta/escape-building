@@ -3,8 +3,6 @@ package org.example.classes.rooms.cells;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 import org.example.classes.Player;
@@ -12,6 +10,7 @@ import org.example.classes.combat.CombatLoop;
 import org.example.classes.hints.DisplayHint;
 import org.example.classes.monsters.Goblin;
 import org.example.classes.monsters.Monster;
+import org.example.classes.observers.interfaces.QuestionObserver;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
@@ -21,29 +20,30 @@ public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
     private final Random random = new Random();
     private boolean answered = false;
-    private final List<DoorCell> observers = new ArrayList<>();
+    private final List<QuestionObserver> observers = new ArrayList<>();
 
-    public void addObserver(DoorCell observer) {
+    public void addObserver(QuestionObserver observer) {
         this.observers.add(observer);
     }
 
-    public void removeObserver(DoorCell observer) {
+    public void removeObserver(QuestionObserver observer) {
         this.observers.remove(observer);
     }
 
-    public void updateObserversCorrect() {
-        for (DoorCell observer : observers) {
-            observer.unlock();  //Observer method call
+    public void updateObservers(boolean trigger) {
+        if(!trigger){ // temporary if statement, rather have list with encounters per room to trigger
+            Scanner scanner = new Scanner(System.in);
+            Player player = CurrentUser.getInstance().getCurrentPlayer();
+            Monster goblin = new Goblin();
+            CombatLoop combat = new CombatLoop(player, goblin, scanner);
+            combat.startCombat();
         }
+        for (QuestionObserver observer : observers) {
+            observer.update(trigger);  //Observer method call
+        }
+
     }
 
-    public void updateObserversIncorrect() {
-        Scanner scanner = new Scanner(System.in);
-        Player player = CurrentUser.getInstance().getCurrentPlayer();
-        Monster goblin = new Goblin();
-        CombatLoop combat = new CombatLoop(player, goblin, scanner);
-        combat.startCombat();
-    }
 
     @Override
     public String printIcon() {
@@ -73,7 +73,6 @@ public class QuestionCell implements Cell {
 
             if (answer) {
                 System.out.println("Correct!");
-                updateObserversCorrect();  //Notify observers to unlock
                 answered = true;
                 try {
                     Thread.sleep(1000);
@@ -96,7 +95,7 @@ public class QuestionCell implements Cell {
                 catch(InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                updateObserversIncorrect();
+                updateObservers(answered);
             }
         }
     }
@@ -114,7 +113,7 @@ public class QuestionCell implements Cell {
     public void setQuestion(QuestionsForm question) {
         if (question == null) {
             System.err.println("Question could not be set, door automatically unlocked");
-            updateObserversCorrect(); // Unlock doors if question is null
+            updateObservers(true); // Unlock doors if question is null
         } else {
             this.questionsForm = question;
         }
