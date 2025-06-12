@@ -1,8 +1,5 @@
 package org.example.classes.rooms.cells;
 
-
-import org.example.classes.questions.QuestionsForm;
-
 public class DoorCell implements Cell {
     private Boolean isLocked;
     private String doorPosition;
@@ -57,12 +54,6 @@ public class DoorCell implements Cell {
     public boolean isInteractive() {
         return true;
     }
-
-    @Override
-    public void setQuestion(QuestionsForm question) {
-
-    }
-
 
     public void interact() {
         if (isLocked) {

@@ -6,7 +6,7 @@ import org.example.classes.items.weapons.WeaponBase;
 
 public class Goblin extends Monster {
     public Goblin() {
-        super("Goblin", "A small, green, nasty creature", 30, 5);
+        super("Goblin Michael", "A small, green, nasty creature", 30, 5);
         setLootTable(createGoblinLoot());
     }
 

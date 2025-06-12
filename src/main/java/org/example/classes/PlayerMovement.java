@@ -29,7 +29,8 @@ public class PlayerMovement {
     }
 
     public void handleInput(String input) {
-        int dx = 0, dy = 0;
+        int dx = 0;
+        int dy = 0;
         input = input.toLowerCase().trim();
 
         switch (input) {
@@ -76,7 +77,7 @@ public class PlayerMovement {
 
             Cell newCell = room.getCell(newX, newY);
             if (newCell instanceof TriggerCell trigger) {
-                trigger.stepOnTrigger(player, room);
+                trigger.stepOnTrigger();
             }
 
             if (room.isDoor(newX, newY)) {

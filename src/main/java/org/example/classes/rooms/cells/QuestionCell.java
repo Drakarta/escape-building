@@ -14,12 +14,7 @@ import org.example.classes.monsters.Goblin;
 import org.example.classes.monsters.Monster;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
-
-import org.example.classes.hints.DisplayHint;
-import org.example.classes.questions.Question;
-import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
-import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 
 public class QuestionCell implements Cell {

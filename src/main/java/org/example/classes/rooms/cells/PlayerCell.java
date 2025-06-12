@@ -1,6 +1,5 @@
 package org.example.classes.rooms.cells;
 
-import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.Coordinates;
 import org.example.utils.PlayerCellConverter;
 import jakarta.persistence.Convert;
@@ -17,13 +16,6 @@ public class PlayerCell implements Cell {
     public String printIcon() {
         return "@";
     }
-
-    @Override
-    public void setQuestion(QuestionsForm question) {
-
-    }
-
-
     public Coordinates getCoordinates() {
         return coordinates;
     }

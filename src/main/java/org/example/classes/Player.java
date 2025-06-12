@@ -2,8 +2,6 @@ package org.example.classes;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.*;
-
 import java.util.List;
 
 import org.example.classes.items.Inventory;
@@ -62,9 +60,11 @@ public class Player {
         this.hp = hp;
         this.currentRoom = currentRoom2;
         this.playerCell = playerCell;
+        this.inventory = new Inventory();
+        this.equippedWeapon = null; // Initially no weapon equipped
+        this.equippedArmor = null; // Initially no armor equipped
     }
 
-    public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell playerCell) {
     public WeaponBase getEquippedWeapon() {
         return equippedWeapon;
     }
@@ -107,7 +107,6 @@ public class Player {
     public void setPlayerCell(PlayerCell playerCell) {
         this.playerCell = playerCell;
     }
-    public PlayerCell getPlayerCell() {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
@@ -158,27 +157,25 @@ public class Player {
         }
 
         Item item = items.get(index - 1);
-
         switch (item) {
-            case ScrollBase<?> scroll -> {
+            case ScrollBase<?> scroll:
                 if (item instanceof RoomScroll roomScroll) {
                     roomScroll.cast();
                     if (roomScroll.getAmount() <= 0) {
-                    CurrentUser.getInstance().getCurrentPlayer().getInventory().removeItem(roomScroll);
-                    System.out.println("The scroll crumbles to dust after being used up.");
+                        CurrentUser.getInstance().getCurrentPlayer().getInventory().removeItem(roomScroll);
+                        System.out.println("The scroll crumbles to dust after being used up.");
                     }
                 } else {
                     System.out.println("You can't use this scroll outside of battle");
                 }
-            }
-            case Joker joker -> {
+                break;
+            case Joker joker:
                 joker.useJoker(CurrentRoom.getInstance().getCurrentRoom());
                 inventory.removeItem(item); 
-            }
-            default -> {
+                break;
+            default:
                 System.out.println("That item can't be used right now.");
-            }
+                break;
         }
     }
-
 }

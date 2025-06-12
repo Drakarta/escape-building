@@ -10,7 +10,7 @@ public class ChestCell implements Cell {
     private Item containedItem;
     private final Coordinates coordinates;
 
-    public ChestCell(boolean isLocked, Item containedItem, int x, int y) {
+    public ChestCell(Item containedItem, int x, int y) {
         this.isOpened = false;
         this.containedItem = containedItem;
         this.coordinates = new Coordinates(x, y);

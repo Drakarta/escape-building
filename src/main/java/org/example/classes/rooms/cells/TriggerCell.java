@@ -25,7 +25,7 @@ public class TriggerCell implements Cell {
         return " ";
     }
 
-    public void stepOnTrigger(PlayerCell player, RoomLayout room) {
+    public void stepOnTrigger() {
         if (triggered) return;
 
         switch (type) {
