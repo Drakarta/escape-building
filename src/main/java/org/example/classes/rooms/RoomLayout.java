@@ -3,6 +3,7 @@ package org.example.classes.rooms;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.example.classes.combat.CombatStarter;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.questions.QuestionsList;
 import org.example.classes.rooms.cells.*;
@@ -161,6 +162,7 @@ public class RoomLayout {
                     cell.addObserver(door);
                 }
             }
+            cell.addObserver(new CombatStarter());
         } else {
             System.err.println("No QuestionCell found at coordinates (" + x + ", " + y + ")");
         }

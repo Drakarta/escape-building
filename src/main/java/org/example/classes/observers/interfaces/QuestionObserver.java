@@ -1,7 +1,5 @@
 package org.example.classes.observers.interfaces;
 
 public interface QuestionObserver {
-    void updateObserversCorrect();
-
-    void updateObserversIncorrect();
+    void update(boolean trigger);
 }
