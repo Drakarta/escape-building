@@ -35,4 +35,5 @@ application {
 
 run {
     standardInput = System.in
+    jvmArgs = ['-Djava.util.logging.config.file=src/main/resources/logging.properties']
 }
