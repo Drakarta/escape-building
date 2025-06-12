@@ -1,20 +1,48 @@
 package org.example.classes.rooms.cells;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.example.classes.Player;
+import org.example.classes.combat.CombatLoop;
 import org.example.classes.hints.DisplayHint;
+import org.example.classes.monsters.Goblin;
+import org.example.classes.monsters.Monster;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;
-import org.example.classes.rooms.UnlockDoors;
 import org.example.classes.singleton.CurrentRoom;
+import org.example.classes.singleton.CurrentUser;
 
 public class QuestionCell implements Cell {
     private QuestionsForm questionsForm;
     private final Random random = new Random();
     private boolean answered = false;
+    private final List<DoorCell> observers = new ArrayList<>();
+
+    public void addObserver(DoorCell observer) {
+        this.observers.add(observer);
+    }
+
+    public void removeObserver(DoorCell observer) {
+        this.observers.remove(observer);
+    }
+
+    public void updateObserversCorrect() {
+        for (DoorCell observer : observers) {
+            observer.unlock();  //Observer method call
+        }
+    }
+
+    public void updateObserversIncorrect() {
+        Scanner scanner = new Scanner(System.in);
+        Player player = CurrentUser.getInstance().getCurrentPlayer();
+        Monster goblin = new Goblin();
+        CombatLoop combat = new CombatLoop(player, goblin, scanner);
+        combat.startCombat();
+    }
 
     @Override
     public String printIcon() {
@@ -23,7 +51,7 @@ public class QuestionCell implements Cell {
 
     @Override
     public boolean isWalkable() {
-    return false;
+        return false;
     }
 
     @Override
@@ -33,7 +61,7 @@ public class QuestionCell implements Cell {
 
     @Override
     public void interact(PlayerCell player, RoomLayout room) {
-        if (answered){
+        if (answered) {
             System.out.println("You've already answered this question!");
         } else {
             String questiontype = questionsForm.getQuestionType();
@@ -44,7 +72,7 @@ public class QuestionCell implements Cell {
 
             if (answer) {
                 System.out.println("Correct!");
-                unlockDoors(room);
+                updateObserversCorrect();  //Notify observers to unlock
                 answered = true;
                 try {
                     Thread.sleep(1000);
@@ -59,17 +87,21 @@ public class QuestionCell implements Cell {
                 if (hintYN.equalsIgnoreCase("Y")) {
                     displayHint();
                 }
+                try {
+                    Thread.sleep(1000);
+                    System.out.println("Also Prepare for Combat...    GoodLuck!");
+                    Thread.sleep(2000);
+                }
+                catch(InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                updateObserversIncorrect();
             }
         }
     }
 
-    public void unlockDoors(RoomLayout room){
-        new UnlockDoors(room);
-    }
-
-    public void displayHint(){
+    public void displayHint() {
         ArrayList<DisplayHint> hints = questionsForm.getHints();
-        questionsForm.getHints().getFirst().getHintText();
         if (hints.isEmpty()) {
             System.out.println("No hints available.");
         } else {
@@ -81,8 +113,7 @@ public class QuestionCell implements Cell {
     public void setQuestion(QuestionsForm question) {
         if (question == null) {
             System.err.println("Question could not be set, door automatically unlocked");
-            unlockDoors(CurrentRoom.getInstance().getCurrentRoom().getRoomLayout());
-
+            updateObserversCorrect(); // Unlock doors if question is null
         } else {
             this.questionsForm = question;
         }

@@ -5,7 +5,8 @@ import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.cells.ChestCell;
 import org.example.classes.rooms.cells.DoorCell;
 import org.example.classes.rooms.cells.TriggerCell;
-import org.example.classes.rooms.roomTypes.Room;
+import org.example.classes.rooms.roomTypes.*;
+
 import org.example.classes.singleton.DoorList;
 import org.example.classes.singleton.RoomList;
 
@@ -25,6 +26,10 @@ public class InitialiseRooms {
         DoorCell doorToRoom2 = new DoorCell(true, "north", "Room 2");
         RoomLayout startRoomLayout = new RoomLayout(9, 9, "dailyStandup", List.of(doorToRoom2), List.of(potionChest), triggers);
         Room startRoom = new Room("Start Room", "This is room 1", "Category 1", startRoomLayout);
+
+
+
+
 
         doorList.addDoor("Start Room", "Room 2", doorToRoom2);
 
