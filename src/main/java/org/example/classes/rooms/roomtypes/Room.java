@@ -1,4 +1,4 @@
-package org.example.classes.rooms.roomTypes;
+package org.example.classes.rooms.roomtypes;
 
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.RoomTemplate;
