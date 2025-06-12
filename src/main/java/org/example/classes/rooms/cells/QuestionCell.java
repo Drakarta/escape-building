@@ -3,6 +3,8 @@ package org.example.classes.rooms.cells;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import org.example.classes.Player;
@@ -10,6 +12,10 @@ import org.example.classes.combat.CombatLoop;
 import org.example.classes.hints.DisplayHint;
 import org.example.classes.monsters.Goblin;
 import org.example.classes.monsters.Monster;
+import org.example.classes.questions.Question;
+import org.example.classes.questions.QuestionsForm;
+
+import org.example.classes.hints.DisplayHint;
 import org.example.classes.questions.Question;
 import org.example.classes.questions.QuestionsForm;
 import org.example.classes.rooms.RoomLayout;

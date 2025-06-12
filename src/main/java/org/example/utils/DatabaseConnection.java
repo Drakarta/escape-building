@@ -3,14 +3,11 @@ package org.example.utils;
 import java.sql.*;
 import java.util.*;
 public class DatabaseConnection {
-
-    private static final String DB_PATH = "database/test.db";
-
     private DatabaseConnection() {
     }
 
     public static Connection getConnection() throws SQLException {
-        String url = "jdbc:sqlite:" + DB_PATH;
+        String url = "jdbc:sqlite:database/test.db";
         return DriverManager.getConnection(url);
     }
 

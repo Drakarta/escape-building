@@ -13,7 +13,7 @@ import org.example.classes.singleton.RoomList;
 import java.util.List;
 
 public class InitialiseRooms {
-    InitialiseRooms() {
+    public InitialiseRooms() {
         RoomList roomList = RoomList.getInstance();
         DoorList doorList = DoorList.getInstance(); // Could be singleton if needed
 

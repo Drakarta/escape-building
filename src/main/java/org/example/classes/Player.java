@@ -1,5 +1,9 @@
 package org.example.classes;
 
+import jakarta.persistence.*;
+
+import jakarta.persistence.*;
+
 import java.util.List;
 
 import org.example.classes.items.Inventory;
@@ -10,22 +14,32 @@ import org.example.classes.items.consumables.scrolls.ScrollBase;
 import org.example.classes.items.weapons.WeaponBase;
 import org.example.classes.jokers.Joker;
 import org.example.classes.rooms.Coordinates;
-
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
+import org.example.utils.PlayerCellConverter;
 
+@Entity
+@Table(name = "Player")
 public class Player {
+    @Id
+    @Column(name = "id")
     private int id;
+
     private String name;
     private String username;
+    
+    @Column(nullable = false)
+    private String password;
     private int hp;
     private String currentRoom;
+    @Convert(converter = PlayerCellConverter.class)
     private PlayerCell playerCell = new PlayerCell(new Coordinates(1, 1));
     private Inventory inventory = new Inventory();
     private WeaponBase equippedWeapon;
     private ArmorBase equippedArmor;
 
+    public Player() {}
 
     public Player(int id, String name, String username, int hp, String currentRoom2) {
         this.id = id;
@@ -40,6 +54,17 @@ public class Player {
         this.equippedWeapon = weapon;
         System.out.println("You have equipped: " + weapon.getName());
     }
+    public Player(int id, String name, String username, String password, int hp, String currentRoom2, PlayerCell playerCell) {
+        this.id = id;
+        this.name = name;
+        this.username = username;
+        this.password = password;
+        this.hp = hp;
+        this.currentRoom = currentRoom2;
+        this.playerCell = playerCell;
+    }
+
+    public Player(int id, String name, String username, int hp, String currentRoom2, PlayerCell playerCell) {
     public WeaponBase getEquippedWeapon() {
         return equippedWeapon;
     }
@@ -83,6 +108,11 @@ public class Player {
         this.playerCell = playerCell;
     }
     public PlayerCell getPlayerCell() {
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+
+    public PlayerCell getPlayerCell(){
         return this.playerCell;
     }
 
