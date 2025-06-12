@@ -7,11 +7,12 @@ import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.RoomList;
 import org.example.utils.Login;
+import org.example.classes.items.StarterItems;
 
 public abstract class GameTemplate {
     private final Scanner scanner = new Scanner(System.in);
 
-    public GameTemplate() {
+    protected GameTemplate() {
     }
     
     public void start() {
@@ -72,6 +73,7 @@ public abstract class GameTemplate {
     public void register() {
         // This method will be implemented in the Game class
         // It will handle user registration logic
+        StarterItems.startingItems();
     }
 
     public void gameLoop() {

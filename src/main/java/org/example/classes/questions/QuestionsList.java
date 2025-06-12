@@ -5,6 +5,7 @@ import org.example.classes.hints.FunnyHint;
 import org.example.classes.hints.HelpHint;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class QuestionsList {
@@ -28,7 +29,6 @@ public class QuestionsList {
         questionOrAnswer.clear();
         hintList.clear();
 
-
         questionSort = "review";
         questionOrAnswer.add("7");
         question = "Hoeveel dagen in een week?";
@@ -40,19 +40,24 @@ public class QuestionsList {
         hintList.clear();
     }
 
-    public ArrayList<QuestionsForm> getQuestionsListWithQuestionSort(String questionSort) {
-        ArrayList<QuestionsForm> tempRoomList = new ArrayList<>();
+    public List<QuestionsForm> getQuestionsListWithQuestionSort(String questionSort) {
+        List<QuestionsForm> tempQuestionList = new ArrayList<>();
         for (QuestionsForm q : questionslist){
             if (q.getQuestionSort().equalsIgnoreCase(questionSort)){
-                tempRoomList.add(q);
+                tempQuestionList.add(q);
             }
         }
-        return tempRoomList;
+        return tempQuestionList;
     }
 
     public QuestionsForm getRandomQuestionWithQuestionSort(String questionSort) {
-        ArrayList<QuestionsForm> tempRoomList = getQuestionsListWithQuestionSort(questionSort);
+        List<QuestionsForm> tempQuestionList = getQuestionsListWithQuestionSort(questionSort);
+        if (tempQuestionList.isEmpty()) {
+            System.err.println("No questions found for sort: " + questionSort);
+            return null;  // Or throw exception, or handle differently
+        }
+
         Random random = new Random();
-        return tempRoomList.get(random.nextInt(questionslist.size() - 1));
+        return tempQuestionList.get(random.nextInt(tempQuestionList.size()));
     }
 }

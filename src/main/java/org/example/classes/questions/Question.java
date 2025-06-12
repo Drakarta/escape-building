@@ -6,19 +6,23 @@ public class Question {
     QuestionsTemplate questionSort;
 
     public boolean ask(String questionType, String question, ArrayList<String> questionsOrAnswers) {
-        switch (questionType.toUpperCase()) {
-            case "OPENQUESTION":
-                questionSort = new OpenQuestions();
-                break;
-            case "MULTIPLEANSWERSQUESTION":
-                questionSort = new MultipleAnswersQuestion();
-                break;
-            case "MULTIPLECHOICEQUESTION":
-                questionSort = new MultipleChoiceQuestions();
-                break;
-            case null, default:
-                return false;
-        }
-        return questionSort.ask(question, questionsOrAnswers);
+    if (questionType == null) return false;
+
+    switch (questionType.toLowerCase()) {
+        case "openquestion":
+            questionSort = new OpenQuestions();
+            break;
+        case "multipleanswersquestion":
+            questionSort = new MultipleAnswersQuestion();
+            break;
+        case "multiplechoicequestions":
+            questionSort = new MultipleChoiceQuestions();
+            break;
+        default:
+            System.err.println("Unknown question type: " + questionType);
+            return false;
     }
+    return questionSort.ask(question, questionsOrAnswers);
+}
+
 }

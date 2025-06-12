@@ -9,5 +9,4 @@ public interface Cell {
     default boolean isInteractive() { return false;}
     default boolean isDoor() { return false; }
     default void interact(PlayerCell player, RoomLayout room) {}
-    void setQuestion(QuestionsForm question);
 }
