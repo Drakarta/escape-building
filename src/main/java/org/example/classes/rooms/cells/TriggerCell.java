@@ -1,7 +1,6 @@
 package org.example.classes.rooms.cells;
 
 import org.example.classes.rooms.Coordinates;
-import org.example.classes.rooms.RoomLayout;
 
 public class TriggerCell implements Cell {
     public enum TriggerType {
