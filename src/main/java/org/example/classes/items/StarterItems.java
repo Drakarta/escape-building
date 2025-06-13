@@ -29,6 +29,6 @@ public class StarterItems {
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Chainmail armor", 3, 4));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll("", ""));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new RoomScroll());
-        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new HealthPotion(null, 20));
+        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new HealthPotion(20));
     }
 }

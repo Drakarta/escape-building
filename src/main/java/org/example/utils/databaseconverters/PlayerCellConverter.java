@@ -1,4 +1,4 @@
-package org.example.utils;
+package org.example.utils.databaseconverters;
 
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.cells.PlayerCell;

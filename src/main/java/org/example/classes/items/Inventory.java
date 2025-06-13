@@ -5,13 +5,22 @@ import java.util.List;
 
 import org.example.classes.Player;
 import org.example.classes.items.weapons.WeaponBase;
+import org.example.utils.databaseconverters.InventoryConverter;
+
+import jakarta.persistence.Convert;
+
 import org.example.classes.items.armor.ArmorBase;
 
 public class Inventory {
+    @Convert(converter = InventoryConverter.class)
     private List<Item> items;
 
     public Inventory() {
         this.items = new ArrayList<>();
+    }
+
+    public Inventory(List<Item> items) {
+        this.items = new ArrayList<>(items); // Create a copy to avoid external modification
     }
 
     public void addItem(Item item) {

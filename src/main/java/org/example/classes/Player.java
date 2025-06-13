@@ -15,46 +15,36 @@ import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
-import org.example.utils.PlayerCellConverter;
+import org.example.utils.databaseconverters.ArmorBaseConverter;
+import org.example.utils.databaseconverters.InventoryConverter;
+import org.example.utils.databaseconverters.PlayerCellConverter;
+import org.example.utils.databaseconverters.WeaponBaseConverter;
 
 @Entity
-@Table(name = "Player")
+@Table(name = "players")
 public class Player {
     @Id
-    @Column(name = "id")
-    private int id;
-
-    private String name;
     private String username;
-    
-    @Column(nullable = false)
     private String password;
-    private int hp;
-    private String currentRoom;
+    private int hp = 100;
+    private String currentRoom = "Start Room";
     @Convert(converter = PlayerCellConverter.class)
     private PlayerCell playerCell = new PlayerCell(new Coordinates(1, 1));
+    @Convert(converter = InventoryConverter.class)
     private Inventory inventory = new Inventory();
-    private WeaponBase equippedWeapon;
-    private ArmorBase equippedArmor;
+    @Convert(converter = WeaponBaseConverter.class)
+    private WeaponBase equippedWeapon = null; 
+    @Convert(converter = ArmorBaseConverter.class)
+    private ArmorBase equippedArmor = null;
 
     public Player() {}
 
-    public Player(int id, String name, String username, int hp, String currentRoom2) {
-        this.id = id;
-        this.name = name;
+    public Player(String username, String password) {
         this.username = username;
-        this.hp = hp;
-        this.currentRoom = currentRoom2;
+        this.password = password;
     }
-
-
-    public void equipWeapon(WeaponBase weapon) {
-        this.equippedWeapon = weapon;
-        System.out.println("You have equipped: " + weapon.getName());
-    }
-    public Player(int id, String name, String username, String password, int hp, String currentRoom2, PlayerCell playerCell) {
-        this.id = id;
-        this.name = name;
+    
+    public Player(String username, String password, int hp, String currentRoom2, PlayerCell playerCell) {
         this.username = username;
         this.password = password;
         this.hp = hp;
@@ -64,23 +54,14 @@ public class Player {
         this.equippedWeapon = null; // Initially no weapon equipped
         this.equippedArmor = null; // Initially no armor equipped
     }
+    
+    public void equipWeapon(WeaponBase weapon) {
+        this.equippedWeapon = weapon;
+        System.out.println("You have equipped: " + weapon.getName());
+    }
 
     public WeaponBase getEquippedWeapon() {
         return equippedWeapon;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-    public int getId() {
-        return this.id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return this.name;
     }
 
     public void setUsername(String username) {

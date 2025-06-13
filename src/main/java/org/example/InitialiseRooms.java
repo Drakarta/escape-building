@@ -22,8 +22,8 @@ public class InitialiseRooms {
                 new TriggerCell(TriggerCell.TriggerType.MESSAGE, "Press WASD (and enter) to walk around the room", 1, 5),
                 new TriggerCell(TriggerCell.TriggerType.MESSAGE, "10", 1, 2)
         );
-        ChestCell potionChest = new ChestCell(new HealthPotion(null, 20), 2, 2); // Not center
-        DoorCell doorToRoom2 = new DoorCell(true, "north", "Sprint planning kamer");
+        ChestCell potionChest = new ChestCell(new HealthPotion(20), 5, 5);
+        DoorCell doorToRoom2 = new DoorCell(true, "north", "Room 2");
         RoomLayout startRoomLayout = new RoomLayout(9, 9, "dailyStandup", List.of(doorToRoom2), List.of(potionChest), triggers);
         Room startRoom = new Room("Start Room", "This is room 1", "Category 1", startRoomLayout);
         roomList.addRoom(startRoom);
@@ -41,7 +41,7 @@ public class InitialiseRooms {
         // === Room 3: Scrum board kamer ===
         DoorCell doorToRoom2Back = new DoorCell(true, "south", "Sprint planning kamer");
         DoorCell doorToRoom4 = new DoorCell(true, "north", "Daily scrum kamer");
-        ChestCell chest3 = new ChestCell(new HealthPotion(null, 20), 2, 6); // Not center
+        ChestCell chest3 = new ChestCell(new HealthPotion(20), 2, 6); // Not center
         RoomLayout layout3 = new RoomLayout(9, 9, "review", List.of(doorToRoom2Back, doorToRoom4), List.of(chest3), null);
         Room room3 = new Room("Scrum board kamer", "Scrum board activity", "Category 2", layout3);
         roomList.addRoom(room3);
@@ -51,7 +51,7 @@ public class InitialiseRooms {
         // === Room 4: Daily scrum kamer ===
         DoorCell doorToRoom3Back = new DoorCell(true, "south", "Scrum board kamer");
         DoorCell doorToRoom5 = new DoorCell(true, "north", "Sprint review kamer 1");
-        ChestCell chest4 = new ChestCell(new HealthPotion(null, 20), 1, 7); // Not center
+        ChestCell chest4 = new ChestCell(new HealthPotion(20), 1, 7); // Not center
         RoomLayout layout4 = new RoomLayout(9, 9, "review", List.of(doorToRoom3Back, doorToRoom5), List.of(chest4), null);
         Room room4 = new Room("Daily scrum kamer", "Daily scrum meeting room", "Category 2", layout4);
         roomList.addRoom(room4);
@@ -61,7 +61,7 @@ public class InitialiseRooms {
         // === Room 5: Sprint review kamer 1 ===
         DoorCell doorToRoom4Back = new DoorCell(true, "south", "Daily scrum kamer");
         DoorCell doorToRoom6 = new DoorCell(true, "north", "Sprint retrospective");
-        ChestCell chest5 = new ChestCell(new HealthPotion(null, 20), 6, 2); // Not center
+        ChestCell chest5 = new ChestCell(new HealthPotion(20), 6, 2); // Not center
         RoomLayout layout5 = new RoomLayout(9, 9, "review", List.of(doorToRoom4Back, doorToRoom6), List.of(chest5), null);
         Room room5 = new Room("Sprint review kamer 1", "First sprint review room", "Category 2", layout5);
         roomList.addRoom(room5);
@@ -71,7 +71,7 @@ public class InitialiseRooms {
         // === Room 6: Sprint retrospective ===
         DoorCell doorToRoom5Back = new DoorCell(true, "south", "Sprint review kamer 1");
         DoorCell doorToRoom7 = new DoorCell(true, "north", "TIA kamer");
-        ChestCell chest6 = new ChestCell(new HealthPotion(null, 20), 1, 1); // Not center
+        ChestCell chest6 = new ChestCell(new HealthPotion(20), 1, 1); // Not center
         RoomLayout layout6 = new RoomLayout(9, 9, "review", List.of(doorToRoom5Back, doorToRoom7), List.of(chest6), null);
         Room room6 = new Room("Sprint retrospective", "Reflect and improve", "Category 2", layout6);
         roomList.addRoom(room6);
@@ -80,7 +80,7 @@ public class InitialiseRooms {
 
         // === Room 7: TIA kamer (Final boss room) ===
         DoorCell doorToRoom6Back = new DoorCell(true, "south", "Sprint retrospective");
-        ChestCell chest7 = new ChestCell(new HealthPotion(null, 20), 0, 8); // Not center
+        ChestCell chest7 = new ChestCell(new HealthPotion(20), 0, 8); // Not center
         RoomLayout layout7 = new RoomLayout(9, 9, "review", List.of(doorToRoom6Back), List.of(chest7), null);
         Room room7 = new Room("TIA kamer", "This is the final boss room", "Category 2", layout7);
         roomList.addRoom(room7);

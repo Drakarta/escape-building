@@ -1,8 +1,12 @@
 package org.example.classes.items.weapons;
 
 import org.example.classes.items.Item;
+import org.example.utils.databaseconverters.WeaponBaseConverter;
+
+import jakarta.persistence.Convert;
 
 public class WeaponBase extends Item {
+    @Convert(converter = WeaponBaseConverter.class)
     protected int durability;
     protected double damage;
 
