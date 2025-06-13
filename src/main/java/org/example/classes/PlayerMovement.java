@@ -10,6 +10,7 @@ import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.DoorList;
 import org.example.classes.singleton.RoomList;
+import org.example.utils.Save;
 import org.example.classes.combat.CombatLoop;
 import org.example.classes.monsters.Goblin;
 import org.example.classes.monsters.Monster;
@@ -184,6 +185,7 @@ public class PlayerMovement {
     private void roomChange(String direction) {
         for (DoorCell door : room.getDoors()) {
             if (door.getDoorPosition().equals(direction)) {
+                Save.saveGame();
                 RoomTemplate nextRoom = RoomList.getInstance().getRoomByName(door.getToRoom());
 
                 CurrentUser.getInstance().getCurrentPlayer().setCurrentRoom(door.getToRoom());
