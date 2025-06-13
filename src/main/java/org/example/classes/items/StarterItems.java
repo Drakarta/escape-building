@@ -8,6 +8,7 @@ import org.example.classes.items.weapons.WeaponBase;
 import org.example.classes.jokers.HintJoker;
 import org.example.classes.jokers.KeyJoker;
 import org.example.classes.singleton.CurrentUser;
+import org.example.utils.Save;
 
 public class StarterItems {
 
@@ -30,5 +31,6 @@ public class StarterItems {
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll("", ""));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new RoomScroll());
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new HealthPotion(20));
+        Save.saveGame();
     }
 }
