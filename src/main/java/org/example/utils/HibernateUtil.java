@@ -41,13 +41,19 @@ public class HibernateUtil {
     }
 
     public Object read(String query, Class<?> clazz) {
+        return read(query, clazz, false);
+    }
+
+    public Object read(String query, Class<?> clazz, boolean silent) {
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             Object result = session.createQuery(query, clazz).getSingleResult();
             session.getTransaction().commit();
             return result;
         } catch (Exception e) {
-            System.out.println("Error reading from database: " + e.getMessage());
+            if (!silent) {
+                System.out.println("Error reading from database: " + e.getMessage());
+            }
             return null;
         }
     }

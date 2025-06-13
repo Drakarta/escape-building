@@ -3,11 +3,9 @@ package org.example.classes.items.consumables.potions;
 import org.example.classes.Player;
 
 public class HealthPotion extends PotionBase {
-    private final Player player;
 
-    public HealthPotion(Player player, int potency) {
+    public HealthPotion(int potency) {
         super("Health Potion", "Restores " + potency + " HP.", potency);
-        this.player = player;
     }
 
     @Override
