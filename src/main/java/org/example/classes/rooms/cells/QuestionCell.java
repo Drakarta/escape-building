@@ -84,8 +84,8 @@ public class QuestionCell implements Cell {
                 catch(InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                updateObservers(answered);
             }
+            updateObservers(answered);
         }
     }
 
