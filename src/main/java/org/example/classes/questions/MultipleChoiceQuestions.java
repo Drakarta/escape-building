@@ -8,16 +8,15 @@ public class MultipleChoiceQuestions implements QuestionsTemplate {
         System.out.println(questions);
         System.out.println("Is het correcte antwoord:");
         int i =1;
-        for (String q : answers){
-            if(!q.equalsIgnoreCase(answers.getFirst())) {
-                System.out.println(i + ". " + q);
+        for (int q = 1; q < answers.size(); q++) {
+                System.out.println(i + ". " + answers.get(q));
                 i++;
-            }
         }
         Scanner sc = new Scanner(System.in);
         int choiceInt = sc.nextInt();
 
-        String choiceString = answers.get(choiceInt - 1);
+        String choiceString = answers.get(choiceInt);
+        System.out.println(choiceString);
         return choiceString.equals(answers.getFirst());
 
     }

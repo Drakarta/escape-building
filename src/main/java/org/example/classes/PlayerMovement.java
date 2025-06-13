@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import org.example.classes.combat.CombatStarter;
 import org.example.classes.rooms.DoorLink;
 import org.example.classes.rooms.cells.Cell;
 import org.example.classes.rooms.cells.DoorCell;
@@ -111,10 +112,8 @@ public class PlayerMovement {
     }
 
     private void triggerCombat() {
-        Player player = CurrentUser.getInstance().getCurrentPlayer();
-        Monster goblin = new Goblin();
-        CombatLoop combat = new CombatLoop(player, goblin, scanner);
-        combat.startCombat();
+        CombatStarter combatStarter = new CombatStarter();
+        combatStarter.startCombatGoblin();
     }
 
     private void interact() {
