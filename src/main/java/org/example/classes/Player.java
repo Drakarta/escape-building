@@ -27,6 +27,7 @@ public class Player {
     private String username;
     private String password;
     private int hp = 100;
+    private int maxHp = 100;
     private String currentRoom = "Start Room";
     @Convert(converter = PlayerCellConverter.class)
     private PlayerCell playerCell = new PlayerCell(new Coordinates(1, 1));
@@ -72,7 +73,11 @@ public class Player {
     }
 
     public void setHp(int hp) {
-        this.hp = hp;
+        if (hp > maxHp) {
+            this.hp = maxHp;
+        } else {
+            this.hp = hp;
+        }
     }
     public int getHp() {
         return this.hp;
