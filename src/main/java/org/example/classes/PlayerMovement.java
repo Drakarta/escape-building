@@ -112,11 +112,10 @@ public class PlayerMovement {
 
     private void triggerCombat() {
         CombatStarter combatStarter = new CombatStarter();
-        combatStarter.startCombatGoblin();
+        combatStarter.startCombat();
     }
 
     private void interact() {
-        System.out.println("[DEBUG] Interact triggered at " + player.getCoordinates().getX() + ", " + player.getCoordinates().getY());
         int x = player.getCoordinates().getX();
         int y = player.getCoordinates().getY();
 
