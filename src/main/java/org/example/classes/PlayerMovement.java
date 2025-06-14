@@ -101,21 +101,21 @@ public class PlayerMovement {
     }
 
     private void printHelp() {
-        System.out.printf("%-15s %s%n", "W, A, S, D", "Are the movement keys");
-        System.out.printf("%-15s %s%n", "E", "This is the interact key");
-        System.out.printf("%-15s %s%n", "Inventory", "Opens your inventory");
-        System.out.printf("%-15s %s%n", "Status", "Displays character info");
-        System.out.printf("%-15s %s%n", "Taunt", "Start combat");
+        String formatter = "%-15s %s%n";
+        System.out.printf(formatter, "W, A, S, D", "Are the movement keys");
+        System.out.printf(formatter, "E", "This is the interact key");
+        System.out.printf(formatter, "Inventory", "Opens your inventory");
+        System.out.printf(formatter, "Status", "Displays character info");
+        System.out.printf(formatter, "Taunt", "Start combat");
         System.out.println();
     }
 
     private void triggerCombat() {
         CombatStarter combatStarter = new CombatStarter();
-        combatStarter.startCombatGoblin();
+        combatStarter.startCombat();
     }
 
     private void interact() {
-        System.out.println("[DEBUG] Interact triggered at " + player.getCoordinates().getX() + ", " + player.getCoordinates().getY());
         int x = player.getCoordinates().getX();
         int y = player.getCoordinates().getY();
 
