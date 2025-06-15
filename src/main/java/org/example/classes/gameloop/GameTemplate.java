@@ -6,6 +6,7 @@ import org.example.InitialiseRooms;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
 import org.example.classes.singleton.RoomList;
+import org.example.utils.HibernateUtil;
 import org.example.utils.Login;
 import org.example.utils.Register;
 import org.example.utils.Save;
@@ -53,6 +54,8 @@ public abstract class GameTemplate {
     }
 
     public void login() {
+        Login login = new Login(new HibernateUtil());
+
         int fails = 0;
         while (fails < 3) {
             System.out.print("Username: ");
@@ -61,7 +64,7 @@ public abstract class GameTemplate {
             System.out.print("Password: ");
             String password = handleInput();
 
-            boolean success = Login.login(username, password);
+            boolean success = login.login(username, password);
             if (!success) {
                 System.out.println("Login failed. Please try again.\n");
             }
@@ -73,6 +76,8 @@ public abstract class GameTemplate {
     }
 
     public void register() {
+        Register register = new Register(new HibernateUtil());
+
         while (true) {
             System.out.print("username: ");
             String username = handleInput();
@@ -84,7 +89,7 @@ public abstract class GameTemplate {
                 System.out.println("Passwords do not match. Please try again.");
                 return;
             }
-            if (Register.register(username, password)) {
+            if (register.register(username, password)) {
                 System.out.println("Registration successful!");
                 break;
             } else {

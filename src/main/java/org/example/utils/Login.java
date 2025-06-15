@@ -4,13 +4,18 @@ import org.example.classes.singleton.CurrentUser;
 import org.example.classes.Player;
 
 public class Login {
+    private HibernateUtil hibernateUtil;
 
-    public static boolean login(String username, String password) {
+    public Login(HibernateUtil hibernateUtil) {
+        this.hibernateUtil = hibernateUtil;
+    }
+
+    public boolean login(String username, String password) {
         if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
             System.out.println("Username and password cannot be empty.");
             return false;
         }
-        HibernateUtil hibernateUtil = new HibernateUtil();
+        
         try {
             Player player = (Player) hibernateUtil.read("FROM Player WHERE username = '" + username + "'", Player.class, true);
             if (player == null) {
