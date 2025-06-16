@@ -10,7 +10,9 @@ import org.example.utils.HibernateUtil;
 import org.example.utils.Login;
 import org.example.utils.Register;
 import org.example.utils.Save;
+import org.example.classes.Extras.Terminal;
 import org.example.classes.items.StarterItems;
+import org.example.classes.rooms.RoomLayout;
 
 public abstract class GameTemplate {
     private final Scanner scanner = new Scanner(System.in);
@@ -58,6 +60,7 @@ public abstract class GameTemplate {
 
         int fails = 0;
         while (fails < 3) {
+            Terminal.clearScreen();
             System.out.print("Username: ");
             String username = handleInput();
 
@@ -72,6 +75,7 @@ public abstract class GameTemplate {
                 System.out.println("Login successful!");
                 break; 
             }
+            Terminal.pauseBriefly();
         }
     }
 
@@ -79,6 +83,7 @@ public abstract class GameTemplate {
         Register register = new Register(new HibernateUtil());
 
         while (true) {
+            Terminal.clearScreen();
             System.out.print("username: ");
             String username = handleInput();
             System.out.print("password: ");
@@ -95,6 +100,7 @@ public abstract class GameTemplate {
             } else {
                 System.out.println("Registration failed. Please try again.");
             }
+            Terminal.pauseBriefly();
         }
         StarterItems.startingItems();
     }
@@ -103,6 +109,7 @@ public abstract class GameTemplate {
         new InitialiseRooms();
         CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
         while(true) {
+            Terminal.clearScreen();
             displayRoom();
             String input = handleInput();
             if (input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q")) {

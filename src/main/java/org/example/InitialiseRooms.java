@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.classes.items.consumables.potions.HealthPotion;
+import org.example.classes.items.consumables.scrolls.MonsterInfoScroll;
 import org.example.classes.rooms.RoomLayout;
 import org.example.classes.rooms.cells.ChestCell;
 import org.example.classes.rooms.cells.DoorCell;
@@ -26,8 +27,8 @@ public class InitialiseRooms {
         String room7Naam = "TIA kamer";
         // === Room 1: Start Room ===
         List<TriggerCell> triggers = List.of(
-                new TriggerCell(TriggerCell.TriggerType.MESSAGE, "Press WASD (and enter) to walk around the room", 1, 5),
-                new TriggerCell(TriggerCell.TriggerType.MESSAGE, "10", 1, 2)
+                new TriggerCell("Press WASD (and enter) to walk around the room", 1, 5),
+                new TriggerCell(new MonsterInfoScroll(1), 1, 2)
         );
         ChestCell potionChest = new ChestCell(new HealthPotion(20), 5, 5);
         DoorCell doorToRoom2 = new DoorCell(true, "north", room2Naam);

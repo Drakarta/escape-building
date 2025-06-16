@@ -143,11 +143,6 @@ public class RoomLayout {
         return null;
     }
 
-    public void clearScreen() {
-        System.out.println("\033[2J\033[H");
-        System.out.flush();
-    }
-
     public void setQuestion(String questionsSort, int x, int y) {
         QuestionsList list = new QuestionsList();
         this.question = list.getRandomQuestionWithQuestionSort(questionsSort);

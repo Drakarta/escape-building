@@ -1,5 +1,6 @@
 package org.example.classes;
 
+import org.example.classes.Extras.Terminal;
 import org.example.classes.combat.CombatStarter;
 import org.example.classes.rooms.DoorLink;
 import org.example.classes.rooms.cells.Cell;
@@ -53,6 +54,7 @@ public class PlayerMovement {
                 return;
             case "e":
                 interact();
+                Terminal.pauseBriefly();
                 return;
             case "status":
                 showStatus();
@@ -91,7 +93,7 @@ public class PlayerMovement {
                 }
             }
 
-            // Optional: 5% chance of random encounter on movement
+            //5% chance of random encounter on movement
             if (Math.random() < 0.05) {
                 triggerCombat();
             }
