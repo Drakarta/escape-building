@@ -12,7 +12,6 @@ import org.example.utils.Register;
 import org.example.utils.Save;
 import org.example.classes.Extras.Terminal;
 import org.example.classes.items.StarterItems;
-import org.example.classes.rooms.RoomLayout;
 
 public abstract class GameTemplate {
     private final Scanner scanner = new Scanner(System.in);

@@ -139,6 +139,7 @@ public class PlayerMovement {
         System.out.println("Username: " + player.getUsername());
         System.out.println("Current Room: " + player.getCurrentRoom());
         System.out.println("HP: " + player.getHp());
+        Terminal.pauseBriefly();
     }
 
     private void inventory() {

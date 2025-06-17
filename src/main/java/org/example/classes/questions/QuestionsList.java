@@ -45,6 +45,19 @@ public class QuestionsList {
         questionOrAnswer.clear();
         hintList.clear();
 
+        questionSort = "sprintPlanning";
+        questionOrAnswer.add("Product Owner");
+        questionOrAnswer.add("Scrum Master");      
+        questionOrAnswer.add("Product Owner");     
+        questionOrAnswer.add("Development Team");  
+        question = "Wie bepaalt wat er in de sprint backlog komt?";
+        questiontype = multipleChoice;
+        hintList.add(new FunnyHint(""));
+        hintList.add(new HelpHint("De sprint backlog wordt beheerd door de Scrum master."));
+        questionslist.add(new QuestionsForm(questionSort, questiontype, question, new ArrayList<>(questionOrAnswer), new ArrayList<>(hintList)));
+        questionOrAnswer.clear();
+        hintList.clear();
+
         questionSort = "TIA";
         questionOrAnswer.add("ja");
         question = "Was de game leuk?";
@@ -56,8 +69,8 @@ public class QuestionsList {
         hintList.clear();
 
         questionSort = "scrumBoard";
-        questionOrAnswer.add("Sprint backlog");
         questionOrAnswer.add("Product backlog");
+        questionOrAnswer.add("Sprint backlog");
         questionOrAnswer.add("Doing");
         questionOrAnswer.add("Review");
         questionOrAnswer.add("Done");
