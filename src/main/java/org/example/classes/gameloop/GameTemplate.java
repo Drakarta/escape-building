@@ -18,7 +18,7 @@ public abstract class GameTemplate {
     protected GameTemplate() {
     }
     
-    public void start() {
+    public final void start() {
         startUp();
         gameLoop();
     }
@@ -73,6 +73,9 @@ public abstract class GameTemplate {
                 break; 
             }
         }
+        new InitialiseRooms();
+        CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
+        Save.loadGame();
     }
 
     public void register() {
@@ -96,11 +99,12 @@ public abstract class GameTemplate {
                 System.out.println("Registration failed. Please try again.");
             }
         }
+        new InitialiseRooms();
         StarterItems.startingItems();
+        Save.saveGame();
     }
 
-    public void gameLoop() {
-        new InitialiseRooms();
+    public void gameLoop() {        
         CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
         while(true) {
             displayRoom();

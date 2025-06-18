@@ -31,7 +31,7 @@ public class InitialiseRooms {
         );
         ChestCell potionChest = new ChestCell(new HealthPotion(20), 5, 5);
         DoorCell doorToRoom2 = new DoorCell(true, "north", room2Naam);
-        RoomLayout startRoomLayout = new RoomLayout(9, 9, "dailyStandup", List.of(doorToRoom2), List.of(potionChest), triggers);
+        RoomLayout startRoomLayout = new RoomLayout(9, 9, "introduction", List.of(doorToRoom2), List.of(potionChest), triggers);
 
         Room startRoom = new Room(room1Naam, "This is room 1", "Category 1", startRoomLayout);
         roomList.addRoom(startRoom);

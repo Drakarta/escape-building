@@ -15,9 +15,11 @@ import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.cells.PlayerCell;
 import org.example.classes.singleton.CurrentRoom;
 import org.example.classes.singleton.CurrentUser;
+import org.example.utils.SaveFile;
 import org.example.utils.databaseconverters.ArmorBaseConverter;
 import org.example.utils.databaseconverters.InventoryConverter;
 import org.example.utils.databaseconverters.PlayerCellConverter;
+import org.example.utils.databaseconverters.SaveFileConverter;
 import org.example.utils.databaseconverters.WeaponBaseConverter;
 
 @Entity
@@ -37,6 +39,8 @@ public class Player {
     private WeaponBase equippedWeapon = null; 
     @Convert(converter = ArmorBaseConverter.class)
     private ArmorBase equippedArmor = null;
+    @Convert(converter = SaveFileConverter.class)
+    private SaveFile saveFile;
 
     public Player() {}
 
@@ -163,5 +167,13 @@ public class Player {
                 System.out.println("That item can't be used right now.");
                 break;
         }
+    }
+
+    public SaveFile getSaveFile() {
+        return saveFile;
+    }
+
+    public void setSaveFile(SaveFile saveFile2) {
+        this.saveFile = saveFile2;
     }
 }
