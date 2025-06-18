@@ -33,6 +33,15 @@ public class QuestionCell implements Cell {
 
     }
 
+    public boolean getAnswered() {
+        return answered;
+    }
+
+    public void setAnswered(boolean answered) {
+        this.answered = answered;
+        updateObservers(answered);
+    }
+
 
     @Override
     public String printIcon() {

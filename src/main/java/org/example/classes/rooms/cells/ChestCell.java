@@ -1,5 +1,7 @@
 package org.example.classes.rooms.cells;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
 import org.example.classes.items.Item;
 import org.example.classes.rooms.Coordinates;
 import org.example.classes.rooms.RoomLayout;
@@ -18,6 +20,14 @@ public class ChestCell implements Cell {
 
     public Coordinates getCoordinates() {
         return coordinates;
+    }
+
+    public boolean isOpened() {
+        return isOpened;
+    }
+
+    public void setOpened(boolean opened) {
+        isOpened = opened;
     }
 
     @Override

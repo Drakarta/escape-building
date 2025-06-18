@@ -19,7 +19,7 @@ public abstract class GameTemplate {
     protected GameTemplate() {
     }
     
-    public void start() {
+    public final void start() {
         startUp();
         gameLoop();
     }
@@ -76,6 +76,9 @@ public abstract class GameTemplate {
             }
             Terminal.pauseBriefly();
         }
+        new InitialiseRooms();
+        CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
+        Save.loadGame();
     }
 
     public void register() {
@@ -101,11 +104,12 @@ public abstract class GameTemplate {
             }
             Terminal.pauseBriefly();
         }
+        new InitialiseRooms();
         StarterItems.startingItems();
+        Save.saveGame();
     }
 
-    public void gameLoop() {
-        new InitialiseRooms();
+    public void gameLoop() {        
         CurrentRoom.getInstance().setCurrentRoom(RoomList.getInstance().getRoomByName(CurrentUser.getInstance().getCurrentPlayer().getCurrentRoom()));
         while(true) {
             Terminal.clearScreen();

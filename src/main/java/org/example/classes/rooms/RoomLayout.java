@@ -62,6 +62,7 @@ public class RoomLayout {
     }
 
     private void placeChests(List<ChestCell> chests) {
+        this.chests = new ArrayList<>();
         if (chests == null) return;
 
         for (ChestCell chest : chests) {
@@ -71,6 +72,7 @@ public class RoomLayout {
 
             if (y >= 0 && y < roomLayout.size() && x >= 0 && x < roomLayout.get(0).size()) {
                 roomLayout.get(y).set(x, chest);
+                this.chests.add(chest);
             } else {
                 System.out.println("Warning: Chest position out of bounds: (" + x + ", " + y + ")");
             }
@@ -93,6 +95,9 @@ public class RoomLayout {
         }
     }
 
+    public List<ChestCell> getChests() {
+        return chests;
+    }
 
     public List<List<Cell>> getRoomLayout() {
         return roomLayout;
@@ -141,6 +146,22 @@ public class RoomLayout {
             return questionCell;
         }
         return null;
+    }
+
+    public QuestionCell getQuestionCell() {
+        for (List<Cell> row : roomLayout) {
+            for (Cell cell : row) {
+                if (cell instanceof QuestionCell questionCell) {
+                    return questionCell;
+                }
+            }
+        }
+        return null;
+    }
+
+    public void clearScreen() {
+        System.out.println("\033[2J\033[H");
+        System.out.flush();
     }
 
     public void setQuestion(String questionsSort, int x, int y) {
