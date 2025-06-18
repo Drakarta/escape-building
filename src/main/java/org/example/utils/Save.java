@@ -19,7 +19,6 @@ public class Save {
         current.setSaveFile(saveFile);
         try {
             hibernateUtil.update(current);
-            System.out.println("Game saved successfully for player: " + current.getUsername());
         } catch (Exception e) {
             System.out.println("Error saving game: " + e.getMessage());
         }

@@ -22,7 +22,6 @@ public class SaveData {
         this.chests = new ArrayList<>();
         if (chestList != null) {
             for (var chest : chestList) {
-                System.out.println(chest.isOpened());
                 this.chests.add(chest.isOpened());
             }
         }
