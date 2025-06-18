@@ -25,7 +25,7 @@ public class StarterItems {
         } else{
             System.out.println("You have chosen nothing like a true warrior!");
         }
-        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new WeaponBase("Wooden sword", 999, 999));
+        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new WeaponBase("Wooden sword", 100, 50));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Leather armor", 3, 5));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Chainmail armor", 3, 4));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll(2));

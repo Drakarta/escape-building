@@ -53,6 +53,9 @@ public class Save {
             }
             if (data.getQuestion() == true) {
                 layout.getQuestionCell().setAnswered(true);
+                for (var door : layout.getDoors()) {
+                    door.unlock();
+                }
             } 
         }
     }
