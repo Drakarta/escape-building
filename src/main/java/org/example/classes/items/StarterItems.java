@@ -28,7 +28,7 @@ public class StarterItems {
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new WeaponBase("Wooden sword", 999, 999));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Leather armor", 3, 5));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new ArmorBase("Chainmail armor", 3, 4));
-        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll("", ""));
+        CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new MonsterInfoScroll(2));
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new RoomScroll());
         CurrentUser.getInstance().getCurrentPlayer().getInventory().addItem(new HealthPotion(20));
         Save.saveGame();
