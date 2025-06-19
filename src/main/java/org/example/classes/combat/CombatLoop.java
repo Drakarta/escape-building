@@ -1,6 +1,7 @@
 package org.example.classes.combat;
 
 import org.example.classes.Player;
+import org.example.classes.Extras.Terminal;
 import org.example.classes.items.Item;
 import org.example.classes.items.armor.ArmorBase;
 import org.example.classes.items.consumables.potions.PotionBase;
@@ -40,7 +41,8 @@ public class CombatLoop {
             switch (input) {
                 case "1":
                     if (player.getEquippedWeapon() == null) {
-                        System.out.println("You have no weapon equipped!");
+                        System.out.println("You have no weapon equipped!\nYou punch the " + monster.getName() + "! \nIt does 1 damage.    ");
+                        monster.takeDamage(1);
                     } else {
                         boolean used = player.getEquippedWeapon().use();
                         if (used) {
@@ -100,6 +102,7 @@ public class CombatLoop {
 
             if (!monster.isAlive()) {
                 killedMonster();
+                Terminal.pauseBriefly();
                 return;
             }
 
